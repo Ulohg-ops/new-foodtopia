@@ -1,10 +1,14 @@
 package com.example.foodtopia;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.animation.Animator;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
+import android.view.ViewPropertyAnimator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
@@ -54,6 +58,32 @@ public class introductoryActivity extends AppCompatActivity {
         // add animation
         background.animate().translationY(-2000).setDuration(1000).setStartDelay(4000);
         animation.animate().translationY(2000).setDuration(1000).setStartDelay(4000);
+//        text_logo.animate().translationY(1400).setDuration(1000).setStartDelay(4000);
+        ViewPropertyAnimator anim = text_logo.animate();
+        anim.setListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                Intent intent = new Intent(introductoryActivity.this, Login.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
         text_logo.animate().translationY(1400).setDuration(1000).setStartDelay(4000);
     }
+    
+
 }
