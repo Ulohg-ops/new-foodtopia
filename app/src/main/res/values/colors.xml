@@ -14,4 +14,11 @@
     <color name="my_green">#93D9cF</color>
     <color name="my_red">#FF5F51</color>
 
+    <!--    onboarding color-->
+    <!--    https://coolors.co/palette/f6bd60-f7ede2-f5cac3-84a59d-f28482-->
+    <color name="og_bg1">#fae1dd</color>
+    <color name="og_bg2">#d8e2dc</color>
+    <color name="og_bg3">#ffd7ba</color>
+    <color name="og_context">#6d6875</color>
+
 </resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/og_bg3"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/onboarding_img3"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sharing Recipe"
+        android:textColor="@color/black"
+        android:fontFamily="@font/aldrich"
+
+        android:textSize="36dp"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="250dp"
+        android:layout_height="178dp"
+        android:textSize="18dp"
+        android:fontFamily="@font/aldrich"
+        android:text="Share your meal with other users.Encourage each other to be better."
+        android:textColor="@color/og_context"
+        android:gravity="center"
+        />
+</LinearLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="#fae1dd"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/onboarding_img1"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="center"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Take a Picture"
+        android:fontFamily="@font/aldrich"
+        android:textColor="@color/black"
+        android:textSize="36dp"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="170dp"
+        android:fontFamily="@font/aldrich"
+        android:text="We will analyze the nutrients and calories for your meal."
+        android:textColor="@color/og_context"
+        android:textSize="18dp"
+        android:gravity="center"
+        />
+</LinearLayout>

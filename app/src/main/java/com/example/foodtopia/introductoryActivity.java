@@ -16,6 +16,9 @@ import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class introductoryActivity extends AppCompatActivity {
 
     //splash底
@@ -24,7 +27,7 @@ public class introductoryActivity extends AppCompatActivity {
     LottieAnimationView animation;
     //Foodtopia字串
     TextView text_logo;
-
+    Timer timer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +86,16 @@ public class introductoryActivity extends AppCompatActivity {
             }
         });
         text_logo.animate().translationY(1400).setDuration(1000).setStartDelay(4000);
+
+
+        timer=new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Intent intent=new Intent(introductoryActivity.this,OnboardingActivity.class);
+                startActivity(intent);
+            }
+        },6000);
     }
     
 
