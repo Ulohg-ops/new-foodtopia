@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.foodtopia">
+    package="com.example.foodtopia" >
 
     <application
         android:allowBackup="true"
@@ -8,20 +8,15 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.FoodTopia">
+        android:theme="@style/Theme.FoodTopia" >
         <activity
-            android:name=".GoogleSignUp"
-            android:exported="true" />
+            android:name=".GoogleSignin"
+            android:exported="false" />
         <activity
             android:name=".OnboardingActivity"
             android:exported="true" />
         <activity
             android:name=".Login"
-            android:exported="false" >
-
-        </activity>
-        <activity
-            android:name=".Register"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,12 +25,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Register"
+            android:exported="true" >
+
+        </activity>
+        <activity
             android:name=".introductoryActivity"
-            android:exported="true">
+            android:exported="true" >
         </activity>
         <activity
             android:name=".MainActivity"
             android:exported="false" />
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

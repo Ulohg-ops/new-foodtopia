@@ -22,6 +22,7 @@ public class Login extends AppCompatActivity {
     Button mLoginBtn;
     TextView mToRegister;
     FirebaseAuth fAuth;
+    Button switchBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,5 +81,15 @@ public class Login extends AppCompatActivity {
 //                startActivity(intent);
             }
         });
+
+        switchBtn = findViewById(R.id.switchBtn);
+        switchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Login.this, GoogleSignin.class);
+                startActivity(intent);
+            }
+        });
+
     }
 }
