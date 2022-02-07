@@ -18,7 +18,7 @@ public class introductoryActivity extends AppCompatActivity {
     ImageView background;
     //動畫
     LottieAnimationView animation;
-    //Foodtopia
+    //Foodtopia字串
     TextView text_logo;
 
     @Override
@@ -45,12 +45,13 @@ public class introductoryActivity extends AppCompatActivity {
 
         text_logo.setText(spannableString);
 
-        // add animation of text_logo
+        // add animation to text_logo
         Animation am = new AlphaAnimation(0.0f, 1.0f);
-        am.setDuration(2000);
+        am.setDuration(1500);
         am.setRepeatCount(0);
         text_logo.startAnimation(am);
 
+        // add animation
         background.animate().translationY(-2000).setDuration(1000).setStartDelay(4000);
         animation.animate().translationY(2000).setDuration(1000).setStartDelay(4000);
         text_logo.animate().translationY(1400).setDuration(1000).setStartDelay(4000);
