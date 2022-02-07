@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodTopia">
         <activity
+            android:name=".GoogleSignUp"
+            android:exported="true" />
+        <activity
             android:name=".OnboardingActivity"
             android:exported="true" />
         <activity
