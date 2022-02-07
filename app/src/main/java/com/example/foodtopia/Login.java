@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Login extends AppCompatActivity {
     EditText mEmail, mPassword;
     Button mLoginBtn;
-    TextView mChangeRegister;
+    TextView mToRegister;
     FirebaseAuth fAuth;
 
     @Override
@@ -30,9 +30,10 @@ public class Login extends AppCompatActivity {
 
         mEmail = findViewById(R.id.loginEmail);
         mPassword = findViewById(R.id.loginPassword);
-        mChangeRegister = findViewById(R.id.changeRegister);
-        fAuth = FirebaseAuth.getInstance();
+        mToRegister = findViewById(R.id.toRegister);
         mLoginBtn =  findViewById(R.id.loginBotton);
+
+        fAuth = FirebaseAuth.getInstance();
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,17 +63,21 @@ public class Login extends AppCompatActivity {
                             Toast.makeText(Login.this, "登入成功", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }else{
-                            Toast.makeText(Login.this, "錯誤" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this, "錯誤:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
             }
         });
 
-        mChangeRegister.setOnClickListener(new View.OnClickListener() {
+        mToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), Register.class));
+                finish();
+//                Intent intent = new Intent();
+//                intent.setClass(Login.this, Register.class);
+//                startActivity(intent);
             }
         });
     }

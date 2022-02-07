@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class Register extends AppCompatActivity {
     EditText mName, mEmail, mPassword, mRePassword;
     Button mRegisterBtn;
+    TextView mToLogin;
     FirebaseAuth fAuth;
 
     @Override
@@ -31,8 +32,10 @@ public class Register extends AppCompatActivity {
         mEmail = findViewById(R.id.email);
         mPassword = findViewById(R.id.password);
         mRePassword = findViewById(R.id.rePassword);
-        fAuth = FirebaseAuth.getInstance();
         mRegisterBtn =  findViewById(R.id.registerBotton);
+        mToLogin = findViewById(R.id.toLogin);
+
+        fAuth = FirebaseAuth.getInstance();
 
         if(fAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -46,25 +49,30 @@ public class Register extends AppCompatActivity {
                 String password = mPassword.getText().toString().trim();
                 String rePassword = mRePassword.getText().toString().trim();
 
-//                if(TextUtils.isEmpty(email)){
-//                    mEmail.setError("請輸入信箱");
-//                    return;
-//                }
-//
-//                if(TextUtils.isEmpty(password)){
-//                    mPassword.setError("請輸入密碼");
-//                    return;
-//                }
-//
-//                if(password.length() < 6){
-//                    mPassword.setError("請輸入至少六碼");
-//                    return;
-//                }
-//
-//                if(password != rePassword){
-//                    mRePassword.setError("密碼不一致");
-//                    return;
-//                }
+                if(TextUtils.isEmpty(email)){
+                    mEmail.setError("請輸入信箱");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(password)){
+                    mPassword.setError("請輸入密碼");
+                    return;
+                }
+
+                if(TextUtils.isEmpty(rePassword)){
+                    mRePassword.setError("請重複輸入密碼");
+                    return;
+                }
+
+                if(password.length() < 6){
+                    mPassword.setError("請輸入至少六碼");
+                    return;
+                }
+
+                if(!password.equals(rePassword)){
+                    mRePassword.setError("密碼不一致");
+                    return;
+                }
 
                 fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -73,11 +81,22 @@ public class Register extends AppCompatActivity {
                             Toast.makeText(Register.this, "註冊成功", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }else{
-                            Toast.makeText(Register.this, "錯誤" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Register.this, "錯誤:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
 
+            }
+        });
+
+        mToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), Login.class));
+                finish();
+//                Intent intent = new Intent();
+//                intent.setClass(Login.this, Register.class);
+//                startActivity(intent);
             }
         });
     }

@@ -30,7 +30,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginEnd="20dp"
         android:ems="10"
-        android:hint="姓名"
+        android:hint="用戶名"
         android:inputType="textPersonName"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,7 +48,7 @@
         android:layout_marginEnd="20dp"
         android:ems="10"
         android:hint="信箱"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +65,7 @@
         android:layout_marginEnd="20dp"
         android:ems="10"
         android:hint="密碼"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +82,7 @@
         android:layout_marginEnd="20dp"
         android:ems="10"
         android:hint="重複密碼"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,5 +104,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rePassword"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/toLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="登入帳號"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerBotton"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
