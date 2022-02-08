@@ -68,7 +68,7 @@
 
             <TextView
                 android:id="@+id/nutrition"
-                android:layout_below="@+id/circular_container"
+                android:layout_below="@+id/standard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
