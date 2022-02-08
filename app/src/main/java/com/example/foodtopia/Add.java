@@ -50,9 +50,9 @@ public class Add extends Fragment {
 //            mParam2 = getArguments().getString(ARG_PARAM2);
 //        }
 
-        manual = view.findViewById(R.id.manualBankcard);
-        camera = view.findViewById(R.id.cameraBankcard);
-        upload = view.findViewById(R.id.uploadBankcard);
+//        manual = view.findViewById(R.id.manualBankcard);
+//        camera = view.findViewById(R.id.cameraBankcard);
+//        upload = view.findViewById(R.id.uploadBankcard);
 //
 //        manual.setOnClickListener(new View.OnClickListener() {
 //            @Override
