@@ -19,6 +19,8 @@ import com.airbnb.lottie.LottieAnimationView;
 import java.util.Timer;
 import java.util.TimerTask;
 
+// splash + 跳轉頁面
+
 public class introductoryActivity extends AppCompatActivity {
 
     //splash底
@@ -62,6 +64,7 @@ public class introductoryActivity extends AppCompatActivity {
         background.animate().translationY(-2000).setDuration(1000).setStartDelay(4000);
         animation.animate().translationY(2000).setDuration(1000).setStartDelay(4000);
 //        text_logo.animate().translationY(1400).setDuration(1000).setStartDelay(4000);
+
         ViewPropertyAnimator anim = text_logo.animate();
         anim.setListener(new Animator.AnimatorListener() {
             @Override

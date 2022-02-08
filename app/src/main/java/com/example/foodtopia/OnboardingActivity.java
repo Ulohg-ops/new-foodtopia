@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+// 首次使用app的介紹頁面
+
 public class OnboardingActivity extends AppCompatActivity {
 
     ActionBar actionBar;
