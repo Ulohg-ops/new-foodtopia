@@ -8,33 +8,151 @@
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
-        android:id="@+id/circular_container"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_gravity="center_horizontal"
-        android:orientation="vertical"
-        android:layout_marginTop="65dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
 
-        <com.mikhaellopez.circularprogressbar.CircularProgressBar
-            android:id="@+id/circularProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cpb_background_progressbar_color="#DEE1F4"
-            app:cpb_background_progressbar_width="25dp"
-            app:cpb_progress_direction="to_right"
-            app:cpb_progressbar_color="#5A6ACF"
-            app:cpb_progressbar_width="15dp"
-            app:cpb_progress="70"
-            app:cpb_round_border="true"
-            app:cpb_progress_max="100"/>
+        <RelativeLayout
+            android:id="@+id/circular_container"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_marginTop="65dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                android:id="@+id/circularProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cpb_background_progressbar_color="#DEE1F4"
+                app:cpb_background_progressbar_width="25dp"
+                app:cpb_progress_direction="to_right"
+                app:cpb_progressbar_color="#5A6ACF"
+                app:cpb_progressbar_width="15dp"
+                app:cpb_progress="70"
+                app:cpb_round_border="true"
+                app:cpb_progress_max="100"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="350\nkcal"
+                android:textAlignment="center"
+                android:textSize="40dp" />
+        </RelativeLayout>
+
+            <TextView
+                android:id="@+id/nutrition"
+                android:layout_below="@+id/circular_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="30dp"
+                android:text="營養素攝取量"
+                android:textAlignment="center"
+                android:textSize="20dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/carbon"
+                android:layout_below="@+id/nutrition"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="40dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                >
+                <ProgressBar
+                    android:id="@+id/carbonProgressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:max="120"
+                    android:minHeight="50dp"
+                    android:progress="50"
+                    android:indeterminate="false"
+                    />
+                <TextView
+                    android:id="@+id/carbonAte"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:textColorHint="#7A8089"
+                    android:textSize="14sp"
+                    tools:text="70g left"
+                    />
+            </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/protein"
+            android:layout_below="@+id/carbon"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="350\nkcal"
-            android:textAlignment="center"
-            android:textSize="40dp" />
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="40dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+            <ProgressBar
+                android:id="@+id/proteinProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="120"
+                android:minHeight="50dp"
+                android:progress="50"
+                android:indeterminate="false"
+                />
+            <TextView
+                android:id="@+id/proteinAte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="15dp"
+                android:textColorHint="#7A8089"
+                android:textSize="14sp"
+                tools:text="20g left"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/fat"
+            android:layout_below="@+id/protein"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="40dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            >
+            <ProgressBar
+                android:id="@+id/fatProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="40"
+                android:minHeight="50dp"
+                android:progress="28"
+                android:indeterminate="false"
+                />
+            <TextView
+                android:id="@+id/fatAte"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="15dp"
+                android:textColorHint="#7A8089"
+                android:textSize="14sp"
+                tools:text="70g left"
+                />
+        </LinearLayout>
 
     </RelativeLayout>
 
