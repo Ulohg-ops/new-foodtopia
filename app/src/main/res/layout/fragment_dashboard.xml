@@ -9,8 +9,18 @@
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/title_dashboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="首頁"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            android:padding="15dp"
+            android:textColor="#181725"
+            android:textAlignment="center"/>
 
         <RelativeLayout
             android:id="@+id/circular_container"
@@ -19,12 +29,12 @@
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
             android:orientation="vertical"
-            android:layout_marginTop="65dp">
+            android:layout_marginTop="50dp">
 
             <com.mikhaellopez.circularprogressbar.CircularProgressBar
                 android:id="@+id/circularProgressBar"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_centerInParent="true"
                 app:cpb_background_progressbar_color="@color/remaining"
                 app:cpb_background_progressbar_width="25dp"
