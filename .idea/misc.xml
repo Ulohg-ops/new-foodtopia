@@ -3,26 +3,34 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Foodtopia/new-foodtopia/app/src/main/res/layout/activity_login.xml" value="0.264" />
-        <entry key="..\:/Foodtopia/new-foodtopia/app/src/main/res/layout/activity_register.xml" value="0.264" />
-        <entry key="..\:/Foodtopia/new-foodtopia/app/src/main/res/layout/fragment_dashboard.xml" value="0.21603260869565216" />
-        <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/drawable/cercleshapegreen.xml" value="0.1355" />
-        <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/drawable/greenshape.xml" value="0.18" />
-        <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/drawable/pinkshpae.xml" value="0.18" />
-        <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/drawable/yellowshape.xml" value="0.18" />
-        <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/fragment_account2.xml" value="0.17135416666666667" />
-        <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/fragment_add.xml" value="0.1" />
-        <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/fragment_dashboard.xml" value="0.17135416666666667" />
-        <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/fragment_restaurant.xml" value="0.17135416666666667" />
-        <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/fragment_restaurant2.xml" value="0.17135416666666667" />
-        <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/fragment_social2.xml" value="0.17135416666666667" />
-        <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.17135416666666667" />
+        <entry key="..\:/Foodtopia/new-foodtopia/app/src/main/res/layout/activity_login.xml" value="0.1" />
+        <entry key="..\:/Foodtopia/new-foodtopia/app/src/main/res/layout/activity_register.xml" value="0.1" />
         <entry key="..\:/Project/foodtopia/app/src/main/res/layout/activity_home.xml" value="0.16666666666666666" />
         <entry key="..\:/Project/foodtopia/app/src/main/res/layout/activity_introductory.xml" value="0.1" />
         <entry key="..\:/Project/foodtopia/app/src/main/res/layout/activity_login.xml" value="0.3333333333333333" />
         <entry key="..\:/Project/foodtopia/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/Project/foodtopia/app/src/main/res/layout/activity_register.xml" value="0.16666666666666666" />
         <entry key="..\:/Project/foodtopia/app/src/main/res/layout/activity_sign_up.xml" value="0.3333333333333333" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/drawable/circle_remain.xml" value="0.12962962962962962" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/drawable/circle_taken.xml" value="0.14666666666666667" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/drawable/circular_progress_bar.xml" value="0.1" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/drawable/circular_shape.xml" value="0.1" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.19114583333333332" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/drawable/ic_baseline_dashboard_24.xml" value="0.19114583333333332" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.19114583333333332" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/layout/activity_introductory.xml" value="0.175" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/layout/activity_login.xml" value="0.22" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/layout/activity_main.xml" value="0.14356884057971014" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/layout/activity_tool_bar.xml" value="0.1734375" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/layout/fragment_add.xml" value="0.175" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/layout/fragment_circular.xml" value="0.1" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/layout/fragment_dashboard.xml" value="0.22" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/layout/fragment_dashboard_circular.xml" value="0.1" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/layout/fragment_dashboard_circular_progressbar.xml" value="0.22" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/layout/fragment_dashboard_piechart.xml" value="0.16666666666666666" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.5" />
+        <entry key="..\:/Project/new-foodtopia/app/src/main/res/menu/nav_menu.xml" value="0.1" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/foodtopia/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/foodtopia/app/src/main/res/layout/activity_onboarding.xml" value="0.12183383991894631" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/foodtopia/app/src/main/res/layout/slide_1.xml" value="0.25052083333333336" />

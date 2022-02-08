@@ -8,11 +8,15 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-<!--    here need to add some colors that our app will use-->
+<!--    splash screen -->
     <color name="main_color">#F6F4D2</color>
     <color name="my_yellow">#FFE76E</color>
     <color name="my_green">#93D9cF</color>
     <color name="my_red">#FF5F51</color>
+    
+<!--    circular bar-->
+    <color name="taken">#5A6ACF</color>
+    <color name="remaining">#DEE1F4</color>
 
     <!--    onboarding color-->
     <!--    https://coolors.co/palette/f6bd60-f7ede2-f5cac3-84a59d-f28482-->

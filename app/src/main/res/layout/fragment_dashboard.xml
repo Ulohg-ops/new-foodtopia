@@ -14,7 +14,7 @@
 
         <RelativeLayout
             android:id="@+id/circular_container"
-            android:layout_width="250dp"
+            android:layout_width="300dp"
             android:layout_height="250dp"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
@@ -23,16 +23,17 @@
 
             <com.mikhaellopez.circularprogressbar.CircularProgressBar
                 android:id="@+id/circularProgressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:cpb_background_progressbar_color="#DEE1F4"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+                android:layout_centerInParent="true"
+                app:cpb_background_progressbar_color="@color/remaining"
                 app:cpb_background_progressbar_width="25dp"
-                app:cpb_progress_direction="to_right"
-                app:cpb_progressbar_color="#5A6ACF"
-                app:cpb_progressbar_width="15dp"
                 app:cpb_progress="70"
-                app:cpb_round_border="true"
-                app:cpb_progress_max="100"/>
+                app:cpb_progress_direction="to_right"
+                app:cpb_progress_max="100"
+                app:cpb_progressbar_color="@color/taken"
+                app:cpb_progressbar_width="15dp"
+                app:cpb_round_border="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -41,7 +42,29 @@
                 android:text="350\nkcal"
                 android:textAlignment="center"
                 android:textSize="40dp" />
+
         </RelativeLayout>
+        
+            <TextView
+                android:id="@+id/standard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/circular_container"
+                android:layout_below="@id/circular_container"
+                android:textSize="20dp"
+                android:text="Taken"
+                android:drawableStart="@drawable/circle_taken"
+                android:drawablePadding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@id/circular_container"
+                android:layout_below="@id/circular_container"
+                android:textSize="20dp"
+                android:text="Remaining"
+                android:drawableStart="@drawable/circle_remain"
+                android:drawablePadding="10dp"/>
 
             <TextView
                 android:id="@+id/nutrition"
