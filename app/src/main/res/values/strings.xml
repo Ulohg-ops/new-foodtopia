@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">FoodTopia</string>
+    <string name="首頁">首頁</string>
+    <string name="餐廳">餐廳</string>
+    <string name="輸入">輸入</string>
+    <string name="社交">社交</string>
+    <string name="帳號">帳號</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
