@@ -1,16 +1,15 @@
 package com.example.foodtopia;
 
-
-public class Member {
+public class restaurant_get_set {
     private int image;
     private String name;
     private int bg;
 
-    public Member() {
+    public restaurant_get_set() {
         super();
     }
 
-    public Member(int image, String name, int bg) {
+    public restaurant_get_set(int image, String name, int bg) {
         super();
         this.image = image;
         this.name = name;

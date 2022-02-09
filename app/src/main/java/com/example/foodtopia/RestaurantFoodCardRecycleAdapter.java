@@ -4,59 +4,59 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class RestaurantFoodCardRecycleAdapter extends RecyclerView.Adapter<RestaurantFoodCardRecycleAdapter.ViewHolder> {
+
+public class RestaurantFoodCardRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+
+    ArrayList<restaurant_product_get_set> list = new ArrayList<>();
     private Context context;
-    private List<Member> memberList;
-
-    RestaurantFoodCardRecycleAdapter(Context context, List<Member> memberList) {
-        this.context = context;
-        this.memberList = memberList;
+    public RestaurantFoodCardRecycleAdapter(Context ctx)
+    {
+        this.context = ctx;
     }
 
-
-    //當現有的ViewHolder不夠用時，要求Adapter產生一個新的
-    @Override
-    public RestaurantFoodCardRecycleAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.restuarant_product_cardview, parent, false);
-        return new ViewHolder(view);
+    public void setItems(ArrayList<restaurant_product_get_set> products)
+    {
+        list.addAll(products);
     }
 
+    @NonNull
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        final Member member = memberList.get(position);
-        holder.foodCarlories.setText(member.getImage());
-        holder.foodName.setText(member.getName());
-//        holder.itemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(context, Reaturant_add_Activity.class);
-//                intent.putExtra("image", member.getImage());
-//                intent.putExtra("name", member.getName());
-//                context.startActivity(intent);
-//            }
-//        });
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.restuarant_product_cardview,parent,false);
+        return new ViewHolder(view);    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        ViewHolder vh = (ViewHolder) holder;
+        restaurant_product_get_set foods = list.get(position);
+        vh.productName.setText(foods.getFood_name());
+        vh.productCalories.setText(foods.getFood_name());
+
     }
 
     @Override
-    public int getItemCount() {
-        return memberList.size();
+    public int getItemCount()
+    {
+        return list.size();
     }
-
-    //Adapter 需要一個 ViewHolder，只要實作它的 constructor 就好，保存起來的view會放在itemView裡面
     class ViewHolder extends RecyclerView.ViewHolder {
-        TextView  foodName,foodCarlories;
+        TextView productName,productCalories;
 
         ViewHolder(View itemView) {
             super(itemView);
-            foodName = (TextView) itemView.findViewById(R.id.txtfoodName);
-            foodCarlories = (TextView) itemView.findViewById(R.id.txtcarlories);
+            productName = (TextView) itemView.findViewById(R.id.txtfoodName);
+            productCalories = (TextView) itemView.findViewById(R.id.txtcarlories);
         }
     }
 }
+
 

@@ -17,9 +17,9 @@ import java.util.List;
 
 public class CardRecycleAdapter extends RecyclerView.Adapter<CardRecycleAdapter.ViewHolder> {
     private Context context;
-    private List<Member> memberList;
+    private List<restaurant_get_set> memberList;
 
-    CardRecycleAdapter(Context context, List<Member> memberList) {
+    CardRecycleAdapter(Context context, List<restaurant_get_set> memberList) {
         this.context = context;
         this.memberList = memberList;
     }
@@ -34,7 +34,7 @@ public class CardRecycleAdapter extends RecyclerView.Adapter<CardRecycleAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final Member member = memberList.get(position);
+        final restaurant_get_set member = memberList.get(position);
         holder.storeImage.setImageResource(member.getImage());
         holder.storeName.setText(member.getName());
 
