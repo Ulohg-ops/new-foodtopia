@@ -2,6 +2,7 @@ package com.example.foodtopia;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ public class CardRecycleAdapter extends RecyclerView.Adapter<CardRecycleAdapter.
     }
 
 
-//當現有的ViewHolder不夠用時，要求Adapter產生一個新的
+    //當現有的ViewHolder不夠用時，要求Adapter產生一個新的
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.restaurant_cardview, parent, false);
@@ -34,8 +35,8 @@ public class CardRecycleAdapter extends RecyclerView.Adapter<CardRecycleAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final Member member = memberList.get(position);
-        holder.imageId.setImageResource(member.getImage());
-        holder.textName.setText(member.getName());
+        holder.storeImage.setImageResource(member.getImage());
+        holder.storeName.setText(member.getName());
 
         if (position % 6 == 0) {
             holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c1));
@@ -45,11 +46,20 @@ public class CardRecycleAdapter extends RecyclerView.Adapter<CardRecycleAdapter.
             holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c3));
         } else if (position % 6 == 3) {
             holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c4));
-        } else if(position % 6 == 4){
+        } else if (position % 6 == 4) {
             holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c5));
-        }else if(position % 6 ==  5){
+        } else if (position % 6 == 5) {
             holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c6));
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, Reaturant_add_Activity.class);
+                intent.putExtra("image", member.getImage());
+                intent.putExtra("name", member.getName());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -58,15 +68,16 @@ public class CardRecycleAdapter extends RecyclerView.Adapter<CardRecycleAdapter.
     }
 
     //Adapter 需要一個 ViewHolder，只要實作它的 constructor 就好，保存起來的view會放在itemView裡面
-    class ViewHolder extends RecyclerView.ViewHolder{
-        ImageView imageId;
+    class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView storeImage;
         LinearLayout linearBg;
-        TextView textId, textName;
+        TextView  storeName;
+
         ViewHolder(View itemView) {
             super(itemView);
-            imageId = (ImageView) itemView.findViewById(R.id.imageId);
-            textName = (TextView) itemView.findViewById(R.id.textName);
-            linearBg=(LinearLayout) itemView.findViewById(R.id.bg);
+            storeImage = (ImageView) itemView.findViewById(R.id.storeImage);
+            storeName = (TextView) itemView.findViewById(R.id.storeName);
+            linearBg = (LinearLayout) itemView.findViewById(R.id.bg);
         }
     }
 }

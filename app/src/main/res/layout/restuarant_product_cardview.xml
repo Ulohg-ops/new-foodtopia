@@ -1,0 +1,57 @@
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:padding="8dp"
+    app:cardCornerRadius="28dp"
+    app:cardElevation="6dp">
+
+    <LinearLayout
+        android:background="@color/white"
+        android:id="@+id/bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="12dp"
+              android:textSize="20dp"
+              android:text="品名:"
+              android:layout_margin="8dp"/>
+          <TextView
+              android:id="@+id/txtfoodName"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="16dp"
+              android:text="asdsaddsas"
+              android:layout_margin="8dp"/>
+
+      </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:textSize="20dp"
+                android:text="熱量:"
+                android:layout_margin="8dp"/>
+            <TextView
+                android:id="@+id/txtcarlories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:text="asdsaddsas"
+                android:layout_margin="8dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
