@@ -54,7 +54,7 @@
                 android:textSize="40dp" />
 
         </RelativeLayout>
-        //圓形示意圖顏色標示(以攝取量)
+        //圓形示意圖顏色標示(已攝取量)
         <TextView
             android:id="@+id/standard"
             android:layout_width="wrap_content"
@@ -117,16 +117,26 @@
                 android:text="剩餘 47g"/>
 
         </LinearLayout>
-        //營養素直方圖顏色標示
+        //營養素直方圖顏色標示(以攝取量)
         <TextView
             android:id="@+id/nutritionMap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/nutritionBar"
             android:layout_below="@id/nutritionBar"
-            android:textSize="20dp"
-            android:text="以攝取量"
-            android:drawableStart="@drawable/circle_taken"
+            android:textSize="15sp"
+            android:text="已攝取量"
+            android:drawableStart="@drawable/nutrition_bar_taken"
+            android:drawablePadding="10dp"/>
+        //營養素直方圖顏色標示(剩餘攝取量)
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/nutritionBar"
+            android:layout_below="@id/nutritionBar"
+            android:textSize="15sp"
+            android:text="剩餘攝取量"
+            android:drawableStart="@drawable/nutrition_bar_remain"
             android:drawablePadding="10dp"/>
 
     </RelativeLayout>

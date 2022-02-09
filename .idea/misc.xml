@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Foodtopia/new-foodtopia/app/src/main/res/drawable/circle_remain.xml" value="0.225" />
+        <entry key="..\:/Foodtopia/new-foodtopia/app/src/main/res/drawable/circle_taken.xml" value="0.225" />
+        <entry key="..\:/Foodtopia/new-foodtopia/app/src/main/res/drawable/nutrition_bar_remain.xml" value="0.225" />
         <entry key="..\:/Foodtopia/new-foodtopia/app/src/main/res/drawable/nutrition_bar_taken.xml" value="0.225" />
         <entry key="..\:/Foodtopia/new-foodtopia/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Foodtopia/new-foodtopia/app/src/main/res/layout/activity_register.xml" value="0.1" />
