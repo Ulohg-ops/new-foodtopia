@@ -10,7 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
+        //標題:首頁
         <TextView
             android:id="@+id/title_dashboard"
             android:layout_width="match_parent"
@@ -21,7 +21,7 @@
             android:padding="15dp"
             android:textColor="#181725"
             android:textAlignment="center"/>
-
+        //熱量圓形示意圖
         <RelativeLayout
             android:id="@+id/circular_container"
             android:layout_width="300dp"
@@ -54,138 +54,80 @@
                 android:textSize="40dp" />
 
         </RelativeLayout>
-        
-            <TextView
-                android:id="@+id/standard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/circular_container"
-                android:layout_below="@id/circular_container"
-                android:textSize="20dp"
-                android:text="Taken"
-                android:drawableStart="@drawable/circle_taken"
-                android:drawablePadding="10dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@id/circular_container"
-                android:layout_below="@id/circular_container"
-                android:textSize="20dp"
-                android:text="Remaining"
-                android:drawableStart="@drawable/circle_remain"
-                android:drawablePadding="10dp"/>
-
-            <TextView
-                android:id="@+id/nutrition"
-                android:layout_below="@+id/standard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="30dp"
-                android:text="營養素攝取量"
-                android:textAlignment="center"
-                android:textSize="20sp"
-                />
-
-            <LinearLayout
+        //圓形示意圖顏色標示(以攝取量)
+        <TextView
+            android:id="@+id/standard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/circular_container"
+            android:layout_below="@id/circular_container"
+            android:textSize="20dp"
+            android:text="Taken"
+            android:drawableStart="@drawable/circle_taken"
+            android:drawablePadding="10dp"/>
+        //圓形示意圖顏色標示(剩餘攝取量)
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/circular_container"
+            android:layout_below="@id/circular_container"
+            android:textSize="20dp"
+            android:text="Remaining"
+            android:drawableStart="@drawable/circle_remain"
+            android:drawablePadding="10dp"/>
+        //副標:營養素攝取量
+        <TextView
+            android:id="@+id/nutrition"
+            android:layout_below="@+id/standard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="30dp"
+            android:text="營養素攝取量"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+        //營養素攝取量直方圖
+        <LinearLayout
+            android:id="@+id/nutritionBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nutrition"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="80dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            //碳水化合物直方圖
+            <ProgressBar
                 android:id="@+id/carbon"
-                android:layout_below="@+id/nutrition"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="40dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                >
-                <ProgressBar
-                    android:id="@+id/carbonProgressBar"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:max="120"
-                    android:minHeight="0dp"
-                    android:progress="95"
-                    android:indeterminate="false"
-                    />
-                <TextView
-                    android:id="@+id/carbonAte"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="15dp"
-                    android:textColorHint="#7A8089"
-                    android:textSize="14sp"
-                    tools:text="25g left"
-                    />
-            </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/protein"
-            android:layout_below="@+id/carbon"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginHorizontal="40dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            >
-            <ProgressBar
-                android:id="@+id/proteinProgressBar"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:max="148"
-                android:minHeight="50dp"
-                android:progress="80"
+                android:max="126"
+                android:progress="79"
                 android:indeterminate="false"
                 />
             <TextView
-                android:id="@+id/proteinAte"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="15dp"
                 android:textColorHint="#7A8089"
-                android:textSize="14sp"
-                tools:text="68g left"
-                />
-        </LinearLayout>
+                android:textSize="15sp"
+                android:text="剩餘 47g"/>
 
-        <LinearLayout
-            android:id="@+id/fat"
-            android:layout_below="@+id/protein"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginHorizontal="40dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            >
-            <ProgressBar
-                android:id="@+id/fatProgressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:max="40"
-                android:minHeight="50dp"
-                android:progress="32"
-                android:indeterminate="false"
-                />
-            <TextView
-                android:id="@+id/fatAte"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="15dp"
-                android:textColorHint="#7A8089"
-                android:textSize="14sp"
-                tools:text="8g left"
-                />
         </LinearLayout>
+        //營養素直方圖顏色標示
+        <TextView
+            android:id="@+id/nutritionMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/nutritionBar"
+            android:layout_below="@id/nutritionBar"
+            android:textSize="20dp"
+            android:text="以攝取量"
+            android:drawableStart="@drawable/circle_taken"
+            android:drawablePadding="10dp"/>
 
     </RelativeLayout>
 
