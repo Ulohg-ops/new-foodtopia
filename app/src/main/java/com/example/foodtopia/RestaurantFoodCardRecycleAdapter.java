@@ -4,26 +4,25 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class RestaurantFoodCardRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    ArrayList<restaurant_product_get_set> list = new ArrayList<>();
+    ArrayList<restaurantProductGet> list = new ArrayList<>();
     private Context context;
-    public RestaurantFoodCardRecycleAdapter(Context ctx)
+    public RestaurantFoodCardRecycleAdapter(Context ctx,ArrayList list)
     {
         this.context = ctx;
+        this.list=list;
     }
 
-    public void setItems(ArrayList<restaurant_product_get_set> products)
+    public void setItems(ArrayList<restaurantProductGet> products)
     {
         list.addAll(products);
     }
@@ -37,9 +36,9 @@ public class RestaurantFoodCardRecycleAdapter extends RecyclerView.Adapter<Recyc
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ViewHolder vh = (ViewHolder) holder;
-        restaurant_product_get_set foods = list.get(position);
-        vh.productName.setText(foods.getFood_name());
-        vh.productCalories.setText(foods.getFood_name());
+        restaurantProductGet foods = list.get(position);
+        vh.productName.setText(foods.getName());
+        vh.productCalories.setText(foods.getCalories());
 
     }
 
@@ -48,6 +47,8 @@ public class RestaurantFoodCardRecycleAdapter extends RecyclerView.Adapter<Recyc
     {
         return list.size();
     }
+
+
     class ViewHolder extends RecyclerView.ViewHolder {
         TextView productName,productCalories;
 

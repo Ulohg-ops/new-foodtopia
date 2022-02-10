@@ -15,7 +15,7 @@ import java.util.List;
 
 public class Restaurant extends Fragment {
     private View view;
-    List<restaurant_get_set> memberList = new ArrayList<>();
+    List<restaurantGet> memberList = new ArrayList<>();
     RecyclerView recyclerView;
     public Restaurant() {
         // Required empty public constructor
@@ -33,14 +33,14 @@ public class Restaurant extends Fragment {
         super.onCreate(savedInstanceState);
 
 
-        memberList.add(new restaurant_get_set( R.drawable.logo1, "McDonloads",5));
-        memberList.add(new restaurant_get_set( R.drawable.logo2, "KFC",5));
-        memberList.add(new restaurant_get_set( R.drawable.logo3, "Subway",5));
-        memberList.add(new restaurant_get_set( R.drawable.logo4, "Seven-Eleven",5));
-        memberList.add(new restaurant_get_set( R.drawable.logo1, "麥味登",5));
-        memberList.add(new restaurant_get_set( R.drawable.logo2, "摩斯漢堡",5));
-        memberList.add(new restaurant_get_set(R.drawable.logo3, "Seven-Eleven",5));
-        memberList.add(new restaurant_get_set( R.drawable.logo4, "FamilyMart",5));
+        memberList.add(new restaurantGet( R.drawable.logo1, "McDonloads",5));
+        memberList.add(new restaurantGet( R.drawable.logo2, "KFC",5));
+        memberList.add(new restaurantGet( R.drawable.logo3, "Subway",5));
+        memberList.add(new restaurantGet( R.drawable.logo4, "Seven-Eleven",5));
+        memberList.add(new restaurantGet( R.drawable.logo1, "麥味登",5));
+        memberList.add(new restaurantGet( R.drawable.logo2, "摩斯漢堡",5));
+        memberList.add(new restaurantGet(R.drawable.logo3, "Seven-Eleven",5));
+        memberList.add(new restaurantGet( R.drawable.logo4, "FamilyMart",5));
 
 // MemberAdapter 會在步驟7建立
 
