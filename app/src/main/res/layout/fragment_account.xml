@@ -24,9 +24,7 @@
             android:layout_marginBottom="30dp"
             android:padding="3dp"
             android:src="@drawable/profile"
-            app:shapeAppearanceOverlay="@style/circular"
-            app:strokeColor="#7EA389CF"
-            app:strokeWidth="3dp" />
+            app:shapeAppearanceOverlay="@style/rectangle" />
 
         <TextView
             android:id="@+id/profile_name"
@@ -37,6 +35,15 @@
             android:text="葉既明"
             android:textSize="21sp" />
 
+        <ImageButton
+            android:id="@+id/edit_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:src="@drawable/ic_baseline_edit_24"
+            android:layout_toEndOf="@+id/profile_name"
+            android:layout_marginTop="45dp"/>
+
         <TextView
             android:id="@+id/profile_email"
             android:layout_width="wrap_content"
@@ -46,6 +53,7 @@
             android:text="test@gmail.com"
             android:textSize="15sp" />
 
+<<<<<<< HEAD
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button"
             android:layout_width="wrap_content"
@@ -61,6 +69,8 @@
             android:text="編輯個人資料"
             android:textColor="@color/white"
             android:textSize="11sp" />
+=======
+>>>>>>> 4a00d6cc22bc39c235fe2a94622caeb0a9e6c435
 
     </RelativeLayout>
 
@@ -68,5 +78,19 @@
         android:id="@+id/profile_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/logoutButton"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_alignBottom="@+id/profile_list"
+        android:layout_gravity="center"
+        android:background="@drawable/profile_btn"
+        android:paddingLeft="10dp"
+        android:text="登出"
+        android:textColor="@color/white"
+        android:drawableLeft="@drawable/logout"
+        android:textSize="20sp" />
 
 </LinearLayout>
