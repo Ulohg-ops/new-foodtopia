@@ -18,11 +18,11 @@
             android:id="@+id/profile_pic"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:padding="3dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="30dp"
+            android:padding="3dp"
             android:src="@drawable/profile"
             app:shapeAppearanceOverlay="@style/circular"
             app:strokeColor="#7EA389CF"
@@ -54,12 +54,12 @@
             android:layout_marginStart="8dp"
             android:layout_toEndOf="@+id/profile_name"
             android:background="@drawable/profile_btn"
-            android:minHeight="0dp"
+            android:drawableLeft="@drawable/ic_baseline_edit_24"
             android:minWidth="0dp"
+            android:minHeight="0dp"
             android:padding="2dp"
             android:text="編輯個人資料"
             android:textColor="@color/white"
-            android:drawableLeft="@drawable/ic_baseline_edit_24"
             android:textSize="11sp" />
 
     </RelativeLayout>
@@ -67,6 +67,6 @@
     <ListView
         android:id="@+id/profile_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
