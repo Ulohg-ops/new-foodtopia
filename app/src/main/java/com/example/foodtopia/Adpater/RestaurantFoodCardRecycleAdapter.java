@@ -1,4 +1,4 @@
-package com.example.foodtopia;
+package com.example.foodtopia.Adpater;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,12 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodtopia.R;
+import com.example.foodtopia.classes.restaurantProduct;
+
 import java.util.ArrayList;
 
 
 public class RestaurantFoodCardRecycleAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    ArrayList<restaurantProductGet> list = new ArrayList<>();
+    ArrayList<restaurantProduct> list = new ArrayList<>();
     private Context context;
     public RestaurantFoodCardRecycleAdapter(Context ctx,ArrayList list)
     {
@@ -22,7 +25,7 @@ public class RestaurantFoodCardRecycleAdapter extends RecyclerView.Adapter<Recyc
         this.list=list;
     }
 
-    public void setItems(ArrayList<restaurantProductGet> products)
+    public void setItems(ArrayList<restaurantProduct> products)
     {
         list.addAll(products);
     }
@@ -36,7 +39,7 @@ public class RestaurantFoodCardRecycleAdapter extends RecyclerView.Adapter<Recyc
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ViewHolder vh = (ViewHolder) holder;
-        restaurantProductGet foods = list.get(position);
+        restaurantProduct foods = list.get(position);
         vh.productName.setText(foods.getName());
         vh.productCalories.setText(foods.getCalories());
 

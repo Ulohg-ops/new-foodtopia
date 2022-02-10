@@ -1,15 +1,15 @@
-package com.example.foodtopia;
+package com.example.foodtopia.classes;
 
-public class restaurantGet {
+public class restaurants {
     private int image;
     private String name;
     private int bg;
 
-    public restaurantGet() {
+    public restaurants() {
         super();
     }
 
-    public restaurantGet(int image, String name, int bg) {
+    public restaurants(int image, String name, int bg) {
         super();
         this.image = image;
         this.name = name;

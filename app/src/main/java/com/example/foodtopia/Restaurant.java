@@ -1,5 +1,6 @@
 package com.example.foodtopia;
 
+import com.example.foodtopia.classes.restaurants;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,12 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.foodtopia.Adpater.CardRecycleAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Restaurant extends Fragment {
     private View view;
-    List<restaurantGet> memberList = new ArrayList<>();
+    List<restaurants> memberList = new ArrayList<>();
     RecyclerView recyclerView;
     public Restaurant() {
         // Required empty public constructor
@@ -33,14 +36,14 @@ public class Restaurant extends Fragment {
         super.onCreate(savedInstanceState);
 
 
-        memberList.add(new restaurantGet( R.drawable.logo1, "McDonloads",5));
-        memberList.add(new restaurantGet( R.drawable.logo2, "KFC",5));
-        memberList.add(new restaurantGet( R.drawable.logo3, "Subway",5));
-        memberList.add(new restaurantGet( R.drawable.logo4, "Seven-Eleven",5));
-        memberList.add(new restaurantGet( R.drawable.logo1, "麥味登",5));
-        memberList.add(new restaurantGet( R.drawable.logo2, "摩斯漢堡",5));
-        memberList.add(new restaurantGet(R.drawable.logo3, "Seven-Eleven",5));
-        memberList.add(new restaurantGet( R.drawable.logo4, "FamilyMart",5));
+        memberList.add(new restaurants( R.drawable.logo1, "McDonloads",5));
+        memberList.add(new restaurants( R.drawable.logo2, "KFC",5));
+        memberList.add(new restaurants( R.drawable.logo3, "Subway",5));
+        memberList.add(new restaurants( R.drawable.logo4, "Seven-Eleven",5));
+        memberList.add(new restaurants( R.drawable.logo1, "麥味登",5));
+        memberList.add(new restaurants( R.drawable.logo2, "摩斯漢堡",5));
+        memberList.add(new restaurants(R.drawable.logo3, "Seven-Eleven",5));
+        memberList.add(new restaurants( R.drawable.logo4, "FamilyMart",5));
 
 // MemberAdapter 會在步驟7建立
 

@@ -1,14 +1,14 @@
-package com.example.foodtopia;
+package com.example.foodtopia.classes;
 
-public class restaurantProductGet {
+public class restaurantProduct {
     private String calories, name;
 
-    public restaurantProductGet(String calories, String name) {
+    public restaurantProduct(String calories, String name) {
         this.calories = calories;
         this.name = name;
     }
 
-    public restaurantProductGet() {
+    public restaurantProduct() {
 
     }
 

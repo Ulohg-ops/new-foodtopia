@@ -1,4 +1,4 @@
-package com.example.foodtopia;
+package com.example.foodtopia.Adpater;
 
 import android.content.Context;
 import android.view.LayoutInflater;

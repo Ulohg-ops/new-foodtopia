@@ -1,4 +1,4 @@
-package com.example.foodtopia;
+package com.example.foodtopia.Adpater;
 
 
 import android.content.Context;
@@ -13,13 +13,18 @@ import android.widget.TextView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodtopia.R;
+import com.example.foodtopia.Reaturant_add_Activity;
+import com.example.foodtopia.classes.restaurants;
+
+
 import java.util.List;
 
 public class CardRecycleAdapter extends RecyclerView.Adapter<CardRecycleAdapter.ViewHolder> {
     private Context context;
-    private List<restaurantGet> memberList;
+    private List<restaurants> memberList;
 
-    CardRecycleAdapter(Context context, List<restaurantGet> memberList) {
+    public CardRecycleAdapter(Context context, List<restaurants> memberList) {
         this.context = context;
         this.memberList = memberList;
     }
@@ -34,7 +39,7 @@ public class CardRecycleAdapter extends RecyclerView.Adapter<CardRecycleAdapter.
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        final restaurantGet member = memberList.get(position);
+        final restaurants member = memberList.get(position);
         holder.storeImage.setImageResource(member.getImage());
         holder.storeName.setText(member.getName());
 

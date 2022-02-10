@@ -10,31 +10,26 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.example.foodtopia.Adpater.RestaurantFoodCardRecycleAdapter;
+import com.example.foodtopia.classes.restaurantProduct;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Reaturant_add_Activity extends AppCompatActivity {
     TextView name;
     String store_name;
-    ArrayList<restaurantProductGet> memberList = new ArrayList<>();
+    ArrayList<restaurantProduct> memberList = new ArrayList<>();
     RecyclerView recyclerView;
     RestaurantFoodCardRecycleAdapter adapter;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -74,8 +69,8 @@ public class Reaturant_add_Activity extends AppCompatActivity {
                     }
                     for(DocumentChange dc:value.getDocumentChanges()){
                         if(dc.getType()==DocumentChange.Type.ADDED){
-                            memberList.add(dc.getDocument().toObject(restaurantProductGet.class));
-                            System.out.println(dc.getDocument().toObject(restaurantProductGet.class));
+                            memberList.add(dc.getDocument().toObject(restaurantProduct.class));
+                            System.out.println(dc.getDocument().toObject(restaurantProduct.class));
 
                         }
                     }
@@ -93,7 +88,7 @@ public class Reaturant_add_Activity extends AppCompatActivity {
                 List<String> list = new ArrayList<>();
                 Map<String, Object> map = task.getResult().getData();
                 for (Map.Entry<String, Object> entry : map.entrySet()) {
-                    memberList.add(new restaurantProductGet(entry.getKey().toString(), entry.getValue().toString()));
+                    memberList.add(new restaurantProduct(entry.getKey().toString(), entry.getValue().toString()));
                     System.out.println(entry.getKey().toString() + " " + entry.getValue().toString());
                 }
                 adapter.notifyDataSetChanged();
