@@ -16,78 +16,129 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+/**
+ * 參考網址 :
+ * https://medium.com/nerd-for-tech/how-to-add-extended-floating-action-button-in-android-android-studio-java-481cc9b3cdcb
+ * https://medium.com/@waynechen323/android-%E5%9F%BA%E7%A4%8E%E7%9A%84-fragment-%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-730858c12a43
+ */
 
 public class Add extends Fragment {
-    private View view;
 
-    private CardView manual, camera, upload;
+    private View root;
+    //餐點文字和熱量
+    private TextView breakfastKcalText,breakfastText,lunchKcalText,lunchText;
+    private TextView dinnerKcalText,dinnerText,dessertKcalText,dessertText;
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    //Floating action button 按鈕
+    FloatingActionButton mAddManualFab, mAddCameraFab, mAddUploadFab;
+    ExtendedFloatingActionButton mAddFab;
+    TextView addManualActionText, addCameraActionText, addUploadActionText;
 
-    private String mParam1;
-    private String mParam2;
+    // to check whether sub FABs are visible or not
+    Boolean isAllFabsVisible;
+
 
     public Add() {
-        // Required empty public constructor
     }
-
-//    public static Add newInstance(String param1, String param2) {
-//        Add fragment = new Add();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-
-//        manual = view.findViewById(R.id.manualBankcard);
-//        camera = view.findViewById(R.id.cameraBankcard);
-//        upload = view.findViewById(R.id.uploadBankcard);
-//
-//        manual.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-//        camera.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-//        upload.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-////                startActivityForResult(intent, 3);
-//            }
-//        });
     }
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == RESULT_OK && data != null){
-//            Uri selectedImage = data.getData();
-//        }
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_add, container, false);
-        return view;
+        root = inflater.inflate(R.layout.fragment_add, container, false);
+        breakfastText = root.findViewById(R.id.breakfastText);
+        lunchText = root.findViewById(R.id.lunchText);
+        dinnerText = root.findViewById(R.id.dinnerText);
+        dessertText = root.findViewById(R.id.dessertText);
+
+        breakfastKcalText = root.findViewById(R.id.breakfastKcalText);
+        lunchKcalText = root.findViewById(R.id.lunchKcalText);
+        dinnerKcalText = root.findViewById(R.id.dinnerKcalText);
+        dessertKcalText = root.findViewById(R.id.dessertKcalText);
+
+        mAddFab = root.findViewById(R.id.add_fab);
+        mAddUploadFab = root.findViewById(R.id.upload_fab);
+        mAddCameraFab = root.findViewById(R.id.camera_fab);
+        mAddManualFab = root.findViewById(R.id.manual_fab);
+
+        addManualActionText = root.findViewById(R.id.add_manual_action_text);
+        addCameraActionText = root.findViewById(R.id.add_camera_action_text);
+        addUploadActionText = root.findViewById(R.id.add_upload_action_text);
+
+        // Now set all the FABs and all the action name
+        // texts as GONE
+        mAddManualFab.setVisibility(View.GONE);
+        mAddCameraFab.setVisibility(View.GONE);
+        mAddUploadFab.setVisibility(View.GONE);
+        addManualActionText.setVisibility(View.GONE);
+        addCameraActionText.setVisibility(View.GONE);
+        addUploadActionText.setVisibility(View.GONE);
+
+        // make the boolean variable as false, as all the
+        // action name texts and all the sub FABs are
+        // invisible
+        isAllFabsVisible = false;
+
+        // Set the Extended floating action button to
+        // shrinked state initially
+        mAddFab.shrink();
+
+        mAddFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!isAllFabsVisible){
+                    mAddManualFab.show();
+                    mAddCameraFab.show();
+                    mAddUploadFab.show();
+                    addManualActionText.setVisibility(View.VISIBLE);
+                    addCameraActionText.setVisibility(View.VISIBLE);
+                    addUploadActionText.setVisibility(View.VISIBLE);
+                    mAddFab.extend();
+                    isAllFabsVisible = true;
+
+                }
+                else {
+                    mAddManualFab.hide();
+                    mAddCameraFab.hide();
+                    mAddUploadFab.hide();
+                    addManualActionText.setVisibility(View.GONE);
+                    addCameraActionText.setVisibility(View.GONE);
+                    addUploadActionText.setVisibility(View.GONE);
+                    mAddFab.shrink();
+                    isAllFabsVisible = false;
+                }
+            }
+        });
+        mAddManualFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Manual",Toast.LENGTH_SHORT).show();
+            }
+        });
+        mAddCameraFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Camera",Toast.LENGTH_SHORT).show();
+            }
+        });
+        mAddUploadFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Upload",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        return root;
     }
 }
