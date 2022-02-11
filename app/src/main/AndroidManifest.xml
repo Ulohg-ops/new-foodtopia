@@ -13,9 +13,6 @@
             android:name=".Reaturant_add_Activity"
             android:exported="false" />
         <activity
-            android:name=".GoogleSignUp"
-            android:exported="true" />
-        <activity
             android:name=".OnboardingActivity"
             android:exported="true" />
         <activity

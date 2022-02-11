@@ -9,18 +9,32 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 參考網址 :
@@ -31,18 +45,29 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class Add extends Fragment {
 
     private View root;
-    //餐點文字和熱量
-    private TextView breakfastKcalText,breakfastText,lunchKcalText,lunchText;
-    private TextView dinnerKcalText,dinnerText,dessertKcalText,dessertText;
+    //餐點熱量
+    private TextView breakfastKcalText,lunchKcalText,dinnerKcalText,dessertKcalText;
 
-    //Floating action button 按鈕
-    FloatingActionButton mAddManualFab, mAddCameraFab, mAddUploadFab;
-    ExtendedFloatingActionButton mAddFab;
-    TextView addManualActionText, addCameraActionText, addUploadActionText;
+    private TextView breakfastText, breakfastQuantifier;
+    private TextView lunchText, lunchQuantifier;
+    private TextView dinnerText, dinnerQuantifier;
+    private TextView dessertText, dessertQuantifier;
+    // breakfast list
+    private ArrayList<String> breakfastList;
+    private ArrayList<String> breakfastQuantifierList;
+    // lunch list
+    private ArrayList<String> lunchList;
+    private ArrayList<String> lunchQuantifierList;
+    // dinner list
+    private ArrayList<String> dinnerList;
+    private ArrayList<String> dinnerQuantifierList;
+    // dessert list
+    private ArrayList<String> dessertList;
+    private ArrayList<String> dessertQuantifierList;
 
-    // to check whether sub FABs are visible or not
-    Boolean isAllFabsVisible;
 
+    //新增按鈕
+    Button addBreakfastBtn, addLunchBtn, addDinnerBtn, addDessertBtn;
 
     public Add() {
     }
@@ -57,88 +82,70 @@ public class Add extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_add, container, false);
-        breakfastText = root.findViewById(R.id.breakfastText);
-        lunchText = root.findViewById(R.id.lunchText);
-        dinnerText = root.findViewById(R.id.dinnerText);
-        dessertText = root.findViewById(R.id.dessertText);
+
+        addBreakfastBtn = root.findViewById(R.id.addBreakfastBtn);
+        addLunchBtn = root.findViewById(R.id.addLunchBtn);
+        addDinnerBtn = root.findViewById(R.id.addDinnerBtn);
+        addDessertBtn = root.findViewById(R.id.addDessertBtn);
 
         breakfastKcalText = root.findViewById(R.id.breakfastKcalText);
         lunchKcalText = root.findViewById(R.id.lunchKcalText);
         dinnerKcalText = root.findViewById(R.id.dinnerKcalText);
         dessertKcalText = root.findViewById(R.id.dessertKcalText);
 
-        mAddFab = root.findViewById(R.id.add_fab);
-        mAddUploadFab = root.findViewById(R.id.upload_fab);
-        mAddCameraFab = root.findViewById(R.id.camera_fab);
-        mAddManualFab = root.findViewById(R.id.manual_fab);
+        breakfastText = root.findViewById(R.id.breakfastText);
+        breakfastQuantifier = root.findViewById(R.id.breakfastQuantifier);
+        lunchText = root.findViewById(R.id.lunchText);
+        lunchQuantifier = root.findViewById(R.id.lunchQuantifier);
+        dinnerText = root.findViewById(R.id.dinnerText);
+        dinnerQuantifier = root.findViewById(R.id.dinnerQuantifier);
+        dessertText = root.findViewById(R.id.dessertText);
+        dessertQuantifier = root.findViewById(R.id.dessertQuantifier);
 
-        addManualActionText = root.findViewById(R.id.add_manual_action_text);
-        addCameraActionText = root.findViewById(R.id.add_camera_action_text);
-        addUploadActionText = root.findViewById(R.id.add_upload_action_text);
+        breakfastList = new ArrayList<>();
+        breakfastQuantifierList = new ArrayList<>();
+        lunchList = new ArrayList<>();
+        lunchQuantifierList = new ArrayList<>();
+        dinnerList = new ArrayList<>();
+        dinnerQuantifierList = new ArrayList<>();
+        dessertList = new ArrayList<>();
+        dessertQuantifierList = new ArrayList<>();
 
-        // Now set all the FABs and all the action name
-        // texts as GONE
-        mAddManualFab.setVisibility(View.GONE);
-        mAddCameraFab.setVisibility(View.GONE);
-        mAddUploadFab.setVisibility(View.GONE);
-        addManualActionText.setVisibility(View.GONE);
-        addCameraActionText.setVisibility(View.GONE);
-        addUploadActionText.setVisibility(View.GONE);
+        breakfastList.add("豆漿");
+        breakfastQuantifierList.add("一杯(小)");
+        lunchList.add("吐司");
+        lunchQuantifierList.add("一片");
+        dinnerList.add("豆漿");
+        dinnerQuantifierList.add("一杯(小)");
+        dessertList.add("吐司");
+        dessertQuantifierList.add("一片");
 
-        // make the boolean variable as false, as all the
-        // action name texts and all the sub FABs are
-        // invisible
-        isAllFabsVisible = false;
+        for (int i=0;i<breakfastList.size();i++){
+            breakfastText.append(breakfastList.get(i)+"\n");
+            breakfastQuantifier.append(breakfastQuantifierList.get(i)+"\n");
+        }
+        for (int i=0;i<lunchList.size();i++){
+            lunchText.append(lunchList.get(i)+"\n");
+            lunchQuantifier.append(lunchQuantifierList.get(i)+"\n");
+        }
+        for (int i=0;i<dinnerList.size();i++){
+            dinnerText.append(dinnerList.get(i)+"\n");
+            dinnerQuantifier.append(dinnerQuantifierList.get(i)+"\n");
+        }
+        for (int i=0;i<dessertList.size();i++){
+            dessertText.append(dessertList.get(i)+"\n");
+            dessertQuantifier.append(dessertQuantifierList.get(i)+"\n");
+        }
 
-        // Set the Extended floating action button to
-        // shrinked state initially
-        mAddFab.shrink();
-
-        mAddFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!isAllFabsVisible){
-                    mAddManualFab.show();
-                    mAddCameraFab.show();
-                    mAddUploadFab.show();
-                    addManualActionText.setVisibility(View.VISIBLE);
-                    addCameraActionText.setVisibility(View.VISIBLE);
-                    addUploadActionText.setVisibility(View.VISIBLE);
-                    mAddFab.extend();
-                    isAllFabsVisible = true;
-
-                }
-                else {
-                    mAddManualFab.hide();
-                    mAddCameraFab.hide();
-                    mAddUploadFab.hide();
-                    addManualActionText.setVisibility(View.GONE);
-                    addCameraActionText.setVisibility(View.GONE);
-                    addUploadActionText.setVisibility(View.GONE);
-                    mAddFab.shrink();
-                    isAllFabsVisible = false;
-                }
-            }
-        });
-        mAddManualFab.setOnClickListener(new View.OnClickListener() {
+        addBreakfastBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Manual",Toast.LENGTH_SHORT).show();
+
             }
         });
-        mAddCameraFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "Camera",Toast.LENGTH_SHORT).show();
-            }
-        });
-        mAddUploadFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(), "Upload",Toast.LENGTH_SHORT).show();
-            }
-        });
+
 
         return root;
     }
+
 }

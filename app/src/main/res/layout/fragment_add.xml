@@ -6,9 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".Add">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/addTitleText"
@@ -16,28 +17,19 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:text="紀錄"
+            android:text="輸入"
             android:textColor="#181725"
             android:textSize="25sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            android:textStyle="bold"/>
         <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginTop="60dp"
+            android:id="@+id/add_scrollview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="80dp"
             android:fillViewport="true"
             android:scrollbarStyle="insideInset"
             android:scrollbars="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/addTitleText"
-            app:layout_constraintVertical_bias="1.0">
+            android:layout_gravity="center">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,19 +43,19 @@
                     android:layout_gravity="center"
                     android:layout_margin="15dp"
                     android:background="@drawable/down_shadow"
-                    app:cardBackgroundColor="#F2FFE5"
-                    app:cardCornerRadius="20dp">
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-                        <!--    上方淺綠色的那一條       -->
+                        <!--    上方的那一條       -->
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
-                            android:background="#C1F46E">
+                            android:background="@color/light_purple">
 
                             <ImageView
                                 android:id="@+id/sunriseImgView"
@@ -89,21 +81,51 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:padding="10dp"
-                                android:text="0 kcal"
+                                android:text="354 kcal"
                                 android:textColor="#ffffff" />
 
                         </RelativeLayout>
                         <!--餐點                -->
-                        <TextView
-                            android:id="@+id/breakfastText"
+                        <LinearLayout
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center">
+                            <TextView
+                                android:id="@+id/breakfastText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textStyle="bold"
+                                android:gravity="left"/>
+                            <TextView
+                                android:id="@+id/breakfastQuantifier"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:textColor="@color/gray"/>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_margin="1dp"
+                            android:background="@color/gray" />
+
+                        <Button
+                            android:id="@+id/addBreakfastBtn"
+                            style="@style/Widget.Material3.Button.TextButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:padding="10dp"
-                            android:text="全麥吐司\n豆漿"
-                            android:textStyle="bold" />
+                            android:layout_gravity="center"
+                            android:text="新增"
+                            android:textColor="@color/gray"
+                            app:icon="@drawable/ic_baseline_add_24"
+                            app:iconTint="@color/dark_purple" />
+
+
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
                 <!--午餐        -->
@@ -114,8 +136,8 @@
                     android:layout_gravity="center"
                     android:layout_margin="15dp"
                     android:background="@drawable/down_shadow"
-                    app:cardBackgroundColor="#E5FFFA"
-                    app:cardCornerRadius="20dp">
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -127,7 +149,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
-                            android:background="#6EF4CC">
+                            android:background="@color/light_purple">
 
                             <ImageView
                                 android:id="@+id/sunImgView"
@@ -153,22 +175,49 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:padding="10dp"
-                                android:text="0 kcal"
+                                android:text="354 kcal"
                                 android:textColor="#ffffff" />
 
                         </RelativeLayout>
                         <!--餐點                -->
-                        <TextView
-                            android:id="@+id/lunchText"
+                        <LinearLayout
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center">
+                            <TextView
+                                android:id="@+id/lunchText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textStyle="bold"
+                                android:gravity="left"/>
+                            <TextView
+                                android:id="@+id/lunchQuantifier"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:textColor="@color/gray"/>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_margin="1dp"
+                            android:background="@color/gray" />
+
+                        <Button
+                            android:id="@+id/addLunchBtn"
+                            style="@style/Widget.Material3.Button.TextButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:padding="10dp"
-                            android:text="海鮮意麵\n紅茶"
-                            android:textStyle="bold" />
-
+                            android:layout_gravity="center"
+                            android:text="新增"
+                            android:textColor="@color/gray"
+                            app:icon="@drawable/ic_baseline_add_24"
+                            app:iconTint="@color/dark_purple" />
                     </LinearLayout>
 
                 </androidx.cardview.widget.CardView>
@@ -180,8 +229,8 @@
                     android:layout_gravity="center"
                     android:layout_margin="15dp"
                     android:background="@drawable/down_shadow"
-                    app:cardBackgroundColor="#FFECE5"
-                    app:cardCornerRadius="20dp">
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -193,7 +242,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
-                            android:background="#F46E6E">
+                            android:background="@color/light_purple">
 
                             <ImageView
                                 android:id="@+id/sunsetImgView"
@@ -201,7 +250,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
                                 android:padding="10dp"
-                                android:src="@drawable/sunset" />
+                                android:src="@drawable/star" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -219,21 +268,49 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:padding="10dp"
-                                android:text="0 kcal"
+                                android:text="354 kcal"
                                 android:textColor="#ffffff" />
 
                         </RelativeLayout>
                         <!--餐點                -->
-                        <TextView
-                            android:id="@+id/dinnerText"
+                        <LinearLayout
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center">
+                            <TextView
+                                android:id="@+id/dinnerText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textStyle="bold"
+                                android:gravity="left"/>
+                            <TextView
+                                android:id="@+id/dinnerQuantifier"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:textColor="@color/gray"/>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_margin="1dp"
+                            android:background="@color/gray" />
+
+                        <Button
+                            android:id="@+id/addDinnerBtn"
+                            style="@style/Widget.Material3.Button.TextButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:padding="10dp"
-                            android:text="壽司\n燒仙草"
-                            android:textStyle="bold" />
+                            android:layout_gravity="center"
+                            android:text="新增"
+                            android:textColor="@color/gray"
+                            app:icon="@drawable/ic_baseline_add_24"
+                            app:iconTint="@color/dark_purple" />
 
                     </LinearLayout>
 
@@ -247,8 +324,8 @@
                     android:layout_gravity="center"
                     android:layout_margin="15dp"
                     android:background="@drawable/down_shadow"
-                    app:cardBackgroundColor="#E5F1FF"
-                    app:cardCornerRadius="20dp">
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -260,7 +337,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentTop="true"
-                            android:background="#816EF4">
+                            android:background="@color/light_purple">
 
                             <ImageView
                                 android:id="@+id/smileImgView"
@@ -286,21 +363,50 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_centerVertical="true"
                                 android:padding="10dp"
-                                android:text="0 kcal"
+                                android:text="354 kcal"
                                 android:textColor="#ffffff" />
 
                         </RelativeLayout>
                         <!--餐點                -->
-                        <TextView
-                            android:id="@+id/dessertText"
+                        <LinearLayout
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="10dp"
+                            android:layout_gravity="center">
+                            <TextView
+                                android:id="@+id/dessertText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:textStyle="bold"
+                                android:gravity="left"/>
+                            <TextView
+                                android:id="@+id/dessertQuantifier"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:gravity="right"
+                                android:textColor="@color/gray"/>
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_margin="1dp"
+                            android:background="@color/gray" />
+
+                        <Button
+                            android:id="@+id/addDessertBtn"
+                            style="@style/Widget.Material3.Button.TextButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="bottom"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:padding="10dp"
-                            android:text="堅果"
-                            android:textStyle="bold" />
+                            android:layout_gravity="center"
+                            android:text="新增"
+                            android:textColor="@color/gray"
+                            app:icon="@drawable/ic_baseline_add_24"
+                            app:iconTint="@color/dark_purple" />
+
 
                     </LinearLayout>
 
@@ -308,104 +414,6 @@
 
             </LinearLayout>
 
-
         </ScrollView>
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/add_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="100dp"
-            android:backgroundTint="@color/blue_btn"
-            android:textColor="@color/white"
-            app:icon="@drawable/ic_baseline_add_24"
-            app:iconTint="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <!--Floating action button for 上傳照片-->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/upload_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/blue_btn"
-            app:fabSize="normal"
-            app:layout_constraintBottom_toTopOf="@+id/add_fab"
-            app:layout_constraintEnd_toEndOf="@+id/add_fab"
-            app:srcCompat="@drawable/upload"
-            app:tint="@color/white" />
-        <!--Action name text for the 上傳照片-->
-        <TextView
-            android:id="@+id/add_upload_action_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:text="上傳照片"
-            android:padding="4dp"
-            android:textColor="@color/white"
-            android:background="@drawable/add_text_rounded_corner"
-            app:layout_constraintBottom_toBottomOf="@+id/upload_fab"
-            app:layout_constraintEnd_toStartOf="@+id/upload_fab"
-            app:layout_constraintTop_toTopOf="@+id/upload_fab" />
-        <!--Floating action button for 拍照-->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/camera_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/blue_btn"
-            app:fabSize="normal"
-            app:layout_constraintBottom_toTopOf="@+id/upload_fab"
-            app:layout_constraintEnd_toEndOf="@+id/upload_fab"
-            app:layout_constraintStart_toStartOf="@+id/upload_fab"
-            app:srcCompat="@drawable/camera"
-            app:tint="@color/white" />
-        <!--Action name text for the 拍照-->
-        <TextView
-            android:id="@+id/add_camera_action_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:text="拍攝照片"
-            android:padding="4dp"
-            android:textColor="@color/white"
-            android:background="@drawable/add_text_rounded_corner"
-            app:layout_constraintBottom_toBottomOf="@+id/camera_fab"
-            app:layout_constraintEnd_toStartOf="@+id/camera_fab"
-            app:layout_constraintTop_toTopOf="@+id/camera_fab" />
-        <!--Floating action button for 手動紀錄-->
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/manual_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@color/blue_btn"
-            app:fabSize="normal"
-            app:layout_constraintBottom_toTopOf="@+id/camera_fab"
-            app:layout_constraintEnd_toEndOf="@+id/camera_fab"
-            app:layout_constraintStart_toStartOf="@+id/camera_fab"
-            app:srcCompat="@drawable/edit"
-            app:tint="@color/white" />
-        <!--Action name text for the 手動紀錄-->
-        <TextView
-            android:id="@+id/add_manual_action_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:text="手動輸入"
-            android:padding="4dp"
-            android:textColor="@color/white"
-            android:background="@drawable/add_text_rounded_corner"
-            app:layout_constraintBottom_toBottomOf="@+id/manual_fab"
-            app:layout_constraintEnd_toStartOf="@+id/manual_fab"
-            app:layout_constraintTop_toTopOf="@+id/manual_fab" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
+    </LinearLayout>
 </FrameLayout>
