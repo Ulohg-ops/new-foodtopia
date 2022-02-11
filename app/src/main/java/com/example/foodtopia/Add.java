@@ -3,6 +3,7 @@ package com.example.foodtopia;
 import static androidx.media.MediaBrowserServiceCompat.RESULT_OK;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -30,11 +33,15 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.w3c.dom.Text;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * 參考網址 :
@@ -45,6 +52,8 @@ import java.util.List;
 public class Add extends Fragment {
 
     private View root;
+    Button dateBtn;
+    Calendar calendar;
     //餐點熱量
     private TextView breakfastKcalText,lunchKcalText,dinnerKcalText,dessertKcalText;
 
@@ -110,6 +119,31 @@ public class Add extends Fragment {
         dinnerQuantifierList = new ArrayList<>();
         dessertList = new ArrayList<>();
         dessertQuantifierList = new ArrayList<>();
+
+        dateBtn = root.findViewById(R.id.dateBtn);
+        DatePickerDialog.OnDateSetListener datePicker;
+        Calendar calendar = Calendar.getInstance();
+        datePicker = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                calendar.set(Calendar.YEAR,year);
+                calendar.set(Calendar.MONTH,month);
+                calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+                String Format = "yyyy/MM/dd";
+                SimpleDateFormat sdf = new SimpleDateFormat(Format, Locale.TAIWAN);
+                dateBtn.setText(sdf.format(calendar.getTime()));
+            }
+        };
+
+
+        dateBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new DatePickerDialog(getActivity(),datePicker,calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
 
         breakfastList.add("豆漿");
         breakfastQuantifierList.add("一杯(小)");
