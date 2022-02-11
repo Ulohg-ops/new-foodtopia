@@ -36,14 +36,14 @@ public class Restaurant extends Fragment {
         super.onCreate(savedInstanceState);
 
 
-        memberList.add(new restaurants( R.drawable.logo1, "Mcdonalds",5));
-        memberList.add(new restaurants( R.drawable.logo2, "KFC",5));
-        memberList.add(new restaurants( R.drawable.logo3, "Subway",5));
-        memberList.add(new restaurants( R.drawable.logo4, "Seven-Eleven",5));
-        memberList.add(new restaurants( R.drawable.logo1, "麥味登",5));
-        memberList.add(new restaurants( R.drawable.logo2, "摩斯漢堡",5));
-        memberList.add(new restaurants(R.drawable.logo3, "Seven-Eleven",5));
-        memberList.add(new restaurants( R.drawable.logo4, "FamilyMart",5));
+        memberList.add(new restaurants( R.drawable.resturant_picture_logo1, "Mcdonalds",5));
+        memberList.add(new restaurants( R.drawable.resturant_picture_logo2, "KFC",5));
+        memberList.add(new restaurants( R.drawable.resturant_picture_logo3, "Subway",5));
+        memberList.add(new restaurants( R.drawable.resturant_picture_logo4, "Seven-Eleven",5));
+        memberList.add(new restaurants( R.drawable.resturant_picture_logo1, "麥味登",5));
+        memberList.add(new restaurants( R.drawable.resturant_picture_logo2, "摩斯漢堡",5));
+        memberList.add(new restaurants(R.drawable.resturant_picture_logo3, "Seven-Eleven",5));
+        memberList.add(new restaurants( R.drawable.resturant_picture_logo4, "FamilyMart",5));
 
 // MemberAdapter 會在步驟7建立
 
