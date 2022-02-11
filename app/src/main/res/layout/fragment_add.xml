@@ -49,10 +49,10 @@
                         android:id="@+id/dateBtn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableRight="@drawable/date"
+                        android:drawableRight="@drawable/add_icon_date"
                         android:drawableTint="@color/dark_purple"
                         android:text="2022年2月11日"
-                        android:textColor="@color/light_purple"
+                        android:textColor="@color/dark_purple"
                         style="@style/Widget.Material3.Button.TextButton"/>
 
                 </LinearLayout>
@@ -85,7 +85,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
                                 android:padding="10dp"
-                                android:src="@drawable/sunrise" />
+                                android:src="@drawable/add_icon_sunrise" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -179,7 +179,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
                                 android:padding="10dp"
-                                android:src="@drawable/sun" />
+                                android:src="@drawable/add_icon_sun" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -272,7 +272,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
                                 android:padding="10dp"
-                                android:src="@drawable/star" />
+                                android:src="@drawable/add_icon_star" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -367,7 +367,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
                                 android:padding="10dp"
-                                android:src="@drawable/smile" />
+                                android:src="@drawable/add_icon_smile" />
 
                             <TextView
                                 android:layout_width="wrap_content"
