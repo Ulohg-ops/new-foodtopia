@@ -23,7 +23,7 @@
             android:textStyle="bold"/>
         <ScrollView
             android:id="@+id/add_scrollview"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="80dp"
             android:fillViewport="true"
@@ -144,7 +144,7 @@
                             android:layout_gravity="center"
                             android:text="新增"
                             android:textColor="@color/gray"
-                            app:icon="@drawable/ic_baseline_add_24"
+                            app:icon="@drawable/navbar_icon_add"
                             app:iconTint="@color/dark_purple" />
 
 
@@ -238,7 +238,7 @@
                             android:layout_gravity="center"
                             android:text="新增"
                             android:textColor="@color/gray"
-                            app:icon="@drawable/ic_baseline_add_24"
+                            app:icon="@drawable/navbar_icon_add"
                             app:iconTint="@color/dark_purple" />
                     </LinearLayout>
 
@@ -331,7 +331,7 @@
                             android:layout_gravity="center"
                             android:text="新增"
                             android:textColor="@color/gray"
-                            app:icon="@drawable/ic_baseline_add_24"
+                            app:icon="@drawable/navbar_icon_add"
                             app:iconTint="@color/dark_purple" />
 
                     </LinearLayout>
@@ -426,7 +426,7 @@
                             android:layout_gravity="center"
                             android:text="新增"
                             android:textColor="@color/gray"
-                            app:icon="@drawable/ic_baseline_add_24"
+                            app:icon="@drawable/navbar_icon_add"
                             app:iconTint="@color/dark_purple" />
 
 

@@ -11,7 +11,7 @@
 
         <ImageView
             android:id="@+id/icon"
-            android:src="@drawable/info"
+            android:src="@drawable/account_icon_info"
             android:layout_marginStart="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
 
         <ImageView
             android:id="@+id/arrow"
-            android:src="@drawable/arrow"
+            android:src="@drawable/account_icon_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

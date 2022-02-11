@@ -4,28 +4,28 @@
     <item
         android:id="@+id/Dashboard"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_dashboard_24"
+        android:icon="@drawable/navbar_icon_dashboard"
         android:checkable="true"
         android:title="首頁"/>
     <item
         android:id="@+id/Restaurant"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_restaurant_menu_24"
+        android:icon="@drawable/navbar_icon_menu"
         android:checkable="true"
         android:title="餐廳"/>
     <item
         android:id="@+id/Add"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_add_24"
+        android:icon="@drawable/navbar_icon_add"
         android:title="輸入"/>
     <item
         android:id="@+id/Social"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_share_24"
+        android:icon="@drawable/navbar_icon_share"
         android:title="社交"/>
     <item
         android:id="@+id/Account"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_person_24"
+        android:icon="@drawable/navbar_icon_person"
         android:title="帳號"/>
 </menu>

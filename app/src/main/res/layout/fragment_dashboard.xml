@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         //標題:首頁
+
         <TextView
             android:id="@+id/title_dashboard"
             android:layout_width="match_parent"
@@ -22,13 +23,18 @@
             android:textSize="25dp"
             android:textStyle="bold" />
 
-        <Button
-            android:layout_width="120dp"
-            android:layout_height="50dp"
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="100dp"
+            android:layout_height="32dp"
             android:layout_below="@+id/title_dashboard"
             android:layout_alignRight="@id/title_dashboard"
             android:layout_marginRight="15dp"
-            android:text="飲食追蹤" />
+            android:background="#FFFFFF"
+            android:drawableRight="@drawable/dashboard_icon_timeline"
+            android:text="飲食追蹤"
+            android:textColor="#5A6ACF"
+            android:textSize="12sp"
+            android:paddingRight="13dp" />
 
         //熱量圓形示意圖
         <RelativeLayout
@@ -65,13 +71,14 @@
         </RelativeLayout>
 
         //圓形示意圖顏色標示(已攝取量)
+
         <TextView
             android:id="@+id/standard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/circular_container"
             android:layout_alignLeft="@+id/circular_container"
-            android:drawableStart="@drawable/circle_taken"
+            android:drawableStart="@drawable/dashboard_background_circle_taken"
             android:drawablePadding="10dp"
             android:text="已攝取量"
             android:textSize="20dp" />
@@ -82,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/circular_container"
             android:layout_alignRight="@id/circular_container"
-            android:drawableStart="@drawable/circle_remain"
+            android:drawableStart="@drawable/dashboard_background_circle_remain"
             android:drawablePadding="10dp"
             android:text="剩餘攝取量"
             android:textSize="20dp" />
@@ -233,24 +240,26 @@
             android:textSize="15sp"/>
 
         //營養素直方圖顏色標示(以攝取量)
+
         <TextView
             android:id="@+id/nutritionMap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/fat"
             android:layout_alignLeft="@+id/fat"
-            android:drawableStart="@drawable/nutrition_bar_taken"
+            android:drawableStart="@drawable/dashboard_background_circle_taken"
             android:drawablePadding="10dp"
             android:text="已攝取量"
             android:textSize="15sp" />
 
         //營養素直方圖顏色標示(剩餘攝取量)
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/fat"
             android:layout_alignRight="@+id/fat"
-            android:drawableStart="@drawable/nutrition_bar_remain"
+            android:drawableStart="@drawable/dashboard_background_circle_remain"
             android:drawablePadding="10dp"
             android:text="剩餘攝取量"
             android:textSize="15sp" />

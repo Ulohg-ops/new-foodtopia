@@ -68,8 +68,8 @@ public class Account extends Fragment {
     ArrayAdapter<String> arrayAdapter;
 
     String[] list_name = {"個人資料", "鬧鐘", "居家運動建議", "飲食建議", "收藏", "設定"};
-    int[] list_icon = {R.drawable.info, R.drawable.clock, R.drawable.home, R.drawable.ic_outline_description_24, R.drawable.favorite, R.drawable.setting};
-    int[] list_arrow = {R.drawable.arrow, R.drawable.arrow, R.drawable.arrow, R.drawable.arrow, R.drawable.arrow, R.drawable.arrow};
+    int[] list_icon = {R.drawable.account_icon_info, R.drawable.account_icon_clock, R.drawable.account_icon_home, R.drawable.ic_outline_description_24, R.drawable.account_icon_favorite, R.drawable.setting};
+    int[] list_arrow = {R.drawable.account_icon_arrow, R.drawable.account_icon_arrow, R.drawable.account_icon_arrow, R.drawable.account_icon_arrow, R.drawable.account_icon_arrow, R.drawable.account_icon_arrow};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
