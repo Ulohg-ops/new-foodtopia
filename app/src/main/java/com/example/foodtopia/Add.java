@@ -26,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -53,7 +54,6 @@ public class Add extends Fragment {
 
     private View root;
     Button dateBtn;
-    Calendar calendar;
     //餐點熱量
     private TextView breakfastKcalText,lunchKcalText,dinnerKcalText,dessertKcalText;
 
@@ -77,6 +77,8 @@ public class Add extends Fragment {
 
     //新增按鈕
     Button addBreakfastBtn, addLunchBtn, addDinnerBtn, addDessertBtn;
+
+    private PopupWindow popupWindow;
 
     public Add() {
     }
@@ -139,7 +141,7 @@ public class Add extends Fragment {
         dateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new DatePickerDialog(getActivity(),datePicker,calendar.get(Calendar.YEAR),
+                new DatePickerDialog(getActivity(),R.style.DatePickerTheme,datePicker,calendar.get(Calendar.YEAR),
                         calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
