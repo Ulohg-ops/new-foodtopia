@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtopia.R;
 import com.example.foodtopia.Reaturant_add_Activity;
+import com.example.foodtopia.RestaurantProductActivity;
 import com.example.foodtopia.classes.restaurants;
 
 
@@ -43,19 +44,19 @@ public class CardRecycleAdapter extends RecyclerView.Adapter<CardRecycleAdapter.
         holder.storeImage.setImageResource(member.getImage());
         holder.storeName.setText(member.getName());
 
-        if (position % 6 == 0) {
-            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c1));
-        } else if (position % 6 == 1) {
-            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c2));
-        } else if (position % 6 == 2) {
-            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c3));
-        } else if (position % 6 == 3) {
-            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c4));
-        } else if (position % 6 == 4) {
-            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c5));
-        } else if (position % 6 == 5) {
-            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c6));
-        }
+//        if (position % 6 == 0) {
+//            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c1));
+//        } else if (position % 6 == 1) {
+//            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c2));
+//        } else if (position % 6 == 2) {
+//            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c3));
+//        } else if (position % 6 == 3) {
+//            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c4));
+//        } else if (position % 6 == 4) {
+//            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c5));
+//        } else if (position % 6 == 5) {
+//            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c6));
+//        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

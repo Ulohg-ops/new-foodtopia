@@ -13,6 +13,9 @@
             android:name=".Reaturant_add_Activity"
             android:exported="false" />
         <activity
+            android:name=".RestaurantProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".OnboardingActivity"
             android:exported="true" />
         <activity
