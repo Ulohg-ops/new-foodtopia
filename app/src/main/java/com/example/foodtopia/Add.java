@@ -8,6 +8,8 @@ import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -167,30 +169,40 @@ public class Add extends Fragment  {
             dessertQuantifier.append(dessertQuantifierList.get(i)+"\n");
         }
 
-
-
         //新增餐點
         addBreakfastBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle option = new Bundle();
+                option.putString("option","1");
+                getParentFragmentManager().setFragmentResult("option1",option);
                 createPopUpDialog();
             }
         });
         addLunchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle option = new Bundle();
+                option.putString("option","2");
+                getParentFragmentManager().setFragmentResult("option2",option);
                 createPopUpDialog();
             }
         });
         addDinnerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle option = new Bundle();
+                option.putString("option","3");
+                getParentFragmentManager().setFragmentResult("option3",option);
                 createPopUpDialog();
             }
         });
         addDessertBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Bundle option = new Bundle();
+                option.putString("option","4");
+                getParentFragmentManager().setFragmentResult("option4",option);
                 createPopUpDialog();
             }
         });
@@ -214,7 +226,11 @@ public class Add extends Fragment  {
         manualBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(),"手動輸入",Toast.LENGTH_SHORT).show();
+                Fragment fragment = new Add_Manual();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame, fragment)
+                        .commit();
+                dialog.dismiss();
             }
         });
 
