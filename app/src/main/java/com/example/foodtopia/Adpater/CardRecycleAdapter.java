@@ -60,7 +60,7 @@ public class CardRecycleAdapter extends RecyclerView.Adapter<CardRecycleAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, RestaurantProductActivity.class);
+                Intent intent = new Intent(context, Reaturant_add_Activity.class);
                 intent.putExtra("image", member.getImage());
                 intent.putExtra("name", member.getName());
                 context.startActivity(intent);
