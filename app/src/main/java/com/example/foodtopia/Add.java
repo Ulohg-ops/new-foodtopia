@@ -1,47 +1,28 @@
 package com.example.foodtopia;
 
-import static androidx.media.MediaBrowserServiceCompat.RESULT_OK;
-
-import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.Intent;
-import android.net.Uri;
+import android.content.DialogInterface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.ScrollView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputLayout;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -50,13 +31,15 @@ import java.util.Locale;
  * https://medium.com/@waynechen323/android-%E5%9F%BA%E7%A4%8E%E7%9A%84-fragment-%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-730858c12a43
  */
 
-public class Add extends Fragment {
+public class Add extends Fragment  {
 
     private View root;
-    Button dateBtn;
+    //Date 按鈕
+    private Button dateBtn;
     //餐點熱量
     private TextView breakfastKcalText,lunchKcalText,dinnerKcalText,dessertKcalText;
 
+    //餐點
     private TextView breakfastText, breakfastQuantifier;
     private TextView lunchText, lunchQuantifier;
     private TextView dinnerText, dinnerQuantifier;
@@ -74,11 +57,17 @@ public class Add extends Fragment {
     private ArrayList<String> dessertList;
     private ArrayList<String> dessertQuantifierList;
 
+    //各個種類下方的新增按鈕
+    private Button addBreakfastBtn, addLunchBtn, addDinnerBtn, addDessertBtn;
 
-    //新增按鈕
-    Button addBreakfastBtn, addLunchBtn, addDinnerBtn, addDessertBtn;
+    //彈出視窗
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
 
-    private PopupWindow popupWindow;
+    //彈出視窗的新增按鈕
+    private CardView cameraBtn,manualBtn,uploadBtn;
+    //返回按鈕
+    private FloatingActionButton back;
 
     public Add() {
     }
@@ -94,16 +83,19 @@ public class Add extends Fragment {
         // Inflate the layout for this fragment
         root = inflater.inflate(R.layout.fragment_add, container, false);
 
+        //新增餐點按鈕
         addBreakfastBtn = root.findViewById(R.id.addBreakfastBtn);
         addLunchBtn = root.findViewById(R.id.addLunchBtn);
         addDinnerBtn = root.findViewById(R.id.addDinnerBtn);
         addDessertBtn = root.findViewById(R.id.addDessertBtn);
 
+        //各個項目的熱量
         breakfastKcalText = root.findViewById(R.id.breakfastKcalText);
         lunchKcalText = root.findViewById(R.id.lunchKcalText);
         dinnerKcalText = root.findViewById(R.id.dinnerKcalText);
         dessertKcalText = root.findViewById(R.id.dessertKcalText);
 
+        //顯示各項目的文字
         breakfastText = root.findViewById(R.id.breakfastText);
         breakfastQuantifier = root.findViewById(R.id.breakfastQuantifier);
         lunchText = root.findViewById(R.id.lunchText);
@@ -113,6 +105,7 @@ public class Add extends Fragment {
         dessertText = root.findViewById(R.id.dessertText);
         dessertQuantifier = root.findViewById(R.id.dessertQuantifier);
 
+        //餐點和單位的ArrayList
         breakfastList = new ArrayList<>();
         breakfastQuantifierList = new ArrayList<>();
         lunchList = new ArrayList<>();
@@ -122,22 +115,22 @@ public class Add extends Fragment {
         dessertList = new ArrayList<>();
         dessertQuantifierList = new ArrayList<>();
 
+        //Date Picker
         dateBtn = root.findViewById(R.id.dateBtn);
         DatePickerDialog.OnDateSetListener datePicker;
         Calendar calendar = Calendar.getInstance();
+        String Format = "yyyy/MM/dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(Format, Locale.TAIWAN);
+        dateBtn.setText(sdf.format(calendar.getTime()));
         datePicker = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
                 calendar.set(Calendar.YEAR,year);
                 calendar.set(Calendar.MONTH,month);
                 calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth);
-                String Format = "yyyy/MM/dd";
-                SimpleDateFormat sdf = new SimpleDateFormat(Format, Locale.TAIWAN);
                 dateBtn.setText(sdf.format(calendar.getTime()));
             }
         };
-
-
         dateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,6 +149,7 @@ public class Add extends Fragment {
         dessertList.add("吐司");
         dessertQuantifierList.add("一片");
 
+        //依照各項目的紀錄顯示餐點在畫面上
         for (int i=0;i<breakfastList.size();i++){
             breakfastText.append(breakfastList.get(i)+"\n");
             breakfastQuantifier.append(breakfastQuantifierList.get(i)+"\n");
@@ -173,15 +167,80 @@ public class Add extends Fragment {
             dessertQuantifier.append(dessertQuantifierList.get(i)+"\n");
         }
 
+
+
+        //新增餐點
         addBreakfastBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                createPopUpDialog();
+            }
+        });
+        addLunchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createPopUpDialog();
+            }
+        });
+        addDinnerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createPopUpDialog();
+            }
+        });
+        addDessertBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createPopUpDialog();
             }
         });
 
-
         return root;
     }
+    //產生彈出視窗
+    public void createPopUpDialog(){
+        dialogBuilder = new AlertDialog.Builder(getActivity());
+        View popUpView = getLayoutInflater().inflate(R.layout.add_popup_dialog,null);
 
+        dialogBuilder.setView(popUpView);
+        dialog = dialogBuilder.create();
+        //設定背景為透明
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.show();
+
+
+        //按下手動輸入
+        manualBtn = popUpView.findViewById(R.id.manualCard);
+        manualBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(),"手動輸入",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //按下拍攝照片
+        cameraBtn = popUpView.findViewById(R.id.cameraCard);
+        cameraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(),"拍攝照片",Toast.LENGTH_SHORT).show();
+            }
+        });
+        //按下選擇照片
+        uploadBtn = popUpView.findViewById(R.id.uploadCard);
+        uploadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(),"選擇照片",Toast.LENGTH_SHORT).show();
+            }
+        });
+        //按下返回按鈕
+        back = popUpView.findViewById(R.id.add_menu_back_fab);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+    }
 }

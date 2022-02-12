@@ -51,7 +51,6 @@
                         android:layout_height="wrap_content"
                         android:drawableRight="@drawable/add_icon_date"
                         android:drawableTint="@color/dark_purple"
-                        android:text="2022年2月11日"
                         android:textColor="@color/dark_purple"
                         style="@style/Widget.Material3.Button.TextButton"/>
 
