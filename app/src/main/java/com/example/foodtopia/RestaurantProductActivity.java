@@ -49,8 +49,8 @@ public class RestaurantProductActivity extends AppCompatActivity {
         allCategoryList.add(new AllCategory("麥當勞食物", categoryItemList));
         allCategoryList.add(new AllCategory("麥當勞飲料", categoryItemList2));
 
-        getDatav2(categoryItemList2);
-        getDatav1(categoryItemList);
+        getData(categoryItemList2,"mcdonalds_food");
+        getData(categoryItemList,"mcdonalds_beverage");
         setMainCategoryRecycler(allCategoryList);
 
     }
@@ -64,8 +64,8 @@ public class RestaurantProductActivity extends AppCompatActivity {
         mainCategoryRecycler.setAdapter(mainRecyclerAdapter);
 
     }
-    private void getDatav2( List<CategoryItem> categoryItems) {
-        db.collection("mcdonalds_beverage")
+    private void getData(List<CategoryItem> categoryItems, String collection) {
+        db.collection(collection)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -84,23 +84,5 @@ public class RestaurantProductActivity extends AppCompatActivity {
 
     }
 
-    private void getDatav1( List<CategoryItem> categoryItems) {
-        db.collection("mcdonalds_food")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getString("name"));
-                                categoryItems.add(new CategoryItem(document.getString("name")));
-                            }
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
-                        }
-                        mainRecyclerAdapter.notifyDataSetChanged();
-                    }
-                });
 
-    }
 }
