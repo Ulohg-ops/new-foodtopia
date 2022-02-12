@@ -16,12 +16,12 @@ import com.example.foodtopia.model.CategoryItem;
 
 import java.util.List;
 
-public class MainRecyclerAdapter extends RecyclerView.Adapter<MainRecyclerAdapter.MainViewHolder> {
+public class CategoryTitleAdapter extends RecyclerView.Adapter<CategoryTitleAdapter.MainViewHolder> {
 
     private Context context;
     private List<AllCategory> allCategoryList;
 
-    public MainRecyclerAdapter(Context context, List<AllCategory> allCategoryList) {
+    public CategoryTitleAdapter(Context context, List<AllCategory> allCategoryList) {
         this.context = context;
         this.allCategoryList = allCategoryList;
     }
