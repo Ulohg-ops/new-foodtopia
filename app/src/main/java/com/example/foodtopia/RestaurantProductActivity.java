@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtopia.Adpater.CategoryTitleAdapter;
+import com.example.foodtopia.classes.AddTitle;
 import com.example.foodtopia.model.AllCategory;
 import com.example.foodtopia.model.CategoryItem;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -51,23 +52,27 @@ public class RestaurantProductActivity extends AppCompatActivity {
 
         List<AllCategory> allCategoryList = new ArrayList<>();
 
-        List<List<String>> titles = new ArrayList<>();
-        List<String> mcdonalds= new ArrayList<>();
 
-        mcdonalds.add("mcdonalds_food");
-        mcdonalds.add("mcdonalds_beverage");
-        List<String> kfc = new ArrayList<>();
-
-        kfc.add("kfc_food");
-        kfc.add("kfc_beverage");
-        kfc.add("kfc_dessert");
-        titles.add(mcdonalds);
-        titles.add(kfc);
+        AddTitle addTitle=new AddTitle();
+        List<List<String>> title =addTitle.getTitles();
 
 
-        for(List<String> lists : titles){
+
+        //        List<String> mcdonalds= new ArrayList<>();
+//        mcdonalds.add("mcdonalds_food");
+//        mcdonalds.add("mcdonalds_beverage");
+//        List<String> kfc = new ArrayList<>();
+//        kfc.add("kfc_food");
+//        kfc.add("kfc_beverage");
+//        kfc.add("kfc_dessert");
+//        titles.add(mcdonalds);
+//        titles.add(kfc);
+
+
+
+        for(List<String> lists : title){
             for(String items : lists){
-//                System.out.println(items);
+                System.out.println(items);
                 List<CategoryItem> itemList = new ArrayList<>();
 //                System.out.println(items);
 //                System.out.println(store_name);
