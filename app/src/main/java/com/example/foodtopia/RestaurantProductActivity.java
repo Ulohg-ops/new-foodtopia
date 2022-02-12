@@ -32,6 +32,7 @@ public class RestaurantProductActivity extends AppCompatActivity {
     List<CategoryItem> categoryItemList2 = new ArrayList<>();
     List<CategoryItem> categoryItemList3 = new ArrayList<>();
 
+
     String store_name;
     TextView name;
 
@@ -52,37 +53,56 @@ public class RestaurantProductActivity extends AppCompatActivity {
 
         List<List<String>> titles = new ArrayList<>();
         List<String> mcdonalds= new ArrayList<>();
-        mcdonalds.add("mcdonalds_beverage");
+
         mcdonalds.add("mcdonalds_food");
+        mcdonalds.add("mcdonalds_beverage");
         List<String> kfc = new ArrayList<>();
-        kfc.add("kfc_beverage");
+
         kfc.add("kfc_food");
+        kfc.add("kfc_beverage");
         kfc.add("kfc_dessert");
         titles.add(mcdonalds);
         titles.add(kfc);
 
+
         for(List<String> lists : titles){
-            System.out.println(titles);
             for(String items : lists){
-                System.out.println(items);
-                if(items.toString().equals(store_name.toLowerCase(Locale.ROOT)+"_food")){
-                    allCategoryList.add(new AllCategory(items, categoryItemList));
-                }else if( items.toString().equals(store_name.toLowerCase(Locale.ROOT)+"_beverage") ){
-                    allCategoryList.add(new AllCategory(items, categoryItemList2));
+//                System.out.println(items);
+                List<CategoryItem> itemList = new ArrayList<>();
+//                System.out.println(items);
+//                System.out.println(store_name);
+                if(items.contains(store_name.toLowerCase(Locale.ROOT))){
+                    allCategoryList.add(new AllCategory(items, itemList));
+                    getData(itemList, items);
                 }
 
             }
         }
 
+//        for(List<String> lists : titles){
+//            System.out.println(lists);
+//            for(String items : lists){
+//                System.out.println(items);
+//                List<CategoryItem> itemList = new ArrayList<>();
+//                if(items.toString().equals(store_name.toLowerCase(Locale.ROOT)+"_food")){
+//                    allCategoryList.add(new AllCategory(items, itemList));
+//                    getData(itemList, store_name.toLowerCase(Locale.ROOT) + "_food");
+//                }else if( items.toString().equals(store_name.toLowerCase(Locale.ROOT)+"_beverage") ){
+//                    allCategoryList.add(new AllCategory(items, itemList));
+//                    getData(itemList, store_name.toLowerCase(Locale.ROOT) + "_beverage");
+//                }
 //
+//            }
+//        }
+
 //        allCategoryList.add(new AllCategory(store_name + "食物", categoryItemList));
 //        allCategoryList.add(new AllCategory(store_name + "飲料", categoryItemList2));
 //        allCategoryList.add(new AllCategory(store_name + "點心", categoryItemList3));
 
 
-        getData(categoryItemList, store_name.toLowerCase(Locale.ROOT) + "_food");
-        getData(categoryItemList2, store_name.toLowerCase(Locale.ROOT) + "_beverage");
-        getData(categoryItemList3, store_name.toLowerCase(Locale.ROOT) + "_dessert");
+//        getData(categoryItemList, store_name.toLowerCase(Locale.ROOT) + "_food");
+//        getData(categoryItemList2, store_name.toLowerCase(Locale.ROOT) + "_beverage");
+//        getData(categoryItemList3, store_name.toLowerCase(Locale.ROOT) + "_dessert");
 
         setMainCategoryRecycler(allCategoryList);
 
@@ -98,6 +118,7 @@ public class RestaurantProductActivity extends AppCompatActivity {
 
     }
 
+
     private void getData(List<CategoryItem> categoryItems, String collection) {
         db.collection(collection)
                 .get()
@@ -106,7 +127,7 @@ public class RestaurantProductActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getString("name"));
+//                                Log.d(TAG, document.getId() + " => " + document.getString("name"));
                                 categoryItems.add(new CategoryItem(document.getString("name")));
                             }
                         } else {
