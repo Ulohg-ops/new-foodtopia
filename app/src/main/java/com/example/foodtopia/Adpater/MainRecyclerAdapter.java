@@ -1,4 +1,4 @@
-package com.example.foodtopia;
+package com.example.foodtopia.Adpater;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodtopia.R;
 import com.example.foodtopia.model.AllCategory;
 import com.example.foodtopia.model.CategoryItem;
 

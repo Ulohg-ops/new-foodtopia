@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodtopia.Adpater.MainRecyclerAdapter;
 import com.example.foodtopia.model.AllCategory;
 import com.example.foodtopia.model.CategoryItem;
 import com.google.android.gms.tasks.OnCompleteListener;
