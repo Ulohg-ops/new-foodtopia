@@ -1,7 +1,10 @@
 package com.example.foodtopia;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +18,7 @@ import com.example.foodtopia.model.AllCategory;
 import com.example.foodtopia.model.CategoryItem;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -28,7 +32,7 @@ public class RestaurantProductActivity extends AppCompatActivity {
 
     RecyclerView mainCategoryRecycler;
     CategoryTitleAdapter categoryTitleAdapter;
-
+    FloatingActionButton back;
     List<CategoryItem> categoryItemList = new ArrayList<>();
     List<CategoryItem> categoryItemList2 = new ArrayList<>();
     List<CategoryItem> categoryItemList3 = new ArrayList<>();
@@ -38,7 +42,6 @@ public class RestaurantProductActivity extends AppCompatActivity {
     TextView name;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    DocumentReference docRef;
     private static final String TAG = "MyActivity";
 
     @Override
@@ -46,19 +49,42 @@ public class RestaurantProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resturantproduct);
 
+        back=findViewById(R.id.add_menu_back_fab);
+
         name = findViewById(R.id.txtStoreName);
         store_name = getIntent().getStringExtra("name");
         name.setText(store_name);
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+
         List<AllCategory> allCategoryList = new ArrayList<>();
+
+//        System.out.println(store_name.toLowerCase(Locale.ROOT)+"_food");
+//
+//        allCategoryList.add(new AllCategory(store_name + "食物", categoryItemList));
+//        allCategoryList.add(new AllCategory(store_name + "飲料", categoryItemList2));
+//        allCategoryList.add(new AllCategory(store_name + "點心", categoryItemList3));
+//
+//
+//        getData(categoryItemList, store_name.toLowerCase(Locale.ROOT) + "_food");
+//        getData(categoryItemList2, store_name.toLowerCase(Locale.ROOT) + "_beverage");
+//        getData(categoryItemList3, store_name.toLowerCase(Locale.ROOT) + "_dessert");
+
 
 
         AddTitle addTitle=new AddTitle();
         List<List<String>> title =addTitle.getTitles();
 
 
+//        List<List<String>> titles =new ArrayList<>();
 
-        //        List<String> mcdonalds= new ArrayList<>();
+//        List<String> mcdonalds= new ArrayList<>();
 //        mcdonalds.add("mcdonalds_food");
 //        mcdonalds.add("mcdonalds_beverage");
 //        List<String> kfc = new ArrayList<>();
@@ -77,6 +103,7 @@ public class RestaurantProductActivity extends AppCompatActivity {
 //                System.out.println(items);
 //                System.out.println(store_name);
                 if(items.contains(store_name.toLowerCase(Locale.ROOT))){
+                    System.out.println(items);
                     allCategoryList.add(new AllCategory(items, itemList));
                     getData(itemList, items);
                 }
@@ -90,9 +117,11 @@ public class RestaurantProductActivity extends AppCompatActivity {
 //                System.out.println(items);
 //                List<CategoryItem> itemList = new ArrayList<>();
 //                if(items.toString().equals(store_name.toLowerCase(Locale.ROOT)+"_food")){
+//                    System.out.println(items);
 //                    allCategoryList.add(new AllCategory(items, itemList));
 //                    getData(itemList, store_name.toLowerCase(Locale.ROOT) + "_food");
 //                }else if( items.toString().equals(store_name.toLowerCase(Locale.ROOT)+"_beverage") ){
+//                    System.out.println(items);
 //                    allCategoryList.add(new AllCategory(items, itemList));
 //                    getData(itemList, store_name.toLowerCase(Locale.ROOT) + "_beverage");
 //                }
@@ -100,16 +129,8 @@ public class RestaurantProductActivity extends AppCompatActivity {
 //            }
 //        }
 
-//        allCategoryList.add(new AllCategory(store_name + "食物", categoryItemList));
-//        allCategoryList.add(new AllCategory(store_name + "飲料", categoryItemList2));
-//        allCategoryList.add(new AllCategory(store_name + "點心", categoryItemList3));
-
-
-//        getData(categoryItemList, store_name.toLowerCase(Locale.ROOT) + "_food");
-//        getData(categoryItemList2, store_name.toLowerCase(Locale.ROOT) + "_beverage");
-//        getData(categoryItemList3, store_name.toLowerCase(Locale.ROOT) + "_dessert");
-
         setMainCategoryRecycler(allCategoryList);
+
 
     }
 
