@@ -27,8 +27,10 @@ public class RestaurantProductActivity extends AppCompatActivity {
 
     RecyclerView mainCategoryRecycler;
     CategoryTitleAdapter categoryTitleAdapter;
+
     List<CategoryItem> categoryItemList = new ArrayList<>();
     List<CategoryItem> categoryItemList2 = new ArrayList<>();
+    List<CategoryItem> categoryItemList3 = new ArrayList<>();
 
     String store_name;
     TextView name;
@@ -36,6 +38,7 @@ public class RestaurantProductActivity extends AppCompatActivity {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference docRef;
     private static final String TAG = "MyActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,32 +47,42 @@ public class RestaurantProductActivity extends AppCompatActivity {
         name = findViewById(R.id.txtStoreName);
         store_name = getIntent().getStringExtra("name");
         name.setText(store_name);
+
         List<AllCategory> allCategoryList = new ArrayList<>();
 
+        List<List<String>> titles = new ArrayList<>();
+        List<String> mcdonalds= new ArrayList<>();
+        mcdonalds.add("mcdonalds_beverage");
+        mcdonalds.add("mcdonalds_food");
+        List<String> kfc = new ArrayList<>();
+        kfc.add("kfc_beverage");
+        kfc.add("kfc_food");
+        kfc.add("kfc_dessert");
+        titles.add(mcdonalds);
+        titles.add(kfc);
 
-//        for(Map.Entry<String,List<String>> entry :map.entrySet()){
-//            for(int i=0;i<entry.getValue().size();i++){
-//                System.out.println(entry.getValue().get(i));
-//                System.out.println("lsls");
-//                getData(categoryItemList,store_name.toLowerCase(Locale.ROOT)+entry.getValue().get(i));
-//            }
-//        }
+        for(List<String> lists : titles){
+            System.out.println(titles);
+            for(String items : lists){
+                System.out.println(items);
+                if(items.toString().equals(store_name.toLowerCase(Locale.ROOT)+"_food")){
+                    allCategoryList.add(new AllCategory(items, categoryItemList));
+                }else if( items.toString().equals(store_name.toLowerCase(Locale.ROOT)+"_beverage") ){
+                    allCategoryList.add(new AllCategory(items, categoryItemList2));
+                }
 
-//        for(Map.Entry<String,List<String>> entry :map.entrySet()){
-//            System.out.println(entry.getKey());
-//            allCategoryList.add(new AllCategory( entry.getKey(), categoryItemList));
-//            for(int i=0;i<entry.getValue().size();i++){
-//                System.out.println(entry.getValue().get(i));
-//                getData(categoryItemList,store_name.toLowerCase(Locale.ROOT)+entry.getValue().get(i));
-//            }
-//        }
-        //test
+            }
+        }
 
-        allCategoryList.add(new AllCategory(store_name + "食物", categoryItemList));
-        allCategoryList.add(new AllCategory(store_name + "飲料", categoryItemList2));
+//
+//        allCategoryList.add(new AllCategory(store_name + "食物", categoryItemList));
+//        allCategoryList.add(new AllCategory(store_name + "飲料", categoryItemList2));
+//        allCategoryList.add(new AllCategory(store_name + "點心", categoryItemList3));
+
 
         getData(categoryItemList, store_name.toLowerCase(Locale.ROOT) + "_food");
         getData(categoryItemList2, store_name.toLowerCase(Locale.ROOT) + "_beverage");
+        getData(categoryItemList3, store_name.toLowerCase(Locale.ROOT) + "_dessert");
 
         setMainCategoryRecycler(allCategoryList);
 
