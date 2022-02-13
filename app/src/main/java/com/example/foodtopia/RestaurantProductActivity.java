@@ -148,14 +148,14 @@ public class RestaurantProductActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 //                                Log.d(TAG, document.getId() + " => " + document.getString("name"));
                                 categoryItems.add(new CategoryItem(document.getString("name"),
-                                         document.getString("calories"),
+                                        document.getString("calories"),
                                          document.getString("carbohydrate"),
                                          document.getString("fat"),
                                          document.getString("protein"),
-                                         document.getString("saturatedfat"),
+                                         document.getString("saturated_fat"),
                                          document.getString("unsaturatedfat"),
                                          document.getString("sodium"),
-                                         document.getString("sugars")));
+                                         document.getString("sugar")));
                             }
 
                         } else {

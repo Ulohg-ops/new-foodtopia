@@ -289,7 +289,7 @@
                 app:backgroundTint="@color/light_purple"
                 app:rippleColor="@null"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Circle"
-                app:srcCompat="@drawable/resturant_icon_add"
+                app:srcCompat="@drawable/restaurant_icon_add"
                 app:tint="@color/white" />
         </LinearLayout>
     </LinearLayout>

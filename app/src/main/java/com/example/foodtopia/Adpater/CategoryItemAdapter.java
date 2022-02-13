@@ -1,31 +1,26 @@
 package com.example.foodtopia.Adpater;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodtopia.MainActivity;
 import com.example.foodtopia.R;
 import com.example.foodtopia.model.CategoryItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryItemRecyclerAdapter.CategoryItemViewHolder> {
+public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapter.CategoryItemViewHolder> {
 
     private Context context;
     private List<CategoryItem> categoryItemList;
@@ -34,7 +29,7 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
     private AlertDialog dialog;
 
 
-    public CategoryItemRecyclerAdapter(Context context, List<CategoryItem> categoryItemList) {
+    public CategoryItemAdapter(Context context, List<CategoryItem> categoryItemList) {
         this.context = context;
         this.categoryItemList = categoryItemList;
     }

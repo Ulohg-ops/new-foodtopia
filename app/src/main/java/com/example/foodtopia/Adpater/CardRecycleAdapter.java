@@ -10,11 +10,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtopia.R;
-import com.example.foodtopia.Reaturant_add_Activity;
 import com.example.foodtopia.RestaurantProductActivity;
 import com.example.foodtopia.classes.restaurants;
 
@@ -60,7 +58,7 @@ public class CardRecycleAdapter extends RecyclerView.Adapter<CardRecycleAdapter.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, Reaturant_add_Activity.class);
+                Intent intent = new Intent(context, RestaurantProductActivity.class);
                 intent.putExtra("image", member.getImage());
                 intent.putExtra("name", member.getName());
                 context.startActivity(intent);

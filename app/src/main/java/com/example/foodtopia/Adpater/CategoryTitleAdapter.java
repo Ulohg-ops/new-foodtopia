@@ -65,7 +65,7 @@ public class CategoryTitleAdapter extends RecyclerView.Adapter<CategoryTitleAdap
 
     private void setCatItemRecycler(RecyclerView recyclerView, List<CategoryItem> categoryItemList){
 
-        CategoryItemRecyclerAdapter itemRecyclerAdapter = new CategoryItemRecyclerAdapter(context, categoryItemList);
+        CategoryItemAdapter itemRecyclerAdapter = new CategoryItemAdapter(context, categoryItemList);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(itemRecyclerAdapter);
 
