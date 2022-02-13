@@ -9,6 +9,7 @@ import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,8 +18,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodtopia.MainActivity;
 import com.example.foodtopia.R;
 import com.example.foodtopia.model.CategoryItem;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -60,8 +63,17 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getRootView().getContext());
                 View diaglogView = LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.restaurant_popup_window, null);
-                Spinner spinner;
-                spinner=diaglogView.findViewById(R.id.spinner);
+
+                Spinner spinner = diaglogView.findViewById(R.id.spinner);
+// Create an ArrayAdapter using the string array and a default spinner layout
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
+                        R.array.meal_time, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+                spinner.setAdapter(adapter);
+
+                FloatingActionButton add;
                 TextView foodName;
                 TextView calories;
                 TextView carbohydrate;
@@ -71,6 +83,14 @@ public class CategoryItemRecyclerAdapter extends RecyclerView.Adapter<CategoryIt
                 TextView unsaturatedfat;
                 TextView sodium;
                 TextView sugars;
+
+                add=diaglogView.findViewById(R.id.add);
+                add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        System.out.println("ahoy");
+                    }
+                });
 
                 calories=diaglogView.findViewById(R.id.calories);
                 calories.setText(calories2);
