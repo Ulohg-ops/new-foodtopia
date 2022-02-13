@@ -33,9 +33,9 @@ public class RestaurantProductActivity extends AppCompatActivity {
     RecyclerView mainCategoryRecycler;
     CategoryTitleAdapter categoryTitleAdapter;
     FloatingActionButton back;
-    List<CategoryItem> categoryItemList = new ArrayList<>();
-    List<CategoryItem> categoryItemList2 = new ArrayList<>();
-    List<CategoryItem> categoryItemList3 = new ArrayList<>();
+//    List<CategoryItem> categoryItemList = new ArrayList<>();
+//    List<CategoryItem> categoryItemList2 = new ArrayList<>();
+//    List<CategoryItem> categoryItemList3 = new ArrayList<>();
 
 
     String store_name;
@@ -55,46 +55,15 @@ public class RestaurantProductActivity extends AppCompatActivity {
         store_name = getIntent().getStringExtra("name");
         name.setText(store_name);
 
-        back.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() {//set the return btn
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
-
-
         List<AllCategory> allCategoryList = new ArrayList<>();
-
-//        System.out.println(store_name.toLowerCase(Locale.ROOT)+"_food");
-//
-//        allCategoryList.add(new AllCategory(store_name + "食物", categoryItemList));
-//        allCategoryList.add(new AllCategory(store_name + "飲料", categoryItemList2));
-//        allCategoryList.add(new AllCategory(store_name + "點心", categoryItemList3));
-//
-//
-//        getData(categoryItemList, store_name.toLowerCase(Locale.ROOT) + "_food");
-//        getData(categoryItemList2, store_name.toLowerCase(Locale.ROOT) + "_beverage");
-//        getData(categoryItemList3, store_name.toLowerCase(Locale.ROOT) + "_dessert");
-
-
-
         AddTitle addTitle=new AddTitle();
         List<List<String>> title =addTitle.getTitles();
-
-
-//        List<List<String>> titles =new ArrayList<>();
-
-//        List<String> mcdonalds= new ArrayList<>();
-//        mcdonalds.add("mcdonalds_food");
-//        mcdonalds.add("mcdonalds_beverage");
-//        List<String> kfc = new ArrayList<>();
-//        kfc.add("kfc_food");
-//        kfc.add("kfc_beverage");
-//        kfc.add("kfc_dessert");
-//        titles.add(mcdonalds);
-//        titles.add(kfc);
-
-
 
         for(List<String> lists : title){
             for(String items : lists){
@@ -110,6 +79,31 @@ public class RestaurantProductActivity extends AppCompatActivity {
 
             }
         }
+        setMainCategoryRecycler(allCategoryList);
+
+        //        System.out.println(store_name.toLowerCase(Locale.ROOT)+"_food");
+//
+//        allCategoryList.add(new AllCategory(store_name + "食物", categoryItemList));
+//        allCategoryList.add(new AllCategory(store_name + "飲料", categoryItemList2));
+//        allCategoryList.add(new AllCategory(store_name + "點心", categoryItemList3));
+//
+//
+//        getData(categoryItemList, store_name.toLowerCase(Locale.ROOT) + "_food");
+//        getData(categoryItemList2, store_name.toLowerCase(Locale.ROOT) + "_beverage");
+//        getData(categoryItemList3, store_name.toLowerCase(Locale.ROOT) + "_dessert");
+
+
+//        List<List<String>> titles =new ArrayList<>();
+
+//        List<String> mcdonalds= new ArrayList<>();
+//        mcdonalds.add("mcdonalds_food");
+//        mcdonalds.add("mcdonalds_beverage");
+//        List<String> kfc = new ArrayList<>();
+//        kfc.add("kfc_food");
+//        kfc.add("kfc_beverage");
+//        kfc.add("kfc_dessert");
+//        titles.add(mcdonalds);
+//        titles.add(kfc);
 
 //        for(List<String> lists : titles){
 //            System.out.println(lists);
@@ -125,11 +119,10 @@ public class RestaurantProductActivity extends AppCompatActivity {
 //                    allCategoryList.add(new AllCategory(items, itemList));
 //                    getData(itemList, store_name.toLowerCase(Locale.ROOT) + "_beverage");
 //                }
-//
 //            }
 //        }
 
-        setMainCategoryRecycler(allCategoryList);
+
 
 
     }
@@ -154,8 +147,17 @@ public class RestaurantProductActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 //                                Log.d(TAG, document.getId() + " => " + document.getString("name"));
-                                categoryItems.add(new CategoryItem(document.getString("name")));
+                                categoryItems.add(new CategoryItem(document.getString("name"),
+                                         document.getString("calories"),
+                                         document.getString("carbohydrate"),
+                                         document.getString("fat"),
+                                         document.getString("protein"),
+                                         document.getString("saturatedfat"),
+                                         document.getString("unsaturatedfat"),
+                                         document.getString("sodium"),
+                                         document.getString("sugars")));
                             }
+
                         } else {
                             Log.d(TAG, "Error getting documents: ", task.getException());
                         }

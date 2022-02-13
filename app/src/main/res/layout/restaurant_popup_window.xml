@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:checkable="true"
+    android:clickable="true"
+    android:focusable="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/foodName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="大麥克"
+            android:textSize="16dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="30dp"
+            android:background="#C5C5C5" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:text="熱量(kal)"
+                android:textSize="16dp" />
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="0dp" />
+
+            <TextView
+                android:id="@+id/calories"
+                android:layout_width="100dp"
+                android:textAlignment="viewEnd"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:text="1000"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:text="蛋白質(g)"
+                android:textSize="16dp" />
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="0dp" />
+
+            <TextView
+                android:id="@+id/protein"
+                android:layout_width="100dp"
+                android:textAlignment="viewEnd"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:text="54112"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:text="脂肪(kal)"
+                android:textSize="16dp" />
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="0dp" />
+
+            <TextView
+                android:id="@+id/fat"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:textAlignment="viewEnd"
+                android:text="1000"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:textAlignment="viewEnd"
+                android:text="飽和脂肪(g)"
+                android:textSize="16dp" />
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="0dp" />
+
+            <TextView
+                android:id="@+id/saturatedfat"
+                android:layout_width="100dp"
+                android:textAlignment="viewEnd"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:text="-----"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:textAlignment="viewEnd"
+                android:text="反式脂肪(g)"
+                android:textSize="16dp" />
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="0dp" />
+
+            <TextView
+                android:id="@+id/unsaturatedfat"
+                android:layout_width="100dp"
+                android:textAlignment="viewEnd"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:text="87"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:text="碳水化合物(g)"
+                android:textSize="16dp" />
+            <View
+                android:layout_width="50dp"
+                android:layout_height="0dp" />
+            <TextView
+                android:id="@+id/carbohydrate"
+                android:layout_width="100dp"
+                android:textAlignment="viewEnd"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:text="9999"
+                android:textSize="16dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:text="糖(g)"
+                android:textSize="16dp" />
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="0dp" />
+
+            <TextView
+                android:id="@+id/sugars"
+                android:layout_width="100dp"
+                android:textAlignment="viewEnd"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:text="87"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:layout_marginBottom="15dp">
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:text="鈉(mg)"
+                android:textSize="16dp" />
+
+            <View
+                android:layout_width="50dp"
+                android:layout_height="0dp" />
+
+            <TextView
+                android:id="@+id/sodium"
+                android:layout_width="100dp"
+                android:textAlignment="viewEnd"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="50dp"
+                android:text="15.554"
+                android:textSize="16dp" />
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="30dp"
+            android:background="#C5C5C5" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                />
+            <View
+                android:layout_width="150dp"
+                android:layout_height="0dp" />
+
+
+
+            <Button
+                android:layout_width="57dp"
+                android:layout_height="38dp"
+                android:layout_marginRight="50dp"
+                android:text="+"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

@@ -26,6 +26,10 @@ public class CategoryTitleAdapter extends RecyclerView.Adapter<CategoryTitleAdap
         this.allCategoryList = allCategoryList;
     }
 
+    public CategoryTitleAdapter(List<AllCategory> allCategoryList) {
+        this.allCategoryList = allCategoryList;
+    }
+
     @NonNull
     @Override
     public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

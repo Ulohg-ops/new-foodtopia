@@ -91,4 +91,10 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string-array name="meal_time">
+        <item>早餐</item>
+        <item>午餐</item>
+        <item>晚餐</item>
+        <item>點心</item>
+    </string-array>
 </resources>
