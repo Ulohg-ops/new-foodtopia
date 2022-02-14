@@ -53,7 +53,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="50dp"
-                android:text="1000"
+                android:text="-----"
                 android:textAlignment="viewEnd"
                 android:textSize="16dp" />
         </LinearLayout>
@@ -80,7 +80,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="50dp"
-                android:text="54112"
+                android:text="-----"
                 android:textAlignment="viewEnd"
                 android:textSize="16dp" />
         </LinearLayout>
@@ -107,7 +107,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="50dp"
-                android:text="1000"
+                android:text="-----"
                 android:textAlignment="viewEnd"
                 android:textSize="16dp" />
         </LinearLayout>
@@ -163,7 +163,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="50dp"
-                android:text="87"
+                android:text="-----"
                 android:textAlignment="viewEnd"
                 android:textSize="16dp" />
         </LinearLayout>
@@ -191,7 +191,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="50dp"
-                android:text="9999"
+                android:text="-----"
                 android:textAlignment="viewEnd"
                 android:textSize="16dp" />
         </LinearLayout>
@@ -218,7 +218,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="50dp"
-                android:text="87"
+                android:text="-----"
                 android:textAlignment="viewEnd"
                 android:textSize="16dp" />
         </LinearLayout>
@@ -247,7 +247,7 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="50dp"
-                android:text="15.554"
+                android:text="-----"
                 android:textAlignment="viewEnd"
                 android:textSize="16dp" />
         </LinearLayout>
