@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "506610527469",
-    "firebase_url": "https://test-50a10-default-rtdb.firebaseio.com",
-    "project_id": "test-50a10",
-    "storage_bucket": "test-50a10.appspot.com"
+    "project_number": "501710130285",
+    "firebase_url": "https://foodtopia-5332f-default-rtdb.firebaseio.com",
+    "project_id": "foodtopia-5332f",
+    "storage_bucket": "foodtopia-5332f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:506610527469:android:ab7fd404be7898cd4fb0e4",
+        "mobilesdk_app_id": "1:501710130285:android:89169cbd8a5c1805c6c364",
         "android_client_info": {
           "package_name": "com.example.foodtopia"
         }
       },
       "oauth_client": [
         {
-          "client_id": "506610527469-olmpe398472umttcn8oaf5m3lpumum1n.apps.googleusercontent.com",
+          "client_id": "501710130285-ol9rdcgjfmnmeklm0ugluna8taf1jk75.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBI6uqBggOiOXfSQrJqbIE2ry16eYRCQ1I"
+          "current_key": "AIzaSyBtSuxlI2WZInZV4C16pwZ1u8b5oZt84yM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "506610527469-olmpe398472umttcn8oaf5m3lpumum1n.apps.googleusercontent.com",
+              "client_id": "501710130285-ol9rdcgjfmnmeklm0ugluna8taf1jk75.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -37,56 +37,35 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:506610527469:android:1454470b75edcd2e4fb0e4",
+        "mobilesdk_app_id": "1:501710130285:android:22c8e4e56a0be540c6c364",
         "android_client_info": {
-          "package_name": "com.example.uploadphoto"
+          "package_name": "com.foodtopia.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "506610527469-olmpe398472umttcn8oaf5m3lpumum1n.apps.googleusercontent.com",
+          "client_id": "501710130285-a4iav66a06dak0kr5ka5q1d3n77lkl4t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.foodtopia.app",
+            "certificate_hash": "849bd2e76277ac8e1c0c2c4eb5db3bb35b273d21"
+          }
+        },
+        {
+          "client_id": "501710130285-ol9rdcgjfmnmeklm0ugluna8taf1jk75.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBI6uqBggOiOXfSQrJqbIE2ry16eYRCQ1I"
+          "current_key": "AIzaSyBtSuxlI2WZInZV4C16pwZ1u8b5oZt84yM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "506610527469-olmpe398472umttcn8oaf5m3lpumum1n.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:506610527469:android:bb1e90c88c2d1b134fb0e4",
-        "android_client_info": {
-          "package_name": "com.koddev.instagramtest"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "506610527469-olmpe398472umttcn8oaf5m3lpumum1n.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBI6uqBggOiOXfSQrJqbIE2ry16eYRCQ1I"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "506610527469-olmpe398472umttcn8oaf5m3lpumum1n.apps.googleusercontent.com",
+              "client_id": "501710130285-ol9rdcgjfmnmeklm0ugluna8taf1jk75.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
