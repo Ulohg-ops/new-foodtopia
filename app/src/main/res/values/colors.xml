@@ -42,4 +42,13 @@
     <color name="dark_purple">#5A6ACF</color>
     <color name="gray">#D0D0D0</color>
 
+
+    <color name="colorPrimary">#455cde</color>
+    <color name="colorPrimaryDark">#403d3d</color>
+    <color name="colorAccent">#c2bdbf</color>
+    <color name="colorBlack">#000000</color>
+
+    <color name="colorGreen">#4cab03</color>
+    <color name="colorWindow">?android:attr/windowBackground</color>
+
 </resources>
