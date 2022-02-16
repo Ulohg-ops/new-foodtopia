@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -40,6 +41,7 @@ public class PostActivity extends AppCompatActivity {
     String miUrlOk = "";
     private StorageTask uploadTask;
     StorageReference storageRef;
+    FirebaseAuth auth;
     StorageReference mStorageRef;
     private static final int PICK_IMAGE_REQUEST = 1;
 
@@ -87,6 +89,10 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void uploadImage_10() {
+        auth=FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser=auth.getCurrentUser();
+        String userID=firebaseUser.getUid();
+        System.out.println(userID);
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setMessage("Posting");
         pd.show();

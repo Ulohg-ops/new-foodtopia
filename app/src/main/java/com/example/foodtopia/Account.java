@@ -1,7 +1,9 @@
 package com.example.foodtopia;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -13,6 +15,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.util.ArrayList;
 
 /**
@@ -21,6 +26,8 @@ import java.util.ArrayList;
  * create an instance of this fragment.
  */
 public class Account extends Fragment {
+
+    AppCompatButton logout;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -78,6 +85,7 @@ public class Account extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         listView = (ListView) view.findViewById(R.id.profile_list);
+
 //        arrayList = new ArrayList<String>();
 //        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
 //        listView.setAdapter(arrayAdapter);
@@ -87,6 +95,19 @@ public class Account extends Fragment {
 //        arrayList.add("飲食建議");
 //        arrayList.add("收藏");
 //        arrayList.add("設定");
+
+        //--log out btn
+        //https://firebase.google.com/docs/auth/android/custom-auth
+        AppCompatButton logout=view.findViewById(R.id.logoutButton);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent = new Intent(getActivity(),MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        //--log out btn
 
         CustomAdapter customAdapter = new CustomAdapter();
         listView.setAdapter(customAdapter);
@@ -122,6 +143,7 @@ public class Account extends Fragment {
             text.setText(list_name[i]);
             icon.setImageResource(list_icon[i]);
             arrow.setImageResource(list_arrow[i]);
+
 
             return view1;
         }

@@ -12,6 +12,8 @@ import android.widget.Button;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -19,7 +21,18 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     Fragment fragment = new Dashboard();
 
-//    private Button btn;
+
+    //check whether user log in  if not intent to login
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        if(FirebaseAuth.getInstance().getCurrentUser()==null){
+//            startActivity(new Intent(this,Login.class));
+//            finish();
+//        }
+//    }
+
+    //    private Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
 
         //顯示首頁
         getSupportFragmentManager().beginTransaction().replace(R.id.frame, fragment).commit();
+
+
 
 
         //點選下方工具列切換頁面

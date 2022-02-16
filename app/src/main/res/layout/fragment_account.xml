@@ -66,14 +66,14 @@
         android:id="@+id/logoutButton"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
         android:layout_alignBottom="@+id/profile_list"
         android:layout_gravity="center"
+        android:layout_marginTop="35dp"
         android:background="@drawable/profile_btn"
+        android:drawableLeft="@drawable/logout"
         android:paddingLeft="10dp"
         android:text="登出"
         android:textColor="@color/white"
-        android:drawableLeft="@drawable/logout"
         android:textSize="20sp" />
 
 </LinearLayout>

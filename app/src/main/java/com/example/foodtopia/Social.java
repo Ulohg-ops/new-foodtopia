@@ -34,7 +34,6 @@ public class Social extends Fragment implements View.OnClickListener {
     private PostAdapter postAdapter;
     private List<Post> postList;
     private FloatingActionButton add_poster;
-    private List<String> followingList;
 
     ProgressBar progress_circular;
 
@@ -58,7 +57,7 @@ public class Social extends Fragment implements View.OnClickListener {
 
         progress_circular = view.findViewById(R.id.progress_circular);
 
-        checkFollowing();
+        readPosts();
 
         return view;
     }
@@ -67,36 +66,6 @@ public class Social extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         Intent intent = new Intent(getActivity(), PostActivity.class);
         startActivity(intent);
-    }
-
-    private void checkFollowing(){
-        followingList = new ArrayList<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Follow")
-                .child("AiXhHPUbCbMd3rxhWEg09ZjT5NO2")
-                .child("following");
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                followingList.clear();
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-//                    System.out.println("key"+snapshot.getKey());
-//                    followingList.add(snapshot.getKey());
-//                }
-
-                followingList.add("0OoNLTNdjNdc02Ztq4AbmgodMSZ2");
-                followingList.add("KpiRtLekTndQw5Isuwchtv2Pnto1");
-
-
-                readPosts();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-
-        });
     }
 
     private void readPosts(){
@@ -108,13 +77,9 @@ public class Social extends Fragment implements View.OnClickListener {
                 postList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
-                    for (String id : followingList){
-                        if (post.getPublisher().equals(id)){
-                            postList.add(post);
-                        }
-                    }
-                }
+                    postList.add(post);
 
+                }
                 postAdapter.notifyDataSetChanged();
                 progress_circular.setVisibility(View.GONE);
             }
