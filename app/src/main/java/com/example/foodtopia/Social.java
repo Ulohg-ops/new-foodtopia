@@ -1,5 +1,6 @@
 package com.example.foodtopia;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,10 +11,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.example.foodtopia.Adpater.PostAdapter;
 import com.example.foodtopia.classes.Post;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,12 +28,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Social extends Fragment {
+public class Social extends Fragment implements View.OnClickListener {
 
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
     private List<Post> postList;
-
+    private FloatingActionButton add_poster;
     private List<String> followingList;
 
     ProgressBar progress_circular;
@@ -50,12 +53,20 @@ public class Social extends Fragment {
         postAdapter = new PostAdapter(getContext(), postList);
         recyclerView.setAdapter(postAdapter);
 
+        add_poster=(FloatingActionButton) view.findViewById(R.id.add_poster);
+        add_poster.setOnClickListener(this);
 
         progress_circular = view.findViewById(R.id.progress_circular);
 
         checkFollowing();
 
         return view;
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(getActivity(), PostActivity.class);
+        startActivity(intent);
     }
 
     private void checkFollowing(){

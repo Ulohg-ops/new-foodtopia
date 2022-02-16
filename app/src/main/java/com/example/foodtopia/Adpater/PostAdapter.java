@@ -1,21 +1,15 @@
 package com.example.foodtopia.Adpater;
 
-import static android.content.Context.MODE_PRIVATE;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -69,7 +63,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
         final Post post = mPosts.get(position);
 
         Glide.with(mContext).load(post.getPostimage())
-                .apply(new RequestOptions().placeholder(R.drawable.placeholder))
+                .apply(new RequestOptions().placeholder(R.drawable.social_placeholder))
                 .into(holder.post_image);
 
         if (post.getDescription().equals("")){
@@ -239,10 +233,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child("AiXhHPUbCbMd3rxhWEg09ZjT5NO2").exists()){
-                    imageView.setImageResource(R.drawable.ic_liked);
+                    imageView.setImageResource(R.drawable.social_ic_liked);
                     imageView.setTag("liked");
                 } else{
-                    imageView.setImageResource(R.drawable.ic_like);
+                    imageView.setImageResource(R.drawable.social_ic_like);
                     imageView.setTag("like");
                 }
             }
@@ -264,10 +258,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(postid).exists()){
-                    imageView.setImageResource(R.drawable.ic_save_black);
+                    imageView.setImageResource(R.drawable.social_ic_save_black);
                     imageView.setTag("saved");
                 } else{
-                    imageView.setImageResource(R.drawable.ic_savee_black);
+                    imageView.setImageResource(R.drawable.social_ic_savee_black);
                     imageView.setTag("save");
                 }
             }

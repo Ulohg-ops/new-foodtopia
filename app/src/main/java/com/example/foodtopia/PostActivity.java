@@ -39,7 +39,6 @@ public class PostActivity extends AppCompatActivity {
     private Uri mImageUri;
     String miUrlOk = "";
     private StorageTask uploadTask;
-    private StorageTask mUploadTask;
     StorageReference storageRef;
     StorageReference mStorageRef;
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -87,34 +86,6 @@ public class PostActivity extends AppCompatActivity {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
-
-    private void uploadFile() {
-        if (mImageUri != null) {
-            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
-            mUploadTask = fileReference.putFile(mImageUri);
-            fileReference.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                    Toast.makeText(PostActivity.this, "Upload Successful", Toast.LENGTH_SHORT).show();
-                    Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
-                    while (!urlTask.isSuccessful()) ;
-                    Uri downloadUrl = urlTask.getResult();
-
-                    Log.d(TAG, "onSuccess: firebase download url: " + downloadUrl.toString()); //use if testing...don't need this line.
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(PostActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        } else {
-            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
     private void uploadImage_10() {
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setMessage("Posting");
@@ -150,6 +121,7 @@ public class PostActivity extends AppCompatActivity {
                         hashMap.put("description", description.getText().toString());
                         hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
                         System.out.println("adsdas" + FirebaseAuth.getInstance().getCurrentUser().getUid());
+
 
                         reference.child(postid).setValue(hashMap);
 
@@ -195,5 +167,32 @@ public class PostActivity extends AppCompatActivity {
             System.out.println("dasdsauiu" + mImageUri);
         }
     }
+
+
+//    private void uploadFile() {
+//        if (mImageUri != null) {
+//            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
+//            mUploadTask = fileReference.putFile(mImageUri);
+//            fileReference.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                @Override
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//
+//                    Toast.makeText(PostActivity.this, "Upload Successful", Toast.LENGTH_SHORT).show();
+//                    Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+//                    while (!urlTask.isSuccessful()) ;
+//                    Uri downloadUrl = urlTask.getResult();
+//
+//                    Log.d(TAG, "onSuccess: firebase download url: " + downloadUrl.toString()); //use if testing...don't need this line.
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(PostActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        } else {
+//            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+//        }
+//    }
 }
 

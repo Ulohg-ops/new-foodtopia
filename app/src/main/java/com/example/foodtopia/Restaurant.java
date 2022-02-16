@@ -7,11 +7,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.foodtopia.Adpater.CardRecycleAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +46,9 @@ public class Restaurant extends Fragment {
         memberList.add(new restaurants( R.drawable.restaurant_picture_logo6, "摩斯漢堡",5));
         memberList.add(new restaurants(R.drawable.restaurant_picture_logo7, "starbucks",5));
         memberList.add(new restaurants( R.drawable.restaurant_picture_logo8, "FamilyMart",5));
+        Log.d("sd",FirebaseAuth.getInstance().getUid());
 
-// MemberAdapter 會在步驟7建立
+        // MemberAdapter 會在步驟7建立
 
     }
     //準備建立Fragment元件的畫面
