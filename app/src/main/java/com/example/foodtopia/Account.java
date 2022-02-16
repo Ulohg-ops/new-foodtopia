@@ -75,7 +75,7 @@ public class Account extends Fragment {
     ArrayAdapter<String> arrayAdapter;
 
     String[] list_name = {"個人資料", "鬧鐘", "居家運動建議", "飲食建議", "收藏", "設定"};
-    int[] list_icon = {R.drawable.account_icon_info, R.drawable.account_icon_clock, R.drawable.account_icon_home, R.drawable.ic_outline_description_24, R.drawable.account_icon_favorite, R.drawable.setting};
+    int[] list_icon = {R.drawable.account_icon_info, R.drawable.account_icon_clock, R.drawable.account_icon_home, R.drawable.account_icon_description, R.drawable.account_icon_favorite, R.drawable.account_icon_setting};
     int[] list_arrow = {R.drawable.account_icon_arrow, R.drawable.account_icon_arrow, R.drawable.account_icon_arrow, R.drawable.account_icon_arrow, R.drawable.account_icon_arrow, R.drawable.account_icon_arrow};
 
     @Override
@@ -86,15 +86,6 @@ public class Account extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         listView = (ListView) view.findViewById(R.id.profile_list);
 
-//        arrayList = new ArrayList<String>();
-//        arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arrayList);
-//        listView.setAdapter(arrayAdapter);
-//        arrayList.add("個人資料");
-//        arrayList.add("鬧鐘");
-//        arrayList.add("居家運動建議");
-//        arrayList.add("飲食建議");
-//        arrayList.add("收藏");
-//        arrayList.add("設定");
 
         //--log out btn
         //https://firebase.google.com/docs/auth/android/custom-auth

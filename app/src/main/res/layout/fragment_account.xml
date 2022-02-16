@@ -23,7 +23,7 @@
             android:layout_marginEnd="30dp"
             android:layout_marginBottom="30dp"
             android:padding="3dp"
-            android:src="@drawable/profile"
+            android:src="@drawable/account_picture_profile"
             app:shapeAppearanceOverlay="@style/rectangle" />
 
         <TextView
@@ -69,8 +69,8 @@
         android:layout_alignBottom="@+id/profile_list"
         android:layout_gravity="center"
         android:layout_marginTop="35dp"
-        android:background="@drawable/profile_btn"
-        android:drawableLeft="@drawable/logout"
+        android:background="@drawable/account_background_profile_btn"
+        android:drawableLeft="@drawable/account_icon_logout"
         android:paddingLeft="10dp"
         android:text="登出"
         android:textColor="@color/white"

@@ -1,12 +1,34 @@
 package com.example.foodtopia;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Tag;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -48,6 +70,8 @@ public class Dashboard extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,10 +81,48 @@ public class Dashboard extends Fragment {
         }
     }
 
+    // retrieve data from firebase
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    CircularProgressBar circularProgressBar;
+    TextView calories;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
+//        circularProgressBar = view.findViewById(R.id.circularProgressBar);
+//        circularProgressBar.setProgressWithAnimation(65f);
+//        circularProgressBar.setProgressMax(200f);
+
+
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        String currentId = "NR1otdnIRzbaaspHs9CY";
+        DocumentReference reference;
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        reference = firestore.collection("user").document(currentId);
+
+        reference.get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+
+                            circularProgressBar.setProgressWithAnimation(50f);
+//                            circularProgressBar.setProgressMax(daily_f);
+                        }
+//                        else {
+//
+//                        }
+                    }
+                });
     }
 }
