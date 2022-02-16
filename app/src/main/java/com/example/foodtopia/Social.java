@@ -73,8 +73,8 @@ public class Social extends Fragment {
 //                    followingList.add(snapshot.getKey());
 //                }
 
-                followingList.add("2qp2mQXCH0WJZJFwVszNMFwS9Hy1");
-                followingList.add("Icuh49LYZDaFGnItE1r5ebeYg9p2");
+                followingList.add("0OoNLTNdjNdc02Ztq4AbmgodMSZ2");
+                followingList.add("KpiRtLekTndQw5Isuwchtv2Pnto1");
 
 
                 readPosts();
