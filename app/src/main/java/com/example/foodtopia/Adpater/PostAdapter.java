@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.foodtopia.CommentsActivity;
 import com.example.foodtopia.R;
 import com.example.foodtopia.classes.Post;
 import com.example.foodtopia.classes.User;
@@ -84,11 +86,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
             public void onClick(View view) {
                 if (holder.like.getTag().equals("like")) {
                     FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostid())
-                            .child("AiXhHPUbCbMd3rxhWEg09ZjT5NO2").setValue(true);
+                            .child(firebaseUser.getUid()).setValue(true);
                     addNotification(post.getPublisher(), post.getPostid());
                 } else {
                     FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostid())
-                            .child("AiXhHPUbCbMd3rxhWEg09ZjT5NO2").removeValue();
+                            .child(firebaseUser.getUid()).removeValue();
                 }
             }
         });
@@ -97,12 +99,32 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
             @Override
             public void onClick(View view) {
                 if (holder.save.getTag().equals("save")){
-                    FirebaseDatabase.getInstance().getReference().child("Saves").child("AiXhHPUbCbMd3rxhWEg09ZjT5NO2")
+                    FirebaseDatabase.getInstance().getReference().child("Saves").child(firebaseUser.getUid())
                             .child(post.getPostid()).setValue(true);
                 } else {
-                    FirebaseDatabase.getInstance().getReference().child("Saves").child("AiXhHPUbCbMd3rxhWEg09ZjT5NO2")
+                    FirebaseDatabase.getInstance().getReference().child("Saves").child(firebaseUser.getUid())
                             .child(post.getPostid()).removeValue();
                 }
+            }
+        });
+
+        holder.comment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, CommentsActivity.class);
+                intent.putExtra("postid", post.getPostid());
+                intent.putExtra("publisherid", post.getPublisher());
+                mContext.startActivity(intent);
+            }
+        });
+
+        holder.comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, CommentsActivity.class);
+                intent.putExtra("postid", post.getPostid());
+                intent.putExtra("publisherid", post.getPublisher());
+                mContext.startActivity(intent);
             }
         });
 
@@ -139,7 +161,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(userid);
 
         HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("userid", "AiXhHPUbCbMd3rxhWEg09ZjT5NO2");
+        hashMap.put("userid", firebaseUser.getUid());
         hashMap.put("text", "liked your post");
         hashMap.put("postid", postid);
         hashMap.put("ispost", true);
@@ -232,7 +254,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child("AiXhHPUbCbMd3rxhWEg09ZjT5NO2").exists()){
+                if (dataSnapshot.child(firebaseUser.getUid()).exists()){
                     imageView.setImageResource(R.drawable.social_ic_liked);
                     imageView.setTag("liked");
                 } else{
@@ -253,7 +275,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
-                .child("Saves").child("AiXhHPUbCbMd3rxhWEg09ZjT5NO2");
+                .child("Saves").child(firebaseUser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

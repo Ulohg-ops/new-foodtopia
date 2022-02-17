@@ -104,25 +104,25 @@ public class Dashboard extends Fragment {
     public void onStart() {
         super.onStart();
 
-        String currentId = "NR1otdnIRzbaaspHs9CY";
-        DocumentReference reference;
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-
-        reference = firestore.collection("user").document(currentId);
-
-        reference.get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if(task.isSuccessful()){
-
-                            circularProgressBar.setProgressWithAnimation(50f);
-//                            circularProgressBar.setProgressMax(daily_f);
-                        }
-//                        else {
+//        String currentId = "NR1otdnIRzbaaspHs9CY";
+//        DocumentReference reference;
+//        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 //
+//        reference = firestore.collection("user").document(currentId);
+//
+//        reference.get()
+//                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        if(task.isSuccessful()){
+//
+//                            circularProgressBar.setProgressWithAnimation(50f);
+////                            circularProgressBar.setProgressMax(daily_f);
 //                        }
-                    }
-                });
+////                        else {
+////
+////                        }
+//                    }
+//                });
     }
 }

@@ -22,15 +22,15 @@ public class MainActivity extends AppCompatActivity {
     Fragment fragment = new Dashboard();
 
 
-    //check whether user log in  if not intent to login
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        if(FirebaseAuth.getInstance().getCurrentUser()==null){
-//            startActivity(new Intent(this,Login.class));
-//            finish();
-//        }
-//    }
+//    check whether user log in  if not intent to login
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(FirebaseAuth.getInstance().getCurrentUser()==null){
+            startActivity(new Intent(this,Login.class));
+            finish();
+        }
+    }
 
     //    private Button btn;
     @Override
