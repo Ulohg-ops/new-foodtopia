@@ -3,7 +3,6 @@ package com.example.foodtopia.Adpater;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodtopia.R;
-import com.example.foodtopia.classes.User;
+import com.example.foodtopia.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -26,10 +25,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.example.foodtopia.classes.Comment;
+import com.example.foodtopia.Model.Comment;
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ImageViewHolder> {
 

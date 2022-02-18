@@ -11,22 +11,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtopia.R;
-import com.example.foodtopia.model.AllCategory;
-import com.example.foodtopia.model.CategoryItem;
+import com.example.foodtopia.Model.Post;
+import com.example.foodtopia.Model.restaurantProduct;
 
 import java.util.List;
 
 public class CategoryTitleAdapter extends RecyclerView.Adapter<CategoryTitleAdapter.MainViewHolder> {
 
     private Context context;
-    private List<AllCategory> allCategoryList;
+    private List<restaurantProduct.AllCategory> allCategoryList;
 
-    public CategoryTitleAdapter(Context context, List<AllCategory> allCategoryList) {
+    public CategoryTitleAdapter(Context context, List<restaurantProduct.AllCategory> allCategoryList) {
         this.context = context;
         this.allCategoryList = allCategoryList;
     }
 
-    public CategoryTitleAdapter(List<AllCategory> allCategoryList) {
+    public CategoryTitleAdapter(List<restaurantProduct.AllCategory> allCategoryList) {
         this.allCategoryList = allCategoryList;
     }
 
@@ -63,7 +63,7 @@ public class CategoryTitleAdapter extends RecyclerView.Adapter<CategoryTitleAdap
         }
     }
 
-    private void setCatItemRecycler(RecyclerView recyclerView, List<CategoryItem> categoryItemList){
+    private void setCatItemRecycler(RecyclerView recyclerView, List<Post.CategoryItem> categoryItemList){
 
         CategoryItemAdapter itemRecyclerAdapter = new CategoryItemAdapter(context, categoryItemList);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));

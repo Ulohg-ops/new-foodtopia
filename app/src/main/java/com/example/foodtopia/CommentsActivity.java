@@ -11,12 +11,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.example.foodtopia.Adpater.CommentAdapter;
-import com.example.foodtopia.classes.Comment;
-import com.example.foodtopia.classes.User;
+import com.example.foodtopia.Model.Comment;
+import com.example.foodtopia.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,8 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import com.example.foodtopia.classes.User.*;
 
 public class CommentsActivity extends AppCompatActivity {
 

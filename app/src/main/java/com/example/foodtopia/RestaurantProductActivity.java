@@ -1,10 +1,8 @@
 package com.example.foodtopia;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,13 +11,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtopia.Adpater.CategoryTitleAdapter;
-import com.example.foodtopia.classes.AddTitle;
-import com.example.foodtopia.model.AllCategory;
-import com.example.foodtopia.model.CategoryItem;
+import com.example.foodtopia.Model.AddTitle;
+import com.example.foodtopia.Model.Post;
+import com.example.foodtopia.Model.restaurantProduct;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -61,19 +58,19 @@ public class RestaurantProductActivity extends AppCompatActivity {
                 finish();
             }
         });
-        List<AllCategory> allCategoryList = new ArrayList<>();
+        List<restaurantProduct.AllCategory> allCategoryList = new ArrayList<>();
         AddTitle addTitle=new AddTitle();
         List<List<String>> title =addTitle.getTitles();
 
         for(List<String> lists : title){
             for(String items : lists){
                 System.out.println(items);
-                List<CategoryItem> itemList = new ArrayList<>();
+                List<Post.CategoryItem> itemList = new ArrayList<>();
 //                System.out.println(items);
 //                System.out.println(store_name);
                 if(items.contains(store_name.toLowerCase(Locale.ROOT))){
                     System.out.println(items);
-                    allCategoryList.add(new AllCategory(items, itemList));
+                    allCategoryList.add(new restaurantProduct.AllCategory(items, itemList));
                     getData(itemList, items);
                 }
 
@@ -127,7 +124,7 @@ public class RestaurantProductActivity extends AppCompatActivity {
 
     }
 
-    private void setMainCategoryRecycler(List<AllCategory> allCategoryList) {
+    private void setMainCategoryRecycler(List<restaurantProduct.AllCategory> allCategoryList) {
 
         mainCategoryRecycler = findViewById(R.id.RVparent);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -138,7 +135,7 @@ public class RestaurantProductActivity extends AppCompatActivity {
     }
 
 
-    private void getData(List<CategoryItem> categoryItems, String collection) {
+    private void getData(List<Post.CategoryItem> categoryItems, String collection) {
         db.collection(collection)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -147,7 +144,7 @@ public class RestaurantProductActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 //                                Log.d(TAG, document.getId() + " => " + document.getString("name"));
-                                categoryItems.add(new CategoryItem(document.getString("name"),
+                                categoryItems.add(new Post.CategoryItem(document.getString("name"),
                                         document.getString("calories"),
                                          document.getString("carbohydrate"),
                                          document.getString("fat"),

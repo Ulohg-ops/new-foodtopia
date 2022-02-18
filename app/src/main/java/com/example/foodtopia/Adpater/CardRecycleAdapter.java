@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtopia.R;
 import com.example.foodtopia.RestaurantProductActivity;
-import com.example.foodtopia.classes.restaurants;
+import com.example.foodtopia.Model.restaurants;
 
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.foodtopia.classes;
+package com.example.foodtopia.Model;
 
 public class User {
     private String id;

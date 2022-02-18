@@ -1,4 +1,4 @@
-package com.example.foodtopia.classes;
+package com.example.foodtopia.Model;
 
 import java.util.ArrayList;
 import java.util.List;

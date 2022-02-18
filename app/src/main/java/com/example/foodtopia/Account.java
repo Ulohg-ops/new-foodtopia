@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.foodtopia.classes.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -79,20 +78,20 @@ public class Account extends Fragment {
         TextView profile_email=view.findViewById(R.id.profile_email);
 
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-    mDatabase.child("Users").child("").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+
+    mDatabase.child("Users").child(user.getUid()).child("username").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
         @Override
         public void onComplete(@NonNull Task<DataSnapshot> task) {
             if (!task.isSuccessful()) {
                 Log.e("firebase", "Error getting data", task.getException());
             }
             else {
-//                Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                profile_name.setText(String.valueOf(task.getResult().getValue()));
                 System.out.println("dasdasads"+String.valueOf(task.getResult().getValue()));
             }
         }
     });
-        profile_email.setText(user.getEmail());
-//        profile_name.setText(user.getEmail());
+     profile_email.setText(user.getEmail());
         //-------------------user email and name----------------------
 
         //----------------------log out btn----------------------------

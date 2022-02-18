@@ -2,13 +2,10 @@ package com.example.foodtopia.Adpater;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.Spinner;
@@ -19,15 +16,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtopia.R;
-import com.example.foodtopia.model.CategoryItem;
+import com.example.foodtopia.Model.Post;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +31,7 @@ import java.util.Map;
 public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapter.CategoryItemViewHolder> {
 
     private Context context;
-    private List<CategoryItem> categoryItemList;
+    private List<Post.CategoryItem> categoryItemList;
     final String TAG = "MyActivity";
 
     Date dNow ;
@@ -44,7 +39,7 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
             new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public CategoryItemAdapter(Context context, List<CategoryItem> categoryItemList) {
+    public CategoryItemAdapter(Context context, List<Post.CategoryItem> categoryItemList) {
         this.context = context;
         this.categoryItemList = categoryItemList;
     }

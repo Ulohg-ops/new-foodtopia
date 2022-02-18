@@ -1,4 +1,4 @@
-package com.example.foodtopia.classes;
+package com.example.foodtopia.Model;
 
 public class restaurants {
     private int image;
