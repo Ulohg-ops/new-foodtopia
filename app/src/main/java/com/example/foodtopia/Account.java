@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 
 
 public class Account extends Fragment {
-    FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -65,7 +66,6 @@ public class Account extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         listView = (ListView) view.findViewById(R.id.profile_list);
@@ -74,34 +74,33 @@ public class Account extends Fragment {
         //-------------------user email and name----------------------
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
                 .child("Users").child(user.getUid());
-        TextView profile_name=view.findViewById(R.id.profile_name);
-        TextView profile_email=view.findViewById(R.id.profile_email);
+        TextView profile_name = view.findViewById(R.id.profile_name);
+        TextView profile_email = view.findViewById(R.id.profile_email);
 
-    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-    mDatabase.child("Users").child(user.getUid()).child("username").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-        @Override
-        public void onComplete(@NonNull Task<DataSnapshot> task) {
-            if (!task.isSuccessful()) {
-                Log.e("firebase", "Error getting data", task.getException());
+        mDatabase.child("Users").child(user.getUid()).child("username").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                } else {
+                    profile_name.setText(String.valueOf(task.getResult().getValue()));
+                    System.out.println("dasdasads" + String.valueOf(task.getResult().getValue()));
+                }
             }
-            else {
-                profile_name.setText(String.valueOf(task.getResult().getValue()));
-                System.out.println("dasdasads"+String.valueOf(task.getResult().getValue()));
-            }
-        }
-    });
-     profile_email.setText(user.getEmail());
+        });
+        profile_email.setText(user.getEmail());
         //-------------------user email and name----------------------
 
         //----------------------log out btn----------------------------
         //https://firebase.google.com/docs/auth/android/custom-auth
-        AppCompatButton logout=view.findViewById(R.id.logoutButton);
+        AppCompatButton logout = view.findViewById(R.id.logoutButton);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(),MainActivity.class);
+                Intent intent = new Intent(getActivity(), MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -109,7 +108,30 @@ public class Account extends Fragment {
 
         CustomAdapter customAdapter = new CustomAdapter();
         listView.setAdapter(customAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i){
+                    case 0 :
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        Intent intent=new Intent(getActivity(),SavedActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 5:
+                        break;
+                    default:
+                        break;
 
+                }
+            }
+        });
         return view;
     }
 

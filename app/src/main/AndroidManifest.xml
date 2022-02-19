@@ -13,11 +13,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodTopia">
         <activity
+            android:name=".Saved_item_Activity"
+            android:exported="false" />
+        <activity
+            android:name=".SavedActivity"
+            android:exported="false" />
+        <activity
             android:name=".CommentsActivity"
             android:exported="true" />
         <activity
             android:name=".TestActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".PostActivity"
             android:exported="true" />
@@ -35,7 +41,7 @@
             android:exported="false" />
         <activity
             android:name=".Register"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".introductoryActivity"
             android:exported="true" />
