@@ -251,7 +251,10 @@ public class Add extends Fragment  {
         uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(),"選擇照片",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(),"選擇照片",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), Add_Upload.class);
+                startActivity(intent);
+                dialog.dismiss();
             }
         });
         //按下返回按鈕

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Add_Upload">
+
+    <TextView
+        android:id="@+id/upload_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:text="選擇照片"
+        android:textColor="#181725"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/uploadImageView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_below="@id/upload_title"
+        android:layout_centerHorizontal="true"
+        android:scaleType="centerInside"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upload_title"
+        app:layout_constraintVertical_bias="0.258" />
+
+    <Button
+        android:id="@+id/chooseBtn"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/uploadImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="60dp"
+        android:text="選擇照片"
+        android:textColor="@color/dark_purple"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uploadImageView"
+        app:layout_constraintVertical_bias="0.224" />
+
+    <Button
+        android:id="@+id/PhotoUploadBtn"
+        style="@style/Widget.Material3.Button.ElevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="60dp"
+        android:text="分析照片"
+        android:textColor="@color/dark_purple"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uploadImageView"
+        app:layout_constraintVertical_bias="0.225" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_upload_back_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="346dp"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="40dp"
+        app:backgroundTint="@color/light_purple"
+        app:layout_anchorGravity="bottom|right|end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.929"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chooseBtn"
+        app:layout_constraintVertical_bias="0.155"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Circle"
+        app:srcCompat="@drawable/add_icon_back"
+        app:tint="@color/white" />
+</androidx.constraintlayout.widget.ConstraintLayout>
