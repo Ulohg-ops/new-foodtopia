@@ -3,6 +3,7 @@ package com.example.foodtopia;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
@@ -239,7 +240,10 @@ public class Add extends Fragment  {
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(),"拍攝照片",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(),"拍攝照片",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), TakePhoto.class);
+                startActivity(intent);
+                dialog.dismiss();
             }
         });
         //按下選擇照片
