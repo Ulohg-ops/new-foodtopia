@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.foodtopia.CommentsActivity;
+import com.example.foodtopia.social.CommentsActivity;
 import com.example.foodtopia.R;
 import com.example.foodtopia.Model.Post;
 import com.example.foodtopia.Model.User;
@@ -54,7 +54,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
     @NonNull
     @Override
     public PostAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.post_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.social_post_item, parent, false);
         return new ImageViewHolder(view);
     }
 

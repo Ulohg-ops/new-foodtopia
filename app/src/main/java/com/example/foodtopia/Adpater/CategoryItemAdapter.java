@@ -47,7 +47,7 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
     @NonNull
     @Override
     public CategoryItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new CategoryItemViewHolder(LayoutInflater.from(context).inflate(R.layout.resturant_category_items, parent, false));
+        return new CategoryItemViewHolder(LayoutInflater.from(context).inflate(R.layout.restaurant_category_items, parent, false));
     }
 
     @Override
@@ -64,7 +64,7 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
 
         String meal;
         holder.itemfood.setText(categoryItemList.get(position).getFoodName());
-        holder.arrow.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getRootView().getContext());

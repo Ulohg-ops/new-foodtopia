@@ -1,4 +1,4 @@
-package com.example.foodtopia;
+package com.example.foodtopia.social;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.foodtopia.Adpater.CommentAdapter;
 import com.example.foodtopia.Model.Comment;
 import com.example.foodtopia.Model.User;
+import com.example.foodtopia.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -47,7 +48,7 @@ public class CommentsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_comments);
+        setContentView(R.layout.social_comments);
 
 
         androidx.appcompat.widget.Toolbar toolbar=findViewById(R.id.toolbar);

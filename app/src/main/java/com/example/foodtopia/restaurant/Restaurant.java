@@ -1,4 +1,4 @@
-package com.example.foodtopia;
+package com.example.foodtopia.restaurant;
 
 import com.example.foodtopia.Model.restaurants;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.foodtopia.Adpater.CardRecycleAdapter;
+import com.example.foodtopia.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class Restaurant extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //載入與回傳Fragment元件的畫面物件
-        view = inflater.inflate(R.layout.fragment_restaurant, container, false);
+        view = inflater.inflate(R.layout.restaurant, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));

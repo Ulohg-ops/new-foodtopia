@@ -1,24 +1,15 @@
-package com.example.foodtopia;
+package com.example.foodtopia.account;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.foodtopia.Adpater.PostAdapter;
 import com.example.foodtopia.Model.Post;
-import com.example.foodtopia.Model.User;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.example.foodtopia.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,7 +27,7 @@ public class Saved_item_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_saved_item);
+        setContentView(R.layout.account_saved_item);
 
         Intent intent = getIntent();
         post_id = intent.getStringExtra("postid");
@@ -52,6 +43,8 @@ public class Saved_item_Activity extends AppCompatActivity {
         recyclerView.setAdapter(postAdapter);
         readPosts();
     }
+
+
     private void readPosts(){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
 
@@ -62,7 +55,6 @@ public class Saved_item_Activity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
                     if(post_id.equals(post.getPostid())){
-                        System.out.println("saddsa");
                         postList.add(post);
                         break;
                     }

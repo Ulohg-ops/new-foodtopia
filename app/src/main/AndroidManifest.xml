@@ -13,25 +13,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodTopia">
         <activity
-            android:name=".Saved_item_Activity"
+            android:name=".account.Saved_item_Activity"
             android:exported="false" />
         <activity
-            android:name=".SavedActivity"
+            android:name=".account.SavedActivity"
             android:exported="false" />
         <activity
-            android:name=".CommentsActivity"
+            android:name=".social.CommentsActivity"
             android:exported="true" />
         <activity
             android:name=".TestActivity"
             android:exported="true" />
         <activity
-            android:name=".PostActivity"
+            android:name=".social.PostActivity"
             android:exported="true" />
         <activity
             android:name=".RegisterActivity2"
             android:exported="true" />
         <activity
-            android:name=".RestaurantProductActivity"
+            android:name=".restaurant.RestaurantProductActivity"
             android:exported="false" />
         <activity
             android:name=".OnboardingActivity"

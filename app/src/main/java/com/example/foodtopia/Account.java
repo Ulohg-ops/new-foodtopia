@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.foodtopia.account.SavedActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -121,7 +122,7 @@ public class Account extends Fragment {
                     case 3:
                         break;
                     case 4:
-                        Intent intent=new Intent(getActivity(),SavedActivity.class);
+                        Intent intent=new Intent(getActivity(), SavedActivity.class);
                         startActivity(intent);
                         break;
                     case 5:

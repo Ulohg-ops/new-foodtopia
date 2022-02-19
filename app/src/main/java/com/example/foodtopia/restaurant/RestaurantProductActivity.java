@@ -1,4 +1,4 @@
-package com.example.foodtopia;
+package com.example.foodtopia.restaurant;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +14,7 @@ import com.example.foodtopia.Adpater.CategoryTitleAdapter;
 import com.example.foodtopia.Model.AddTitle;
 import com.example.foodtopia.Model.Post;
 import com.example.foodtopia.Model.restaurantProduct;
+import com.example.foodtopia.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -44,7 +45,7 @@ public class RestaurantProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_resturantproduct);
+        setContentView(R.layout.resturant_stores);
 
         back=findViewById(R.id.add_menu_back_fab);
 
