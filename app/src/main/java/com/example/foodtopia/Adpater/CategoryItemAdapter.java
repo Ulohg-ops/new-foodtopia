@@ -64,6 +64,76 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
 
         String meal;
         holder.itemfood.setText(categoryItemList.get(position).getFoodName());
+        holder.arrow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getRootView().getContext());
+                View diaglogView = LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.restaurant_popup_window, null);
+
+                Spinner spinner = diaglogView.findViewById(R.id.spinner);
+                // Create an ArrayAdapter using the string array and a default spinner layout
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
+                        R.array.meal_time, android.R.layout.simple_spinner_item);
+                // Specify the layout to use when the list of choices appears
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                // Apply the adapter to the spinner
+                spinner.setAdapter(adapter);
+
+                FloatingActionButton add;
+                TextView foodName;
+                TextView calories;
+                TextView carbohydrate;
+                TextView fat;
+                TextView protein;
+                TextView saturatedfat;
+                TextView unsaturatedfat;
+                TextView sodium;
+                TextView sugars;
+
+                calories = diaglogView.findViewById(R.id.calories);
+                calories.setText(calories2);
+
+                foodName = diaglogView.findViewById(R.id.foodName);
+                foodName.setText(foodName2);
+
+                carbohydrate = diaglogView.findViewById(R.id.carbohydrate);
+                carbohydrate.setText(carbohydrate2);
+
+                fat = diaglogView.findViewById(R.id.fat);
+                fat.setText(fat2);
+
+                protein = diaglogView.findViewById(R.id.protein);
+                protein.setText(protein2);
+
+                saturatedfat = diaglogView.findViewById(R.id.saturatedfat);
+                saturatedfat.setText(saturatedfat2);
+
+                unsaturatedfat = diaglogView.findViewById(R.id.unsaturatedfat);
+                unsaturatedfat.setText(unsaturatedfat2);
+
+                sodium = diaglogView.findViewById(R.id.sodium);
+                sodium.setText(sodium2);
+
+                sugars = diaglogView.findViewById(R.id.sugars);
+                sugars.setText(sugars2);
+
+                add = diaglogView.findViewById(R.id.add);
+                add.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String mealtime=spinner.getSelectedItem().toString();
+                        addMymeal(foodName2, calories2, carbohydrate2, fat2,
+                                protein2, saturatedfat2, unsaturatedfat2, sodium2, sugars2, mealtime);
+                    }
+                });
+
+
+                builder.setView(diaglogView);
+                builder.setCancelable(true);
+                builder.show();
+            }
+        });
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

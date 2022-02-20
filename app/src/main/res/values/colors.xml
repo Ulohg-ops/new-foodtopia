@@ -50,5 +50,5 @@
 
     <color name="colorGreen">#4cab03</color>
     <color name="colorWindow">?android:attr/windowBackground</color>
-
+    <color name="AAB1E2">#AAB1E2</color>
 </resources>

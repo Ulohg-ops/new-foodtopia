@@ -10,7 +10,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,26 +45,30 @@ public class PostActivity extends AppCompatActivity {
     StorageReference mStorageRef;
     private static final int PICK_IMAGE_REQUEST = 1;
 
-    ImageView close, image_added;
-    TextView post;
-    EditText description;
+    ImageView image_added;
+    Button post;
+    EditText description,foodname;
+    ImageButton back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.social_post);
 
-        close = findViewById(R.id.close);
         image_added = findViewById(R.id.image_added);
         post = findViewById(R.id.post);
+        back=findViewById(R.id.back);
+        foodname=findViewById(R.id.foodName);
         description = findViewById(R.id.description);
+
         storageRef = FirebaseStorage.getInstance().getReference("posts");
         mStorageRef = FirebaseStorage.getInstance().getReference("posts");
+
         System.out.println(FirebaseStorage.getInstance().getReference("posts"));
-        close.setOnClickListener(new View.OnClickListener() {
+
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(PostActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -75,8 +81,13 @@ public class PostActivity extends AppCompatActivity {
             }
         });
 
+        image_added.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openFileChooser();
 
-        openFileChooser();
+            }
+        });
 
     }
 
@@ -87,15 +98,14 @@ public class PostActivity extends AppCompatActivity {
     }
 
     private void uploadImage_10() {
-        auth=FirebaseAuth.getInstance();
-        FirebaseUser firebaseUser=auth.getCurrentUser();
-        String userID=firebaseUser.getUid();
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        String userID = firebaseUser.getUid();
         System.out.println(userID);
         final ProgressDialog pd = new ProgressDialog(this);
         pd.setMessage("Posting");
         pd.show();
         if (mImageUri != null) {
-            System.out.println("lsadsdas");
             final StorageReference fileReference = storageRef.child(System.currentTimeMillis()
                     + "." + getFileExtension(mImageUri));
 
@@ -122,9 +132,9 @@ public class PostActivity extends AppCompatActivity {
                         HashMap<String, Object> hashMap = new HashMap<>();
                         hashMap.put("postid", postid);
                         hashMap.put("postimage", miUrlOk);
+                        hashMap.put("foodname",foodname.getText().toString());
                         hashMap.put("description", description.getText().toString());
                         hashMap.put("publisher", FirebaseAuth.getInstance().getCurrentUser().getUid());
-                        System.out.println("adsdas" + FirebaseAuth.getInstance().getCurrentUser().getUid());
 
 
                         reference.child(postid).setValue(hashMap);

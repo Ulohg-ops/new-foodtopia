@@ -73,6 +73,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
         } else {
             holder.description.setVisibility(View.VISIBLE);
             holder.description.setText(post.getDescription());
+            holder.foodname.setText(post.getFoodname());
         }
 
         publisherInfo(holder.image_profile, holder.username, holder.publisher, post.getPublisher());
@@ -138,7 +139,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
     public class ImageViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView image_profile, post_image, like, comment, save, more;
-        public TextView username, likes, publisher, description, comments;
+        public TextView username, likes, publisher, foodname,description, comments;
 
         public ImageViewHolder(View itemView) {
             super(itemView);
@@ -151,6 +152,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
             save = itemView.findViewById(R.id.save);
             likes = itemView.findViewById(R.id.likes);
             publisher = itemView.findViewById(R.id.publisher);
+            foodname=itemView.findViewById(R.id.foodName);
             description = itemView.findViewById(R.id.description);
             comments = itemView.findViewById(R.id.comments);
             more = itemView.findViewById(R.id.more);
@@ -337,6 +339,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 editText.setText(dataSnapshot.getValue(Post.class).getDescription());
+
             }
 
             @Override

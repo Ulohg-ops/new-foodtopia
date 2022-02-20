@@ -4,16 +4,26 @@ public class Post {
     private String postid;
     private String postimage;
     private String description;
+    private String foodname;
     private String publisher;
 
-    public Post(String postid, String postimage, String description, String publisher) {
+    public Post(String postid, String postimage, String description, String publisher,String foodname) {
         this.postid = postid;
+        this.foodname = foodname;
         this.postimage = postimage;
         this.description = description;
         this.publisher = publisher;
     }
 
     public Post() {
+    }
+
+    public String getFoodname() {
+        return foodname;
+    }
+
+    public void setFoodname(String foodname) {
+        this.foodname = foodname;
     }
 
     public String getPostid() {
