@@ -10,12 +10,12 @@ import androidx.viewpager.widget.PagerAdapter;
 
 // 實作一個容器(必備的)
 
-public class ViewPagerAdapter extends PagerAdapter {
+public class OnboardingViewPagerAdapter extends PagerAdapter {
     private LayoutInflater inflater;
     int[] layouts;
     Context context;
 
-    public ViewPagerAdapter(int[] layouts, Context context) {
+    public OnboardingViewPagerAdapter(int[] layouts, Context context) {
         this.layouts = layouts;
         this.context = context;
     }

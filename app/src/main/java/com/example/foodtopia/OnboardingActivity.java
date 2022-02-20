@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.foodtopia.Adpater.ViewPagerAdapter;
+import com.example.foodtopia.Adpater.OnboardingViewPagerAdapter;
 
 // 首次使用app的介紹頁面
 
@@ -30,7 +30,7 @@ public class OnboardingActivity extends AppCompatActivity {
     TextView[] dostTv;
     int[] layouts;
     Button mNextBtn, mSkipBtn;
-    ViewPagerAdapter myAdapter;
+    OnboardingViewPagerAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +85,7 @@ public class OnboardingActivity extends AppCompatActivity {
             }
         });
         layouts = new int[]{R.layout.viewpager_onboarding_slide_1, R.layout.viewpager_onboarding_slide_2, R.layout.viewpager_onboarding_slide_3};
-        myAdapter = new ViewPagerAdapter(layouts, getApplicationContext());
+        myAdapter = new OnboardingViewPagerAdapter(layouts, getApplicationContext());
         viewPager.setAdapter(myAdapter);
         setDots(0); //first page dot to white
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

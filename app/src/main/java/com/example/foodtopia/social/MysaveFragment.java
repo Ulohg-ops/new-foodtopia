@@ -41,7 +41,7 @@ public class MysaveFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_social_mysave, container, false);
+        View view = inflater.inflate(R.layout.fragment_account_saved_mysave, container, false);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         recyclerView = view.findViewById(R.id.recycler_view);

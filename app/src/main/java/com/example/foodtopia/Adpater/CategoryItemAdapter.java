@@ -2,6 +2,7 @@ package com.example.foodtopia.Adpater;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +16,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodtopia.MainActivity;
 import com.example.foodtopia.R;
 import com.example.foodtopia.Model.Post;
+import com.example.foodtopia.Register;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -33,6 +42,8 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
     private Context context;
     private List<Post.CategoryItem> categoryItemList;
     final String TAG = "MyActivity";
+    DatabaseReference reference;
+    FirebaseAuth auth;
 
     Date dNow ;
     SimpleDateFormat ft =
@@ -85,8 +96,6 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
                 TextView carbohydrate;
                 TextView fat;
                 TextView protein;
-                TextView saturatedfat;
-                TextView unsaturatedfat;
                 TextView sodium;
                 TextView sugars;
 
@@ -105,12 +114,6 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
                 protein = diaglogView.findViewById(R.id.protein);
                 protein.setText(protein2);
 
-                saturatedfat = diaglogView.findViewById(R.id.saturatedfat);
-                saturatedfat.setText(saturatedfat2);
-
-                unsaturatedfat = diaglogView.findViewById(R.id.unsaturatedfat);
-                unsaturatedfat.setText(unsaturatedfat2);
-
                 sodium = diaglogView.findViewById(R.id.sodium);
                 sodium.setText(sodium2);
 
@@ -123,7 +126,7 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
                     public void onClick(View view) {
                         String mealtime=spinner.getSelectedItem().toString();
                         addMymeal(foodName2, calories2, carbohydrate2, fat2,
-                                protein2, saturatedfat2, unsaturatedfat2, sodium2, sugars2, mealtime);
+                                protein2, sodium2, sugars2, mealtime);
                     }
                 });
 
@@ -155,8 +158,6 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
                 TextView carbohydrate;
                 TextView fat;
                 TextView protein;
-                TextView saturatedfat;
-                TextView unsaturatedfat;
                 TextView sodium;
                 TextView sugars;
 
@@ -175,12 +176,6 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
                 protein = diaglogView.findViewById(R.id.protein);
                 protein.setText(protein2);
 
-                saturatedfat = diaglogView.findViewById(R.id.saturatedfat);
-                saturatedfat.setText(saturatedfat2);
-
-                unsaturatedfat = diaglogView.findViewById(R.id.unsaturatedfat);
-                unsaturatedfat.setText(unsaturatedfat2);
-
                 sodium = diaglogView.findViewById(R.id.sodium);
                 sodium.setText(sodium2);
 
@@ -188,12 +183,13 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
                 sugars.setText(sugars2);
 
                 add = diaglogView.findViewById(R.id.add);
+
                 add.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         String mealtime=spinner.getSelectedItem().toString();
                         addMymeal(foodName2, calories2, carbohydrate2, fat2,
-                                protein2, saturatedfat2, unsaturatedfat2, sodium2, sugars2, mealtime);
+                                protein2, sodium2, sugars2, mealtime);
                     }
                 });
 
@@ -224,38 +220,79 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
     }
 
     public void addMymeal(String foodname, String calories, String carbohydrate, String fat, String protein,
-                          String saturatedfat, String unsaturatedfat, String sodium, String sugar, String mealtime) {
-        Map<String, Object> user = new HashMap<>();
-
+                         String sodium, String sugar, String mealtime) {
+        auth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = auth.getCurrentUser();
+        String userID = firebaseUser.getUid();
+        reference = FirebaseDatabase.getInstance().getReference().child("Diets");
         ft = new SimpleDateFormat("yyyyMMdd_hhmmss");
         dNow = new Date();
-        user.put("foodname", foodname);
-        user.put("calories", calories);
-        user.put("carbohydrate", carbohydrate);
-        user.put("fat", fat);
-        user.put("protein", protein);
-        user.put("saturatedfat", saturatedfat);
-        user.put("unsaturatedfat", unsaturatedfat);
-        user.put("sodium", sodium);
-        user.put("sugar", sugar);
+        String mealid = reference.push().getKey();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("foodname", foodname);
+        map.put("calories", calories);
+        map.put("userid",userID);
+        map.put("carbohydrate", carbohydrate);
+        map.put("fat", fat);
+        map.put("protein", protein);
+        map.put("sodium", sodium);
+        map.put("sugar", sugar);
+        map.put("mealtime",mealtime);
+        map.put("timestamp",ft.format(dNow));
+
+        reference.child(mealid).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(context, "新增成功!!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(context,"發生了一點錯誤!!",Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
-        db.collection("user_001").document(ft.format(dNow)+"_"+mealtime)
-                .set(user)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(context, "新增成功!!", Toast.LENGTH_SHORT).show();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error writing document", e);
-                    }
-                });
+
+
+
+//        Map<String, Object> user = new HashMap<>();
+//
+//        ft = new SimpleDateFormat("yyyyMMdd_hhmmss");
+//        dNow = new Date();
+//        user.put("foodname", foodname);
+//        user.put("calories", calories);
+//        user.put("carbohydrate", carbohydrate);
+//        user.put("fat", fat);
+//        user.put("protein", protein);
+//        user.put("saturatedfat", saturatedfat);
+//        user.put("unsaturatedfat", unsaturatedfat);
+//        user.put("sodium", sodium);
+//        user.put("sugar", sugar);
+
+
+//        db.collection("user_001").document(ft.format(dNow)+"_"+mealtime)
+//                .set(user)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(context, "新增成功!!", Toast.LENGTH_SHORT).show();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.w(TAG, "Error writing document", e);
+//                    }
+//                });
 
 
     }
 
 }
+
+
+
