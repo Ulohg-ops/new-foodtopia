@@ -20,14 +20,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 //    check whether user log in  if not intent to login
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(FirebaseAuth.getInstance().getCurrentUser()==null){
-            startActivity(new Intent(this,Login.class));
-            finish();
-        }
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        if(FirebaseAuth.getInstance().getCurrentUser()==null){
+//            startActivity(new Intent(this,Login.class));
+//            finish();
+//        }
+//    }
 
     //    private Button btn;
     @Override
