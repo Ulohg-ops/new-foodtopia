@@ -4,15 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
-import com.example.foodtopia.restaurant.Restaurant;
-import com.example.foodtopia.social.Social;
+import com.example.foodtopia.restaurant.RestaurantFragment;
+import com.example.foodtopia.social.SocialFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
@@ -52,13 +50,13 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new Dashboard();
                         break;
                     case R.id.Restaurant:
-                        fragment = new Restaurant();
+                        fragment = new RestaurantFragment();
                         break;
                     case R.id.Add:
                         fragment = new Add();
                         break;
                     case R.id.Social:
-                        fragment = new Social();
+                        fragment = new SocialFragment();
                         break;
                     case R.id.Account:
                         fragment = new Account();

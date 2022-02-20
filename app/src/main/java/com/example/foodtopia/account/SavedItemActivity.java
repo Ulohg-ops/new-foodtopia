@@ -1,21 +1,15 @@
-package com.example.foodtopia.social;
+package com.example.foodtopia.account;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-
 import com.example.foodtopia.Adpater.PostAdapter;
 import com.example.foodtopia.Model.Post;
 import com.example.foodtopia.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,46 +19,31 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class Social extends Fragment implements View.OnClickListener {
-
+public class SavedItemActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
     private List<Post> postList;
-    private FloatingActionButton add_poster;
-
-    ProgressBar progress_circular;
-
+    String post_id ;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.social, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_account_saved_detail);
 
-        recyclerView = view.findViewById(R.id.recycler_view);
+        Intent intent = getIntent();
+        post_id = intent.getStringExtra("postid");
+
+        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(mLayoutManager);
         postList = new ArrayList<>();
-        postAdapter = new PostAdapter(getContext(), postList);
+        postAdapter = new PostAdapter(this, postList);
         recyclerView.setAdapter(postAdapter);
-
-        add_poster=(FloatingActionButton) view.findViewById(R.id.add_poster);
-        add_poster.setOnClickListener(this);
-
-        progress_circular = view.findViewById(R.id.progress_circular);
-
         readPosts();
-
-        return view;
     }
 
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(getActivity(), PostActivity.class);
-        startActivity(intent);
-    }
 
     private void readPosts(){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
@@ -75,11 +54,12 @@ public class Social extends Fragment implements View.OnClickListener {
                 postList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
-                    postList.add(post);
-
+                    if(post_id.equals(post.getPostid())){
+                        postList.add(post);
+                        break;
+                    }
                 }
                 postAdapter.notifyDataSetChanged();
-                progress_circular.setVisibility(View.GONE);
             }
 
             @Override
@@ -88,6 +68,5 @@ public class Social extends Fragment implements View.OnClickListener {
             }
         });
     }
-
 
 }

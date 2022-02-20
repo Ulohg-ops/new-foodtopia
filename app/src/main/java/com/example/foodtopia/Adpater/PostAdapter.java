@@ -54,7 +54,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
     @NonNull
     @Override
     public PostAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.social_post_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_social_post, parent, false);
         return new ImageViewHolder(view);
     }
 

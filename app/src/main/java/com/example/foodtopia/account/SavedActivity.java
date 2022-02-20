@@ -10,8 +10,8 @@ import android.widget.ImageButton;
 
 import com.example.foodtopia.Adpater.MyFotosAdapter;
 import com.example.foodtopia.R;
-import com.example.foodtopia.social.Mypost_Fragment;
-import com.example.foodtopia.social.Mysave_Fragment;
+import com.example.foodtopia.social.MypostFragment;
+import com.example.foodtopia.social.MysaveFragment;
 import com.google.android.material.tabs.TabLayout;
 
 public class SavedActivity extends AppCompatActivity {
@@ -37,14 +37,14 @@ public class SavedActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.account_saved);
+        setContentView(R.layout.activity_account_saved);
         back=findViewById(R.id.back);
         tableLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.frame);
         tableLayout.setupWithViewPager(viewPager);
         MyFotosAdapter.VPAdapter vpAdapter=new MyFotosAdapter.VPAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        vpAdapter.addFragment(new Mypost_Fragment(),"我的食譜");
-        vpAdapter.addFragment(new Mysave_Fragment(),"收藏食譜");
+        vpAdapter.addFragment(new MypostFragment(),"我的食譜");
+        vpAdapter.addFragment(new MysaveFragment(),"收藏食譜");
         viewPager.setAdapter(vpAdapter);
         back.setOnClickListener(new View.OnClickListener() {
             @Override

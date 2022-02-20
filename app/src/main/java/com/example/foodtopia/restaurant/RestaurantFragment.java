@@ -17,16 +17,16 @@ import com.example.foodtopia.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Restaurant extends Fragment {
+public class RestaurantFragment extends Fragment {
     private View view;
     List<restaurants> memberList = new ArrayList<>();
     RecyclerView recyclerView;
-    public Restaurant() {
+    public RestaurantFragment() {
         // Required empty public constructor
     }
 
-    public static Restaurant newInstance(String param1, String param2) {
-        Restaurant fragment = new Restaurant();
+    public static RestaurantFragment newInstance(String param1, String param2) {
+        RestaurantFragment fragment = new RestaurantFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -55,7 +55,7 @@ public class Restaurant extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //載入與回傳Fragment元件的畫面物件
-        view = inflater.inflate(R.layout.restaurant, container, false);
+        view = inflater.inflate(R.layout.fragment_restaurant, container, false);
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));

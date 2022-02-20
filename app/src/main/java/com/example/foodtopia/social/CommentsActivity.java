@@ -48,7 +48,7 @@ public class CommentsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.social_comments);
+        setContentView(R.layout.activity_social_comments);
 
 
         androidx.appcompat.widget.Toolbar toolbar=findViewById(R.id.toolbar);

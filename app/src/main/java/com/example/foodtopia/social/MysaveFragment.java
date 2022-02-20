@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Mysave_Fragment extends Fragment {
+public class MysaveFragment extends Fragment {
 
     private List<String> mySaves;
     FirebaseUser firebaseUser;
@@ -41,7 +41,7 @@ public class Mysave_Fragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.social_mysave, container, false);
+        View view = inflater.inflate(R.layout.fragment_social_mysave, container, false);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         recyclerView = view.findViewById(R.id.recycler_view);

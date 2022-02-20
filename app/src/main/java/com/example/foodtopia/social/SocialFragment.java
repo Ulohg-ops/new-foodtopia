@@ -1,15 +1,21 @@
-package com.example.foodtopia.account;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package com.example.foodtopia.social;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ProgressBar;
+
 import com.example.foodtopia.Adpater.PostAdapter;
 import com.example.foodtopia.Model.Post;
 import com.example.foodtopia.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,31 +25,46 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Saved_item_Activity extends AppCompatActivity {
+
+public class SocialFragment extends Fragment implements View.OnClickListener {
+
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
     private List<Post> postList;
-    String post_id ;
+    private FloatingActionButton add_poster;
+
+    ProgressBar progress_circular;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.account_saved_item);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_social, container, false);
+        progress_circular = view.findViewById(R.id.progress_circular);
+        recyclerView = view.findViewById(R.id.recycler_view);
+        add_poster=(FloatingActionButton) view.findViewById(R.id.add_poster);
 
-        Intent intent = getIntent();
-        post_id = intent.getStringExtra("postid");
-
-        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         mLayoutManager.setReverseLayout(true);
         mLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(mLayoutManager);
+
         postList = new ArrayList<>();
-        postAdapter = new PostAdapter(this, postList);
+        postAdapter = new PostAdapter(getContext(), postList);
         recyclerView.setAdapter(postAdapter);
+
+        add_poster.setOnClickListener(this);
+
         readPosts();
+        return view;
     }
 
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(getActivity(), PostActivity.class);
+        startActivity(intent);
+    }
 
     private void readPosts(){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Posts");
@@ -54,12 +75,11 @@ public class Saved_item_Activity extends AppCompatActivity {
                 postList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Post post = snapshot.getValue(Post.class);
-                    if(post_id.equals(post.getPostid())){
-                        postList.add(post);
-                        break;
-                    }
+                    postList.add(post);
+
                 }
                 postAdapter.notifyDataSetChanged();
+                progress_circular.setVisibility(View.GONE);
             }
 
             @Override
@@ -68,5 +88,6 @@ public class Saved_item_Activity extends AppCompatActivity {
             }
         });
     }
+
 
 }

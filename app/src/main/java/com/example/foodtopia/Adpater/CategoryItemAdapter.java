@@ -47,7 +47,7 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
     @NonNull
     @Override
     public CategoryItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new CategoryItemViewHolder(LayoutInflater.from(context).inflate(R.layout.restaurant_category_items, parent, false));
+        return new CategoryItemViewHolder(LayoutInflater.from(context).inflate(R.layout.item_restaurant_product, parent, false));
     }
 
     @Override
@@ -68,7 +68,7 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getRootView().getContext());
-                View diaglogView = LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.restaurant_popup_window, null);
+                View diaglogView = LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.diaglog_restaurant_add_meal, null);
 
                 Spinner spinner = diaglogView.findViewById(R.id.spinner);
                 // Create an ArrayAdapter using the string array and a default spinner layout
@@ -138,7 +138,7 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getRootView().getContext());
-                View diaglogView = LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.restaurant_popup_window, null);
+                View diaglogView = LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.diaglog_restaurant_add_meal, null);
 
                 Spinner spinner = diaglogView.findViewById(R.id.spinner);
                 // Create an ArrayAdapter using the string array and a default spinner layout

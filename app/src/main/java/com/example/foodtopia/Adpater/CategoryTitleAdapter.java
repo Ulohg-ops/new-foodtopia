@@ -33,7 +33,7 @@ public class CategoryTitleAdapter extends RecyclerView.Adapter<CategoryTitleAdap
     @NonNull
     @Override
     public MainViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MainViewHolder(LayoutInflater.from(context).inflate(R.layout.restaurant_category_title, parent, false));
+        return new MainViewHolder(LayoutInflater.from(context).inflate(R.layout.item_restaurant_category, parent, false));
     }
 
     @Override

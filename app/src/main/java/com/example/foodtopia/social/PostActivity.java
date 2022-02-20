@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodtopia.MainActivity;
@@ -53,7 +52,7 @@ public class PostActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.social_post);
+        setContentView(R.layout.activity_social_post);
 
         image_added = findViewById(R.id.image_added);
         post = findViewById(R.id.post);

@@ -32,7 +32,7 @@ public class CardRecycleAdapter extends RecyclerView.Adapter<CardRecycleAdapter.
     //當現有的ViewHolder不夠用時，要求Adapter產生一個新的
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.restaurant_item_cardview, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_restaurant_logo, parent, false);
         return new ViewHolder(view);
     }
 

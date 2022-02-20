@@ -105,6 +105,8 @@
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/drawable/resturant_icon_add.xml" value="0.154" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/account_saved.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/account_saved_item.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/activity_account_saved.xml" value="0.12552083333333333" />
+        <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/activity_add_upload.xml" value="0.25" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/activity_comments.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/activity_introductory.xml" value="0.12552083333333333" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/activity_main.xml" value="0.27291666666666664" />
@@ -123,6 +125,7 @@
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/category_row_items.xml" value="0.13272543059777103" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/comment_item.xml" value="0.536" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/custom_profile_list.xml" value="0.33" />
+        <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/diaglog_restaurant_add_meal.xml" value="0.12552083333333333" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/fotos_item.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/fragment_account.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/fragment_add.xml" value="0.22" />
@@ -132,10 +135,13 @@
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/fragment_social.xml" value="0.33" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/main_recycler_row_item.xml" value="0.33" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/onboarding_slide_1.xml" value="0.12552083333333333" />
+        <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/onboarding_slide_2.xml" value="0.12552083333333333" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/onboarding_slide_3.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/post_item.xml" value="0.3061797752808989" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/restaurant_cardview.xml" value="0.5" />
+        <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/restaurant_category_items.xml" value="0.33" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/restaurant_category_title.xml" value="0.5" />
+        <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/restaurant_item_cardview.xml" value="0.12552083333333333" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/restaurant_popup_window.xml" value="0.75" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/restuarant_product_cardview.xml" value="0.33" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/resturant_category_items.xml" value="0.25" />

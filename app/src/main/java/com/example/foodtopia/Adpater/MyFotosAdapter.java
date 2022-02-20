@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.foodtopia.Model.Post;
 import com.example.foodtopia.R;
-import com.example.foodtopia.account.Saved_item_Activity;
+import com.example.foodtopia.account.SavedItemActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class MyFotosAdapter extends RecyclerView.Adapter<MyFotosAdapter.ImageVie
     @NonNull
     @Override
     public MyFotosAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.social_fotos_item, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_social_fotos, parent, false);
         return new ImageViewHolder(view);
     }
 
@@ -50,7 +50,7 @@ public class MyFotosAdapter extends RecyclerView.Adapter<MyFotosAdapter.ImageVie
         holder.post_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(mContext,Saved_item_Activity.class);
+                Intent intent=new Intent(mContext, SavedItemActivity.class);
                 intent.putExtra("postid",post.getPostid());
                 mContext.startActivity(intent);
             }

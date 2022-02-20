@@ -24,7 +24,7 @@
             android:name=".TakePhoto"
             android:exported="false" />
         <activity
-            android:name=".account.Saved_item_Activity"
+            android:name=".account.SavedItemActivity"
             android:exported="false" />
         <activity
             android:name=".account.SavedActivity"

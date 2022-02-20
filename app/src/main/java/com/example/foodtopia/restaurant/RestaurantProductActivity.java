@@ -45,7 +45,7 @@ public class RestaurantProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.resturant_stores);
+        setContentView(R.layout.activity_restaurant_stores);
 
         back=findViewById(R.id.add_menu_back_fab);
 

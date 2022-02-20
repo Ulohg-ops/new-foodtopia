@@ -28,7 +28,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class Mypost_Fragment extends Fragment {
+public class MypostFragment extends Fragment {
 
     FirebaseUser firebaseUser;
     private RecyclerView recyclerView;
@@ -39,7 +39,7 @@ public class Mypost_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.social_mypost, container, false);
+        View view = inflater.inflate(R.layout.fragment_social_mypost, container, false);
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
