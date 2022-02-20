@@ -84,7 +84,7 @@ public class OnboardingActivity extends AppCompatActivity {
                 }
             }
         });
-        layouts = new int[]{R.layout.onboarding_slide_1, R.layout.onboarding_slide_2, R.layout.onboarding_slide_3};
+        layouts = new int[]{R.layout.viewpager_onboarding_slide_1, R.layout.viewpager_onboarding_slide_2, R.layout.viewpager_onboarding_slide_3};
         myAdapter = new ViewPagerAdapter(layouts, getApplicationContext());
         viewPager.setAdapter(myAdapter);
         setDots(0); //first page dot to white
