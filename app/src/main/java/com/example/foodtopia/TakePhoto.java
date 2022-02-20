@@ -1,5 +1,6 @@
 package com.example.foodtopia;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -25,33 +27,47 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.foodtopia.databinding.ActivityTakePhotoBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class TakePhoto extends AppCompatActivity {
 
+    ActivityTakePhotoBinding binding;
+
     public static final String TAG = MainActivity.class.getSimpleName()+"My";
 
+    Uri uri ;
+    ImageView imageView;
+    StorageReference storageReference;
+    ProgressDialog progressDialog;
+
     private String mPath = "";//設置高畫質的照片位址
-    private Button uploadBtn;
-    private FloatingActionButton back;
     public static final int CAMERA_PERMISSION = 100;//檢測相機權限用
     public static final int REQUEST_HIGH_IMAGE = 101;//檢測相機回傳
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_take_photo);
+        binding = ActivityTakePhotoBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        
+        imageView = findViewById(R.id.cameraImageView);
 
-        Button btHigh = findViewById(R.id.buttonHigh);
         /**取得相機權限*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED)
@@ -59,7 +75,7 @@ public class TakePhoto extends AppCompatActivity {
         }
 
         /**按下拍攝按鈕*/
-        btHigh.setOnClickListener(v->{
+        binding.buttonHigh.setOnClickListener(v->{
             Intent highIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             //檢查是否已取得權限
             if (highIntent.resolveActivity(getPackageManager()) == null) return;
@@ -67,28 +83,62 @@ public class TakePhoto extends AppCompatActivity {
             File imageFile = getImageFile();
             if (imageFile == null) return;
             //取得相片檔案的URI位址
-            Uri imageUri = FileProvider.getUriForFile(
+            uri = FileProvider.getUriForFile(
                     this,
                     "com.example.foodtopia.CameraEx",//記得要跟AndroidManifest.xml中的authorities 一致
                     imageFile
             );
-            highIntent.putExtra(MediaStore.EXTRA_OUTPUT,imageUri);
+            binding.cameraImageView.setImageURI(uri);
+            highIntent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
             startActivityForResult(highIntent,REQUEST_HIGH_IMAGE);//開啟相機
         });
 
-        uploadBtn = findViewById(R.id.cameraPhotoUploadBtn);
-        uploadBtn.setOnClickListener(new View.OnClickListener() {
+        /**按下分析按鈕*/
+        binding.cameraPhotoUploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(TakePhoto.this,"分析照片",Toast.LENGTH_SHORT).show();
+                uploadImage();
+//                Toast.makeText(TakePhoto.this,"分析照片",Toast.LENGTH_SHORT).show();
             }
         });
-        back = findViewById(R.id.camera_back_fab);
-        back.setOnClickListener(new View.OnClickListener() {
+        /**按下返回按鈕*/
+        binding.cameraBackFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(TakePhoto.this, MainActivity.class);
                 startActivity(intent);
+            }
+        });
+    }
+
+    private void uploadImage() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("上傳中...");
+        progressDialog.show();
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.TAIWAN);
+        Date now = new Date();
+        String fileName = formatter.format(now);
+
+        storageReference = FirebaseStorage.getInstance().getReference("meals/"+fileName);
+        storageReference.putFile(uri)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        binding.cameraImageView.setImageURI(null);
+                        Toast.makeText(TakePhoto.this,"上傳成功",Toast.LENGTH_SHORT).show();
+                        if (progressDialog.isShowing()){
+                            progressDialog.dismiss();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
+                Toast.makeText(TakePhoto.this,"上傳失敗",Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -119,7 +169,7 @@ public class TakePhoto extends AppCompatActivity {
 
         /**如果是高畫質的相片回傳*/
         if (requestCode == REQUEST_HIGH_IMAGE && resultCode == -1){
-            ImageView imageHigh = findViewById(R.id.imageViewHigh);
+            ImageView imageHigh = binding.cameraImageView;
             new Thread(()->{
                 //在BitmapFactory中以檔案URI路徑取得相片檔案，並處理為AtomicReference<Bitmap>，方便後續旋轉圖片
                 AtomicReference<Bitmap> getHighImage = new AtomicReference<>(BitmapFactory.decodeFile(mPath));
@@ -138,8 +188,7 @@ public class TakePhoto extends AppCompatActivity {
                             .into(imageHigh);
                 });
             }).start();
-        }/***/
-
+        }
         else{
             Toast.makeText(this, "未作任何拍攝", Toast.LENGTH_SHORT).show();
         }

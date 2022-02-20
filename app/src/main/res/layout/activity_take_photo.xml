@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageViewHigh"
+        android:id="@+id/cameraImageView"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_marginTop="92dp"
@@ -44,7 +44,7 @@
         android:textColor="@color/dark_purple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewHigh"
+        app:layout_constraintTop_toBottomOf="@+id/cameraImageView"
         app:layout_constraintVertical_bias="0.225" />
 
     <Button
@@ -57,7 +57,7 @@
         android:textColor="@color/dark_purple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewHigh"
+        app:layout_constraintTop_toBottomOf="@+id/cameraImageView"
         app:layout_constraintVertical_bias="0.225" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
