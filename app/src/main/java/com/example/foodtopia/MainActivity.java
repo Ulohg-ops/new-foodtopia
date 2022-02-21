@@ -14,7 +14,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
-    Fragment fragment = new Dashboard();
+    Fragment fragment = new DashboardFragment();
 
 
 //    check whether user log in  if not intent to login
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.Dashboard:
-                        fragment = new Dashboard();
+                        fragment = new DashboardFragment();
                         break;
                     case R.id.Restaurant:
                         fragment = new RestaurantFragment();
