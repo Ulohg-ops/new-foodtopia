@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/aldrich"
+        android:gravity="center"
+        android:text="性別"
+        android:textColor="@color/black"
+        android:textSize="36dp" />
+
+    <RadioGroup
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:checkedButton="@id/male"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="90dp"
+            android:layout_marginRight="30dp"
+            android:layout_height="90dp"
+            android:background="@drawable/gender_background_selector"
+            android:text="男"
+            android:padding="16dp"
+            android:drawableTop="@drawable/ic_baseline_male_24"
+            android:button="@null"
+            android:textAlignment="center" />
+
+        <RadioButton
+            android:id="@+id/female"
+            android:padding="16dp"
+            android:layout_width="90dp"
+            android:drawableTop="@drawable/ic_baseline_female_24"
+            android:layout_height="90dp"
+            android:background="@drawable/gender_background2_selector"
+            android:text="女"
+            android:button="@null"
+            android:textAlignment="center"
+
+            />
+    </RadioGroup>
+</LinearLayout>

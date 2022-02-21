@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 // splash + 跳轉頁面
 
@@ -74,7 +73,7 @@ public class introductoryActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                Intent intent = new Intent(introductoryActivity.this, Login.class);
+                Intent intent=new Intent(introductoryActivity.this, OnboardingActivity.class);
                 startActivity(intent);
             }
 
@@ -91,14 +90,14 @@ public class introductoryActivity extends AppCompatActivity {
         text_logo.animate().translationY(1400).setDuration(1000).setStartDelay(4000);
 
 
-        timer=new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Intent intent=new Intent(introductoryActivity.this,OnboardingActivity.class);
-                startActivity(intent);
-            }
-        },6000);
+//        timer=new Timer();
+//        timer.schedule(new TimerTask() {
+//            @Override
+//            public void run() {
+//                Intent intent=new Intent(introductoryActivity.this, onboardingActivity.class);
+//                startActivity(intent);
+//            }
+//        },6000);
     }
     
 

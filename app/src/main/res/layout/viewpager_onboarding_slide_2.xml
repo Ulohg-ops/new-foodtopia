@@ -6,13 +6,6 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_gravity="center"
-        android:fitsSystemWindows="true"
-        android:src="@drawable/onboarding_picture_img2" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

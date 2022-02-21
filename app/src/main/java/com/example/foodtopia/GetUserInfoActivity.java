@@ -15,21 +15,22 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.foodtopia.Adpater.OnboardingViewPagerAdapter;
 
-// 首次使用app的介紹頁面
+public class GetUserInfoActivity extends AppCompatActivity {
 
-public class OnboardingActivity extends AppCompatActivity {
 
     ActionBar actionBar;
     ViewPager viewPager;
     LinearLayout linearLayout;
     TextView[] dostTv;
     int[] layouts;
-    Button mNextBtn, mSkipBtn;
+    Button mNextBtn;
+    ImageButton mBackBtn;
     OnboardingViewPagerAdapter myAdapter;
 
     @Override
@@ -45,7 +46,7 @@ public class OnboardingActivity extends AppCompatActivity {
 //            startActivity(new Intent(OnboardingActivity.this, Login.class));
 //            finish();
 //        }
-        setContentView(R.layout.activity_onboarding);
+        setContentView(R.layout.activity_get_user_info);
 
 
         actionBar = getSupportActionBar();
@@ -56,17 +57,11 @@ public class OnboardingActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager);
         linearLayout = findViewById(R.id.dotlayout);
         mNextBtn = findViewById(R.id.btn_next);
-        mSkipBtn = findViewById(R.id.btn_skip);
+        mBackBtn = findViewById(R.id.btn_back);
 
 //        statusBarTransparent();
 
-        mSkipBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(OnboardingActivity.this, MainActivity.class));
-                finish();
-            }
-        });
+
         mNextBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,12 +74,12 @@ public class OnboardingActivity extends AppCompatActivity {
                     //currentPage[2] -> slide3
                 } else {
                     setAppStartStatus(false);// if user have watched set App_START to False
-                    startActivity(new Intent(OnboardingActivity.this, MainActivity.class));
+                    startActivity(new Intent(GetUserInfoActivity.this, MainActivity.class));
                     finish();
                 }
             }
         });
-        layouts = new int[]{R.layout.viewpager_onboarding_slide_1, R.layout.viewpager_onboarding_slide_2, R.layout.viewpager_onboarding_slide_3};
+        layouts = new int[]{R.layout.viewpager_user_information_1, R.layout.viewpager_user_information_2, R.layout.viewpager_user_information_3,R.layout.viewpager_user_information_4};
         myAdapter = new OnboardingViewPagerAdapter(layouts, getApplicationContext());
         viewPager.setAdapter(myAdapter);
         setDots(0); //first page dot to white
@@ -99,11 +94,8 @@ public class OnboardingActivity extends AppCompatActivity {
 
                 if (position == layouts.length - 1) {
                     mNextBtn.setText("START");
-                    mSkipBtn.setVisibility(View.GONE);
                 } else {
                     mNextBtn.setText("Next");
-                    mSkipBtn.setVisibility(View.VISIBLE);
-                    System.out.println(View.VISIBLE);
                 }
                 setDots(position);
             }
@@ -131,16 +123,6 @@ public class OnboardingActivity extends AppCompatActivity {
         editor.apply();
     }//set the App_START to be false
 
-    private void statusBarTransparent() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_FULLSCREEN);
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(Color.TRANSPARENT);
-
-        }
-
-    }
 
     private void setDots(int page) {
         linearLayout.removeAllViews();

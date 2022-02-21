@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="輸入個人資料"
+        android:text="個人資料"
         android:textColor="@color/black"
         android:fontFamily="@font/aldrich"
         android:textSize="36dp"
@@ -25,10 +25,4 @@
         android:textColor="@color/og_context"
         android:textSize="18dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        android:clickable="false"
-        android:text="開始" />
 </LinearLayout>
