@@ -59,17 +59,12 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new SocialFragment();
                         break;
                     case R.id.Account:
-                        fragment = new Account();
+                        fragment = new AccountFragment();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame, fragment).commit();
                 return true;
             }
         });
-
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("message");
-//
-//        myRef.setValue("Hello world!");
     }
 }
