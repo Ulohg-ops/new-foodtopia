@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="quantifier_array">
+        <item>g</item>
+        <item>ml</item>
+        <item>mg</item>
+        <item>kcal</item>
+    </string-array>
+</resources>

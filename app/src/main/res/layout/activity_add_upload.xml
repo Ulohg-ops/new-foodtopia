@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Add_Upload">
+    tools:context=".AddUploadActivity">
 
     <TextView
         android:id="@+id/upload_title"
@@ -26,6 +26,7 @@
         android:layout_height="250dp"
         android:layout_below="@id/upload_title"
         android:layout_centerHorizontal="true"
+        android:src="@drawable/add_icon_photo"
         android:scaleType="centerInside"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

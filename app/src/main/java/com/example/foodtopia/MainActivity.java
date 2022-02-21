@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new RestaurantFragment();
                         break;
                     case R.id.Add:
-                        fragment = new Add();
+                        fragment = new AddFragment();
                         break;
                     case R.id.Social:
                         fragment = new SocialFragment();

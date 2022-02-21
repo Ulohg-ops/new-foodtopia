@@ -6,32 +6,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.foodtopia.databinding.ActivityAddUploadBinding;
-import com.example.foodtopia.databinding.ActivityMain2Binding;
-import com.example.foodtopia.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Add_Upload extends AppCompatActivity {
+public class AddUploadActivity extends AppCompatActivity {
 
     ActivityAddUploadBinding binding;
 
@@ -71,7 +63,7 @@ public class Add_Upload extends AppCompatActivity {
         binding.addUploadBackFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Add_Upload.this, MainActivity.class);
+                Intent intent = new Intent(AddUploadActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -95,7 +87,7 @@ public class Add_Upload extends AppCompatActivity {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         binding.uploadImageView.setImageURI(null);
-                        Toast.makeText(Add_Upload.this,"上傳成功",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddUploadActivity.this,"上傳成功",Toast.LENGTH_SHORT).show();
                         if (progressDialog.isShowing()){
                             progressDialog.dismiss();
                         }
@@ -106,7 +98,7 @@ public class Add_Upload extends AppCompatActivity {
                 if (progressDialog.isShowing()){
                     progressDialog.dismiss();
                 }
-                Toast.makeText(Add_Upload.this,"上傳失敗",Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddUploadActivity.this,"上傳失敗",Toast.LENGTH_SHORT).show();
 
             }
         });

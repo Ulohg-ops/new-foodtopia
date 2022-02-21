@@ -2,10 +2,8 @@ package com.example.foodtopia;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-import androidx.fragment.app.Fragment;
 
 import android.Manifest;
 import android.app.ProgressDialog;
@@ -22,15 +20,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.foodtopia.databinding.ActivityTakePhotoBinding;
+import com.example.foodtopia.databinding.ActivityAddTakePhotoBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -42,9 +38,9 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class TakePhoto extends AppCompatActivity {
+public class AddTakePhotoActivity extends AppCompatActivity {
 
-    ActivityTakePhotoBinding binding;
+    ActivityAddTakePhotoBinding binding;
 
     public static final String TAG = MainActivity.class.getSimpleName()+"My";
 
@@ -60,7 +56,7 @@ public class TakePhoto extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityTakePhotoBinding.inflate(getLayoutInflater());
+        binding = ActivityAddTakePhotoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
@@ -105,7 +101,7 @@ public class TakePhoto extends AppCompatActivity {
         binding.cameraBackFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TakePhoto.this, MainActivity.class);
+                Intent intent = new Intent(AddTakePhotoActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -126,7 +122,7 @@ public class TakePhoto extends AppCompatActivity {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                         binding.cameraImageView.setImageURI(null);
-                        Toast.makeText(TakePhoto.this,"上傳成功",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddTakePhotoActivity.this,"上傳成功",Toast.LENGTH_SHORT).show();
                         if (progressDialog.isShowing()){
                             progressDialog.dismiss();
                         }
@@ -137,7 +133,7 @@ public class TakePhoto extends AppCompatActivity {
                 if (progressDialog.isShowing()){
                     progressDialog.dismiss();
                 }
-                Toast.makeText(TakePhoto.this,"上傳失敗",Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddTakePhotoActivity.this,"上傳失敗",Toast.LENGTH_SHORT).show();
 
             }
         });

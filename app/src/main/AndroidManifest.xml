@@ -18,10 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodTopia">
         <activity
-            android:name=".Add_Upload"
+            android:name=".AddUploadActivity"
             android:exported="false" />
         <activity
-            android:name=".TakePhoto"
+            android:name=".AddTakePhotoActivity"
             android:exported="false" />
         <activity
             android:name=".account.SavedItemActivity"

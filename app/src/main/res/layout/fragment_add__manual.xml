@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Add_Manual">
+    tools:context=".AddManualFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,9 +23,9 @@
 
         <ScrollView
             android:id="@+id/manual_ScrollView"
-            android:layout_below="@+id/manual_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/manual_title"
             android:layout_marginBottom="80dp"
             android:fillViewport="true"
             android:scrollbarStyle="insideInset"
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:hint="例如 : 全麥土司"
-                    android:inputType="text"/>
+                    android:inputType="text" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -58,14 +58,31 @@
                     android:layout_marginTop="10dp"
                     android:text="份量"
                     android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/manual_amount"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:hint="例如 : 一片(或100g)"
-                    android:inputType="text"/>
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/manual_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:hint="例如 : 100"
+                        android:inputType="text" />
+
+                    <Spinner
+                        android:id="@+id/spinner1"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:background="@drawable/add_spinner_back"/>
+                </LinearLayout>
+
+
 
                 <TextView
                     android:layout_width="match_parent"
@@ -82,19 +99,24 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
                         android:layout_marginStart="10dp"
-                        android:layout_centerVertical="true"
                         android:text="碳水化合物" />
 
                     <EditText
                         android:id="@+id/manual_carbohydrate"
-                        android:layout_width="200dp"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
                         android:hint="例如 : 52g"
-                        android:inputType="text"/>
+                        android:inputType="text" />
+                    <Spinner
+                        android:id="@+id/spinner2"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/add_spinner_back"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -104,8 +126,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="10dp"
                         android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
                         android:text="蛋白質" />
 
                     <EditText
@@ -114,8 +136,17 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:hint="例如 : 2.5g"
-                        android:inputType="text"/>
+                        android:inputType="text" />
+
+                    <Spinner
+                        android:id="@+id/spinner3"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/add_spinner_back"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -125,8 +156,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="10dp"
                         android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
                         android:text="脂肪" />
 
                     <EditText
@@ -135,8 +166,16 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:hint="例如 : 1.5g"
-                        android:inputType="text"/>
+                        android:inputType="text" />
+                    <Spinner
+                        android:id="@+id/spinner4"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/add_spinner_back"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -146,8 +185,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="10dp"
                         android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
                         android:text="糖" />
 
                     <EditText
@@ -156,8 +195,17 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:hint="例如 : 0g"
-                        android:inputType="text"/>
+                        android:inputType="text" />
+
+                    <Spinner
+                        android:id="@+id/spinner5"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/add_spinner_back"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -167,8 +215,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="10dp"
                         android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
                         android:text="鈉" />
 
                     <EditText
@@ -177,8 +225,16 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:hint="例如 : 89mg"
-                        android:inputType="text"/>
+                        android:inputType="text" />
+                    <Spinner
+                        android:id="@+id/spinner6"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/add_spinner_back"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -188,8 +244,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
-                        android:layout_marginStart="10dp"
                         android:layout_centerVertical="true"
+                        android:layout_marginStart="10dp"
                         android:text="熱量" />
 
                     <EditText
@@ -198,7 +254,14 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:hint="例如 : 72kcal"
-                        android:inputType="text"/>
+                        android:inputType="text" />
+                    <Spinner
+                        android:id="@+id/spinner7"
+                        android:layout_marginStart="5dp"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:background="@drawable/add_spinner_back"/>
                 </LinearLayout>
 
                 <RadioGroup
@@ -207,48 +270,57 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
+
                     <RadioButton
                         android:id="@+id/manual_radio_breakfast"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="早餐"/>
+                        android:text="早餐" />
+
                     <RadioButton
                         android:id="@+id/manual_radio_lunch"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="午餐"/>
+                        android:text="午餐" />
+
                     <RadioButton
                         android:id="@+id/manual_radio_dinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="晚餐"/>
+                        android:text="晚餐" />
+
                     <RadioButton
                         android:id="@+id/manual_radio_dessert"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="點心"/>
+                        android:text="點心" />
                 </RadioGroup>
+
                 <Button
                     android:id="@+id/addManualBtn"
+                    style="@style/Widget.Material3.Button.ElevatedButton.Icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="新增"
                     android:layout_gravity="center"
                     android:layout_margin="8dp"
-                    app:icon="@drawable/navbar_icon_add"
-                    style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+                    android:text="新增"
                     android:textColor="@color/white"
                     app:backgroundTint="@color/light_purple"
-                    app:iconTint="@color/white"
-                    />
+                    app:icon="@drawable/navbar_icon_add"
+                    app:iconTint="@color/white" />
+
                 <TextView
                     android:id="@+id/manual_result"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
+
+`
+
+
             </LinearLayout>
         </ScrollView>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -267,4 +339,5 @@
             app:layout_anchorGravity="bottom|right|end"
             app:tint="@color/white" />
     </RelativeLayout>
+
 </FrameLayout>

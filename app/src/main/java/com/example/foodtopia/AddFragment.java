@@ -2,24 +2,19 @@ package com.example.foodtopia;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -34,7 +29,7 @@ import java.util.Locale;
  * https://medium.com/@waynechen323/android-%E5%9F%BA%E7%A4%8E%E7%9A%84-fragment-%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F-730858c12a43
  */
 
-public class Add extends Fragment  {
+public class AddFragment extends Fragment  {
 
     private View root;
     //Date 按鈕
@@ -72,7 +67,7 @@ public class Add extends Fragment  {
     //返回按鈕
     private FloatingActionButton back;
 
-    public Add() {
+    public AddFragment() {
     }
 
     @Override
@@ -213,7 +208,7 @@ public class Add extends Fragment  {
     //產生彈出視窗
     public void createPopUpDialog(){
         dialogBuilder = new AlertDialog.Builder(getActivity());
-        View popUpView = getLayoutInflater().inflate(R.layout.add_popup_dialog,null);
+        View popUpView = getLayoutInflater().inflate(R.layout.dialog_add_menu,null);
 
         dialogBuilder.setView(popUpView);
         dialog = dialogBuilder.create();
@@ -227,7 +222,7 @@ public class Add extends Fragment  {
         manualBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = new Add_Manual();
+                Fragment fragment = new AddManualFragment();
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.frame, fragment)
                         .commit();
@@ -241,7 +236,7 @@ public class Add extends Fragment  {
             @Override
             public void onClick(View view) {
 //                Toast.makeText(getActivity(),"拍攝照片",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), TakePhoto.class);
+                Intent intent = new Intent(getActivity(), AddTakePhotoActivity.class);
                 startActivity(intent);
                 dialog.dismiss();
             }
@@ -252,7 +247,7 @@ public class Add extends Fragment  {
             @Override
             public void onClick(View view) {
 //                Toast.makeText(getActivity(),"選擇照片",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getActivity(), Add_Upload.class);
+                Intent intent = new Intent(getActivity(), AddUploadActivity.class);
                 startActivity(intent);
                 dialog.dismiss();
             }
