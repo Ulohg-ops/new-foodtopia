@@ -6,11 +6,13 @@ import android.content.DialogInterface;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -128,6 +130,47 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
                 mContext.startActivity(intent);
             }
         });
+        holder.more.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popupMenu = new PopupMenu(mContext, view);
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        switch (menuItem.getItemId()){
+                            case R.id.edit:
+                                editPost(post.getPostid());
+                                return true;
+                            case R.id.delete:
+                                final String id = post.getPostid();
+                                FirebaseDatabase.getInstance().getReference("Posts")
+                                        .child(post.getPostid()).removeValue()
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()){
+                                                    deleteNotifications(id, firebaseUser.getUid());
+                                                }
+                                            }
+                                        });
+                                return true;
+                            case R.id.report:
+                                Toast.makeText(mContext, "此貼文將會被審核!!", Toast.LENGTH_SHORT).show();
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+                });
+                popupMenu.inflate(R.menu.post_menu);
+                if (!post.getPublisher().equals(firebaseUser.getUid())){
+                    popupMenu.getMenu().findItem(R.id.edit).setVisible(false);
+                    popupMenu.getMenu().findItem(R.id.delete).setVisible(false);
+                }
+                popupMenu.show();
+            }
+        });
+
 
     }
 
@@ -182,7 +225,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        Toast.makeText(mContext, "Deleted!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mContext, "刪除貼文成功!!", Toast.LENGTH_SHORT).show();
                                     }
                                 });
                     }
@@ -299,7 +342,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolde
 
     private void editPost(final String postid){
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-        alertDialog.setTitle("Edit Post");
+        alertDialog.setTitle("編輯食譜");
 
         final EditText editText = new EditText(mContext);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Account">
+    tools:context=".AccountFragment">
     
 
     <!-- TODO: Update blank fragment layout -->
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
             android:layout_toEndOf="@+id/profile_pic"
-            android:text="葉既明"
+            android:text=""
             android:textSize="21sp" />
 
         <ImageButton
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="90dp"
             android:layout_toEndOf="@+id/profile_pic"
-            android:text="test@gmail.com"
+            android:text=""
             android:textSize="15sp" />
 
 

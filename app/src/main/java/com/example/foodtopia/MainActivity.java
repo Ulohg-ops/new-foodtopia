@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -11,6 +12,7 @@ import com.example.foodtopia.restaurant.RestaurantFragment;
 import com.example.foodtopia.social.SocialFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
@@ -18,14 +20,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 //    check whether user log in  if not intent to login
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        if(FirebaseAuth.getInstance().getCurrentUser()==null){
-//            startActivity(new Intent(this,Login.class));
-//            finish();
-//        }
-//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(FirebaseAuth.getInstance().getCurrentUser()==null){
+            startActivity(new Intent(this,Login.class));
+            finish();
+        }
+    }
 
     //    private Button btn;
     @Override
@@ -59,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                         fragment = new SocialFragment();
                         break;
                     case R.id.Account:
-                        fragment = new Account();
+                        fragment = new AccountFragment();
                         break;
                 }
                 getSupportFragmentManager().beginTransaction().replace(R.id.frame, fragment).commit();

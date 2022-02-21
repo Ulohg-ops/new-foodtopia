@@ -40,11 +40,11 @@ public class OnboardingActivity extends AppCompatActivity {
         //determine whether the App_START is FALSE
         //If it is FALSE,go to Login page
 
-        if (!isFirstTimeAppStart()) {
-            setAppStartStatus(false);
-            startActivity(new Intent(OnboardingActivity.this, Login.class));
-            finish();
-        }
+//        if (!isFirstTimeAppStart()) {
+//            setAppStartStatus(false);
+//            startActivity(new Intent(OnboardingActivity.this, Login.class));
+//            finish();
+//        }
         setContentView(R.layout.activity_onboarding);
 
 
@@ -58,7 +58,7 @@ public class OnboardingActivity extends AppCompatActivity {
         mNextBtn = findViewById(R.id.btn_next);
         mSkipBtn = findViewById(R.id.btn_skip);
 
-        statusBarTransparent();
+//        statusBarTransparent();
 
         mSkipBtn.setOnClickListener(new View.OnClickListener() {
             @Override

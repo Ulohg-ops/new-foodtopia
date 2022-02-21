@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.example.foodtopia.Adpater.PostAdapter;
 import com.example.foodtopia.Model.Post;
@@ -23,6 +25,8 @@ public class SavedItemActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private PostAdapter postAdapter;
     private List<Post> postList;
+    private ImageButton back;
+
     String post_id ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,7 @@ public class SavedItemActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         post_id = intent.getStringExtra("postid");
+        back=findViewById(R.id.back);
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -42,6 +47,12 @@ public class SavedItemActivity extends AppCompatActivity {
         postAdapter = new PostAdapter(this, postList);
         recyclerView.setAdapter(postAdapter);
         readPosts();
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
 

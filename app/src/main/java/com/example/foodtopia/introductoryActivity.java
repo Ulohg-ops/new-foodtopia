@@ -91,14 +91,14 @@ public class introductoryActivity extends AppCompatActivity {
         text_logo.animate().translationY(1400).setDuration(1000).setStartDelay(4000);
 
 
-//        timer=new Timer();
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                Intent intent=new Intent(introductoryActivity.this,OnboardingActivity.class);
-//                startActivity(intent);
-//            }
-//        },6000);
+        timer=new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Intent intent=new Intent(introductoryActivity.this,OnboardingActivity.class);
+                startActivity(intent);
+            }
+        },6000);
     }
     
 
