@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
-// 實作一個容器(必備的)
+
 
 public class OnboardingViewPagerAdapter extends PagerAdapter {
     private LayoutInflater inflater;

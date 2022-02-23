@@ -8,18 +8,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.example.foodtopia.Adpater.OnboardingViewPagerAdapter;
 
 public class GetUserInfoActivity extends AppCompatActivity {
 
@@ -31,7 +26,7 @@ public class GetUserInfoActivity extends AppCompatActivity {
     int[] layouts;
     Button mNextBtn;
     ImageButton mBackBtn;
-    OnboardingViewPagerAdapter myAdapter;
+    GetUserInfoViewPagerAdapter myAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +75,10 @@ public class GetUserInfoActivity extends AppCompatActivity {
             }
         });
         layouts = new int[]{R.layout.viewpager_user_information_1, R.layout.viewpager_user_information_2, R.layout.viewpager_user_information_3,R.layout.viewpager_user_information_4};
-        myAdapter = new OnboardingViewPagerAdapter(layouts, getApplicationContext());
+        myAdapter = new GetUserInfoViewPagerAdapter(layouts, getApplicationContext());
+
+
+
         viewPager.setAdapter(myAdapter);
         setDots(0); //first page dot to white
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

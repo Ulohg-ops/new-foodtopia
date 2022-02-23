@@ -146,7 +146,7 @@ public class RestaurantProductActivity extends AppCompatActivity {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 //                                Log.d(TAG, document.getId() + " => " + document.getString("name"));
                                 categoryItems.add(new Post.CategoryItem(document.getString("name"),
-                                        document.getString("calories"),
+                                         document.getString("calories"),
                                          document.getString("carbohydrate"),
                                          document.getString("fat"),
                                          document.getString("protein"),

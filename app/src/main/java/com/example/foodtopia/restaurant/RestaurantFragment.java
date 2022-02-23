@@ -40,9 +40,9 @@ public class RestaurantFragment extends Fragment {
         memberList.add(new restaurants( R.drawable.restaurant_picture_logo1, "Mcdonalds",5));
         memberList.add(new restaurants( R.drawable.restaurant_picture_logo2, "KFC",5));
         memberList.add(new restaurants( R.drawable.restaurant_picture_logo3, "Subway",5));
-        memberList.add(new restaurants( R.drawable.restaurant_picture_logo4, "Seven-Eleven",5));
+        memberList.add(new restaurants( R.drawable.restaurant_picture_logo6, "Mosburger",5));
         memberList.add(new restaurants( R.drawable.restaurant_picture_logo5, "麥味登",5));
-        memberList.add(new restaurants( R.drawable.restaurant_picture_logo6, "摩斯漢堡",5));
+        memberList.add(new restaurants( R.drawable.restaurant_picture_logo4, "Seven-Eleven",5));
         memberList.add(new restaurants(R.drawable.restaurant_picture_logo7, "starbucks",5));
         memberList.add(new restaurants( R.drawable.restaurant_picture_logo8, "FamilyMart",5));
 
