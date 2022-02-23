@@ -73,8 +73,7 @@ public class AccountFragment extends Fragment {
 
 
         //-------------------user email and name----------------------
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
-                .child("Users").child(user.getUid());
+
         TextView profile_name = view.findViewById(R.id.profile_name);
         TextView profile_email = view.findViewById(R.id.profile_email);
 
@@ -87,7 +86,6 @@ public class AccountFragment extends Fragment {
                     Log.e("firebase", "Error getting data", task.getException());
                 } else {
                     profile_name.setText(String.valueOf(task.getResult().getValue()));
-                    System.out.println("dasdasads" + String.valueOf(task.getResult().getValue()));
                 }
             }
         });
@@ -112,8 +110,11 @@ public class AccountFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent;
                 switch (i){
                     case 0 :
+                      intent= new Intent(getActivity(), EditUserInfoActivity.class);
+                        startActivity(intent);
                         break;
                     case 1:
                         break;
@@ -122,7 +123,7 @@ public class AccountFragment extends Fragment {
                     case 3:
                         break;
                     case 4:
-                        Intent intent=new Intent(getActivity(), SavedActivity.class);
+                         intent=new Intent(getActivity(), SavedActivity.class);
                         startActivity(intent);
                         break;
                     case 5:
