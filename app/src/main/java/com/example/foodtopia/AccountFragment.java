@@ -155,7 +155,7 @@ public class AccountFragment extends Fragment {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            View view1 = getLayoutInflater().inflate(R.layout.custom_profile_list, null);
+            View view1 = getLayoutInflater().inflate(R.layout.item_custom_profile, null);
 
             TextView text = view1.findViewById(R.id.text);
             ImageView icon = view1.findViewById(R.id.icon);

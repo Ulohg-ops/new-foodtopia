@@ -16,18 +16,18 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
-    Fragment fragment = new Dashboard();
+    Fragment fragment = new DashboardFragment();
 
 
 //    check whether user log in  if not intent to login
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if(FirebaseAuth.getInstance().getCurrentUser()==null){
-            startActivity(new Intent(this,Login.class));
-            finish();
-        }
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        if(FirebaseAuth.getInstance().getCurrentUser()==null){
+//            startActivity(new Intent(this,Login.class));
+//            finish();
+//        }
+//    }
 
     //    private Button btn;
     @Override
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.Dashboard:
-                        fragment = new Dashboard();
+                        fragment = new DashboardFragment();
                         break;
                     case R.id.Restaurant:
                         fragment = new RestaurantFragment();
@@ -68,10 +68,5 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("message");
-//
-//        myRef.setValue("Hello world!");
     }
 }

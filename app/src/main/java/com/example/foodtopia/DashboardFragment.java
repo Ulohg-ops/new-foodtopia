@@ -1,6 +1,7 @@
 package com.example.foodtopia;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.LongDef;
@@ -14,8 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.foodtopia.Model.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,11 +42,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 
-public class Dashboard extends Fragment {
+public class DashboardFragment extends Fragment {
 
     private static final String TAG = "variable";
 
-    public Dashboard() {
+    public DashboardFragment() {
         // Required empty public constructor
     }
 
@@ -56,12 +59,12 @@ public class Dashboard extends Fragment {
     }
 
     // retrieve data from firebase
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
     CircularProgressBar circularProgressBar;
     TextView calories;
 
     //todo: need to change the path.
-    DocumentReference doc = db.collection("test_user").document("fXnfzXMPoQl4fmzqcNVK");
+    private DatabaseReference mDatabase;
+    FirebaseAuth fAuth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,32 +75,50 @@ public class Dashboard extends Fragment {
         circularProgressBar = view.findViewById(R.id.circularProgressBar);
         calories = view.findViewById(R.id.calories);
 
-        doc.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        String calories_per_day = (String) document.get("calories_per_day");
-                        String calories_taken = (String) document.get("calories_taken");
-                        float cpd = Float.valueOf(calories_per_day);
-                        float ct = Float.valueOf(calories_taken);
+        // get user id
+        fAuth = FirebaseAuth.getInstance();
+        FirebaseUser firebaseUser = fAuth.getCurrentUser();
+        String userID = firebaseUser.getUid();
 
-                        //set circular progress bar
-                        circularProgressBar.setProgress(ct);
-                        circularProgressBar.setProgressMax(cpd);
+        mDatabase = FirebaseDatabase.getInstance().getReference("Users").child(userID);
+//        mDatabase.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                String calories_taken = snapshot.child("calories_taken").getValue().toString();
+//                String calories_per_day = snapshot.child("calories_per_day").getValue().toString();
+//
+//                float cpd = Float.valueOf(calories_per_day);
+//                float ct = Float.valueOf(calories_taken);
+//
+//                if (ct > cpd) {
+//                    int progress_red = Color.rgb(237, 122, 107);
+//                    circularProgressBar.setProgressWithAnimation(cpd);
+//                    circularProgressBar.setProgressBarColor(progress_red);
+//
+//                    //set text inside the circular
+//                    String text = "-" + (ct-cpd) + "\n" + "kcal";
+//                    calories.setText(text);
+//
+//
+//                }else {
+//                    int color = Color.rgb(90, 106, 207);
+//                    circularProgressBar.setProgressBarColor(color);
+//                    circularProgressBar.setProgressWithAnimation(ct);
+//                    circularProgressBar.setProgressMax(cpd);
+//
+//                    //set text inside the circular
+//                    String text = calories_taken + "\n" + "kcal";
+//                    calories.setText(text);
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//                Log.w(TAG, "loadPost:onCancelled", error.toException());
+//            }
+//        });
 
-                        //set text inside the circular
-                        String text = calories_taken + "\n" + "kcal";
-                        calories.setText(text);
-                    } else {
-                        Log.d(TAG, "No doc.");
-                    }
-                }else {
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
 
         return view;
     }
