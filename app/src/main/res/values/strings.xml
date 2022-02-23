@@ -97,4 +97,21 @@
         <item>晚餐</item>
         <item>點心</item>
     </string-array>
+    <string-array name="work_load">
+        <item>臥床躺著不動</item>
+        <item>幾乎很少或坐著不動</item>
+        <item>每周1-2次</item>
+        <item>每周3-5次</item>
+        <item>每周6-7次</item>
+        <item>每天重度運動</item>
+        <item>重勞力工作者</item>
+    </string-array>
+    <string-array name="stress">
+        <item>正常無疾病</item>
+        <item>發燒</item>
+        <item>住院患者</item>
+        <item>懷孕</item>
+        <item>生長期</item>
+        <item>哺乳</item>
+    </string-array>
 </resources>

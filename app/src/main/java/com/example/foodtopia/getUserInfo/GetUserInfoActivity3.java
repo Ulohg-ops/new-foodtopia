@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.example.foodtopia.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -24,6 +25,8 @@ public class GetUserInfoActivity3 extends AppCompatActivity {
     ImageButton btn_back;
     TextInputLayout height;
     TextInputLayout weight;
+    TextInputLayout age;
+
     FirebaseAuth auth;
     DatabaseReference reference;
 
@@ -33,18 +36,11 @@ public class GetUserInfoActivity3 extends AppCompatActivity {
         setContentView(R.layout.activity_get_user_info3);
         btn_next = findViewById(R.id.btn_next);
         btn_back = findViewById(R.id.btn_back);
-//        height = findViewById(R.id.height);
-//        weight = findViewById(R.id.weight);
 
         height = findViewById(R.id.height);
         weight = findViewById(R.id.weight);
+        age=findViewById(R.id.age);
 
-
-        //
-        String height_value = height.getEditText().getText().toString().trim();
-        String weight_value = weight.getEditText().getText().toString().trim();
-        System.out.println("7788"+height_value+"ddd");
-        System.out.println("7788"+weight_value);
 
 
         btn_next.setOnClickListener(new View.OnClickListener() {
@@ -55,13 +51,13 @@ public class GetUserInfoActivity3 extends AppCompatActivity {
                 String userID = firebaseUser.getUid();
                 reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
                 HashMap<String, Object> map = new HashMap<>();
-//                map.put("height", height);
-//                map.put("weight", weight);
-//                System.out.println(height);
-//                System.out.println(weight);
-//                reference.updateChildren(map);
-
-
+                String height_value = height.getEditText().getText().toString().trim();
+                String weight_value = weight.getEditText().getText().toString().trim();
+                String age_value=age.getEditText().getText().toString().trim();
+                map.put("height", height_value);
+                map.put("weight", weight_value);
+                map.put("age", age_value);
+                reference.updateChildren(map);
                 moveToNext();
             }
         });

@@ -66,14 +66,15 @@ public class GetUserInfoActivity4 extends AppCompatActivity {
 
     public void moveToBack() {
 
-        Intent intent = new Intent(this, GetUserInfoActivity2.class);
+        Intent intent = new Intent(this, GetUserInfoActivity3.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
     }
     public void moveToNext() {
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, GetUserInfoActivity5.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }

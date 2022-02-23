@@ -18,6 +18,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodTopia">
         <activity
+            android:name=".getUserInfo.GetUserInfoActivity5"
+            android:exported="true" >
+        </activity>
+        <activity
             android:name=".getUserInfo.GetUserInfoActivity4"
             android:exported="true" />
         <activity
@@ -28,8 +32,7 @@
             android:exported="true" />
         <activity
             android:name=".getUserInfo.GetUserInfoActivity1"
-            android:exported="true" >
-
+            android:exported="true">
         </activity>
         <activity
             android:name=".AddUploadActivity"
@@ -53,9 +56,6 @@
             android:name=".social.PostActivity"
             android:exported="true" />
         <activity
-            android:name=".RegisterActivity2"
-            android:exported="true" />
-        <activity
             android:name=".restaurant.RestaurantProductActivity"
             android:exported="false" />
         <activity
@@ -63,10 +63,11 @@
             android:exported="true" />
         <activity
             android:name=".Login"
-            android:exported="false" />
+            android:exported="true"></activity>
         <activity
-            android:name=".Register"
-            android:exported="true" />
+            android:name=".RegisterActivity"
+            android:exported="true">
+        </activity>
         <activity
             android:name=".introductoryActivity"
             android:exported="true" />

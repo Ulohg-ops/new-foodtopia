@@ -69,6 +69,7 @@ public class DashboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
@@ -81,43 +82,43 @@ public class DashboardFragment extends Fragment {
         String userID = firebaseUser.getUid();
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Users").child(userID);
-//        mDatabase.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                String calories_taken = snapshot.child("calories_taken").getValue().toString();
-//                String calories_per_day = snapshot.child("calories_per_day").getValue().toString();
-//
-//                float cpd = Float.valueOf(calories_per_day);
-//                float ct = Float.valueOf(calories_taken);
-//
-//                if (ct > cpd) {
-//                    int progress_red = Color.rgb(237, 122, 107);
-//                    circularProgressBar.setProgressWithAnimation(cpd);
-//                    circularProgressBar.setProgressBarColor(progress_red);
-//
-//                    //set text inside the circular
-//                    String text = "-" + (ct-cpd) + "\n" + "kcal";
-//                    calories.setText(text);
-//
-//
-//                }else {
-//                    int color = Color.rgb(90, 106, 207);
-//                    circularProgressBar.setProgressBarColor(color);
-//                    circularProgressBar.setProgressWithAnimation(ct);
-//                    circularProgressBar.setProgressMax(cpd);
-//
-//                    //set text inside the circular
-//                    String text = calories_taken + "\n" + "kcal";
-//                    calories.setText(text);
-//                }
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//                Log.w(TAG, "loadPost:onCancelled", error.toException());
-//            }
-//        });
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String calories_taken = snapshot.child("calories_taken").getValue().toString();
+                String calories_per_day = snapshot.child("calories_per_day").getValue().toString();
+
+                float cpd = Float.valueOf(calories_per_day);
+                float ct = Float.valueOf(calories_taken);
+
+                if (ct > cpd) {
+                    int progress_red = Color.rgb(237, 122, 107);
+                    circularProgressBar.setProgressWithAnimation(cpd);
+                    circularProgressBar.setProgressBarColor(progress_red);
+
+                    //set text inside the circular
+                    String text = "-" + (ct-cpd) + "\n" + "kcal";
+                    calories.setText(text);
+
+
+                }else {
+                    int color = Color.rgb(90, 106, 207);
+                    circularProgressBar.setProgressBarColor(color);
+                    circularProgressBar.setProgressWithAnimation(ct);
+                    circularProgressBar.setProgressMax(cpd);
+
+                    //set text inside the circular
+                    String text = calories_taken + "\n" + "kcal";
+                    calories.setText(text);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w(TAG, "loadPost:onCancelled", error.toException());
+            }
+        });
 
 
         return view;

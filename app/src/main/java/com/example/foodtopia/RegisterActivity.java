@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.foodtopia.getUserInfo.GetUserInfoActivity1;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -22,7 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
-public class Register extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
     EditText mName, mEmail, mPassword, mRePassword;
     Button mRegisterBtn;
     TextView mToLogin;
@@ -79,7 +80,7 @@ public class Register extends AppCompatActivity {
                     return;
                 }
 
-                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(Register.this,new OnCompleteListener<AuthResult>() {
+                fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this,new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
@@ -97,15 +98,15 @@ public class Register extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()){
-                                        Toast.makeText(Register.this, "註冊成功", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(Register.this, MainActivity.class);
+                                        Toast.makeText(RegisterActivity.this, "註冊成功", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(RegisterActivity.this, GetUserInfoActivity1.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                     }
                                 }
                             });
                         } else {
-                            Toast.makeText(Register.this, "錯誤:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterActivity.this, "錯誤:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

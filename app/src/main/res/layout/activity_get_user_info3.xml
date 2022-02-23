@@ -5,7 +5,6 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-
     <ImageButton
         android:id="@+id/btn_back"
         android:layout_width="wrap_content"
@@ -22,16 +21,16 @@
         android:layout_marginTop="150dp"
         android:fontFamily="@font/aldrich"
         android:gravity="center"
-        android:text="身高和體重"
+        android:text="身高體重年齡"
         android:textColor="@color/black"
         android:textSize="36dp" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/height"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
-        android:id="@+id/height"
 
         android:hint="身高">
 
@@ -42,10 +41,12 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/weight"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:id="@+id/weight"
+        android:layout_marginTop="20dp"
+
         android:hint="體重">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -54,7 +55,22 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/age"
+        android:layout_marginTop="20dp"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="年齡">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
+        android:layout_marginTop="30dp"
         android:id="@+id/btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

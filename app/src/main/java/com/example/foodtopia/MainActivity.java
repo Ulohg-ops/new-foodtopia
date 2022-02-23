@@ -15,10 +15,9 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
+
     private BottomNavigationView bottomNavigationView;
     Fragment fragment = new DashboardFragment();
-
-
 //    check whether user log in  if not intent to login
 //    @Override
 //    protected void onStart() {
@@ -32,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
     //    private Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        if(FirebaseAuth.getInstance().getCurrentUser()==null){
+//            startActivity(new Intent(this,Login.class));
+//            finish();
+//        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
