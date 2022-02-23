@@ -27,11 +27,12 @@
         android:textSize="36dp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/height"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
+        android:id="@+id/height"
+
         android:hint="身高">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -41,10 +42,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/weight"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:id="@+id/weight"
         android:hint="體重">
 
         <com.google.android.material.textfield.TextInputEditText

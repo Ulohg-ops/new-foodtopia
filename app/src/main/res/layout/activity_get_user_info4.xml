@@ -25,6 +25,7 @@
         android:textSize="36dp" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -38,7 +39,7 @@
             android:layout_height="70dp"
             android:background="@drawable/getuserinfo_target_background_selector"
             android:button="@null"
-            android:text="減肥"
+            android:text="減重"
             android:textAlignment="center"
 
             />

@@ -9,7 +9,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="個人資料"
+        android:text="開始之前"
         android:textColor="@color/black"
         android:fontFamily="@font/aldrich"
         android:textSize="36dp"
