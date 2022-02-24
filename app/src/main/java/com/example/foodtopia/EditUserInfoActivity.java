@@ -45,6 +45,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
     TextInputLayout username, weight, height, calories_perday;
     Spinner workload, stress;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,23 +55,23 @@ public class EditUserInfoActivity extends AppCompatActivity {
         weight = findViewById(R.id.weight);
         height = findViewById(R.id.height);
         calories_perday = findViewById(R.id.calories_perday);
-        workload=findViewById(R.id.spinner_workload);
-        stress=findViewById(R.id.spinner_stress);
-        back=findViewById(R.id.btn_back);
-        image_profile=findViewById(R.id.image_profile);
+        workload = findViewById(R.id.spinner_workload);
+        stress = findViewById(R.id.spinner_stress);
+        back = findViewById(R.id.btn_back);
+        image_profile = findViewById(R.id.image_profile);
+
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.work_load, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         workload.setAdapter(adapter);
-
+//        workload.setAdapter(getSpinnerSelection());
+        getSpinnerSelection();
 
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
                 R.array.stress, android.R.layout.simple_spinner_item);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         stress.setAdapter(adapter2);
-
-
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -91,7 +92,25 @@ public class EditUserInfoActivity extends AppCompatActivity {
 
     }
 
-    public void getUser(){
+    public void getSpinnerSelection() {
+        String selected_value = "55";
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+//        selected_value=mDatabase.child("Users").child(user.getUid()).child("workload").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+//            @Override
+//            public String onComplete(@NonNull Task<DataSnapshot> task) {
+//                if (!task.isSuccessful()) {
+//                    Log.e("firebase", "Error getting data", task.getException());
+//                } else {
+//                    username.getEditText().setText(String.valueOf(task.getResult().getValue()));
+//                }
+//                return  String.valueOf(task.getResult().getValue();
+//            }
+//        });
+    }
+
+
+    public void getUser() {
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -169,12 +188,13 @@ public class EditUserInfoActivity extends AppCompatActivity {
             System.out.println("dasdsauiu" + mImageUri);
         }
     }
-    private void getImage(){
+
+    private void getImage() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User user=dataSnapshot.getValue(User.class);
+                User user = dataSnapshot.getValue(User.class);
                 Glide.with(getApplicationContext()).load(user.getImageurl()).into(image_profile);
             }
 

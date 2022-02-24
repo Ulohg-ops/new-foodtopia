@@ -31,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
     //    private Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        if(FirebaseAuth.getInstance().getCurrentUser()==null){
-//            startActivity(new Intent(this,Login.class));
-//            finish();
-//        }
+        if(FirebaseAuth.getInstance().getCurrentUser()==null){
+            startActivity(new Intent(this,Login.class));
+            finish();
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

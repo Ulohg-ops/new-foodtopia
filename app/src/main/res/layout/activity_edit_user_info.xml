@@ -23,15 +23,6 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_margin="10dp" />
-        <Button
-            android:id="@+id/btn_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/black"
-            android:text="修改照片"
-            android:textColor="@color/white" />
     </LinearLayout>
 
 
