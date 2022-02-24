@@ -3,22 +3,29 @@ package com.example.foodtopia;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.foodtopia.Model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,6 +37,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -39,6 +47,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
     String miUrlOk = "";
     private StorageTask uploadTask;
     StorageReference storageRef;
+    private
     FirebaseAuth auth;
     StorageReference mStorageRef;
     DatabaseReference reference;
@@ -47,7 +56,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
     ImageButton back;
     ImageView image_profile;
     TextInputLayout username, weight, height, calories_perday;
-    Spinner workload, stress,target;
+    Spinner workload, stress, target;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 
@@ -67,7 +76,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
 
         back = findViewById(R.id.btn_back);
         image_profile = findViewById(R.id.image_profile);
-        btn_edit=findViewById(R.id.btn_edit);
+        btn_edit = findViewById(R.id.btn_edit);
 
         getWorkLoadSelection();
         getStrssSelection();
@@ -87,35 +96,85 @@ public class EditUserInfoActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openFileChooser();
+
             }
         });
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username_edit=username.getEditText().getText().toString().trim();
-                String weight_edit=weight.getEditText().getText().toString().trim();
-                String height_edit=height.getEditText().getText().toString().trim();
-                String calories_perday_edit=calories_perday.getEditText().toString();
-                String workload_edit=workload.getSelectedItem().toString();
-                String stress_edit=stress.getSelectedItem().toString();
-                String target_edit=target.getSelectedItem().toString();
-                auth = FirebaseAuth.getInstance();
-                FirebaseUser firebaseUser = auth.getCurrentUser();
-                String userID = firebaseUser.getUid();
-                reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
-                HashMap<String, Object> map = new HashMap<>();
-                map.put("username", username_edit);
-                map.put("weight", weight_edit);
-                map.put("height", height_edit);
-                map.put("calories_perday", calories_perday_edit);
-                map.put("workload", workload_edit);
-                map.put("stress", stress_edit);
-                map.put("target", target_edit);
+                new MaterialAlertDialogBuilder(EditUserInfoActivity.this, R.style.dialog)
+                        .setTitle("警告")
+                        .setMessage("確定要修改嗎")
+                        .setPositiveButton("確定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                uploadFile();
+                                String username_edit = username.getEditText().getText().toString().trim();
+                                String weight_edit = weight.getEditText().getText().toString().trim();
+                                String height_edit = height.getEditText().getText().toString().trim();
+                                String calories_perday_edit = calories_perday.getEditText().toString();
+                                String workload_edit = workload.getSelectedItem().toString();
+                                String stress_edit = stress.getSelectedItem().toString();
+                                String target_edit = target.getSelectedItem().toString();
+                                auth = FirebaseAuth.getInstance();
+                                FirebaseUser firebaseUser = auth.getCurrentUser();
+                                String userID = firebaseUser.getUid();
+                                reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+                                HashMap<String, Object> map = new HashMap<>();
+                                map.put("username", username_edit);
+                                map.put("weight", weight_edit);
+                                map.put("height", height_edit);
+                                map.put("calories_perday", calories_perday_edit);
+                                map.put("workload", workload_edit);
+                                map.put("stress", stress_edit);
+                                map.put("target", target_edit);
+                                map.put("imageurl",mImageUri);
+                                reference.updateChildren(map);
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                reference.updateChildren(map);
+                            }
+                        })
+                        .show();
+
             }
         });
     }
+
+    private String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    private void uploadFile() {
+        if (mImageUri != null) {
+            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
+            uploadTask = fileReference.putFile(mImageUri);
+            fileReference.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                    Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
+                    while (!urlTask.isSuccessful()) ;
+                    Uri downloadUrl = urlTask.getResult();
+
+                    Log.d("cc", "onSuccess: firebase download url: " + downloadUrl.toString()); //use if testing...don't need this line.
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(EditUserInfoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        } else {
+            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void getTargetSelection() {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").child(user.getUid()).child("target").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
@@ -128,16 +187,16 @@ public class EditUserInfoActivity extends AppCompatActivity {
                             R.array.target, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     target.setAdapter(adapter);
-                    int a =0;
-                    switch (String.valueOf(task.getResult().getValue())){
-                        case   "減重" :
-                            a=0;
+                    int a = 0;
+                    switch (String.valueOf(task.getResult().getValue())) {
+                        case "減重":
+                            a = 0;
                             break;
-                        case   "維持目前體重" :
-                            a=1;
+                        case "維持目前體重":
+                            a = 1;
                             break;
-                        case   "增重" :
-                            a=2;
+                        case "增重":
+                            a = 2;
                             break;
 
                     }
@@ -159,28 +218,28 @@ public class EditUserInfoActivity extends AppCompatActivity {
                             R.array.work_load, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     workload.setAdapter(adapter);
-                    int a =0;
-                    switch (String.valueOf(task.getResult().getValue())){
-                        case   "臥床躺著不動" :
-                            a=0;
+                    int a = 0;
+                    switch (String.valueOf(task.getResult().getValue())) {
+                        case "臥床躺著不動":
+                            a = 0;
                             break;
-                        case   "幾乎很少或坐著不動" :
-                            a=1;
+                        case "幾乎很少或坐著不動":
+                            a = 1;
                             break;
-                        case   "每周1-2次" :
-                            a=2;
+                        case "每周1-2次":
+                            a = 2;
                             break;
-                        case   "每周3-5次" :
-                            a=3;
+                        case "每周3-5次":
+                            a = 3;
                             break;
-                        case   "每周6-7次" :
-                            a=4;
+                        case "每周6-7次":
+                            a = 4;
                             break;
-                        case   "每天重度運動" :
-                            a=5;
+                        case "每天重度運動":
+                            a = 5;
                             break;
-                        case "重勞力工作者" :
-                            a=6;
+                        case "重勞力工作者":
+                            a = 6;
                             break;
                     }
                     workload.setSelection(a);
@@ -201,26 +260,26 @@ public class EditUserInfoActivity extends AppCompatActivity {
                             R.array.stress, android.R.layout.simple_spinner_item);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     stress.setAdapter(adapter);
-                    int a =0;
+                    int a = 0;
 
-                    switch (String.valueOf(task.getResult().getValue())){
-                        case   "正常無疾病" :
-                            a=0;
+                    switch (String.valueOf(task.getResult().getValue())) {
+                        case "正常無疾病":
+                            a = 0;
                             break;
-                        case   "發燒" :
-                            a=1;
+                        case "發燒":
+                            a = 1;
                             break;
-                        case   "住院患者" :
-                            a=2;
+                        case "住院患者":
+                            a = 2;
                             break;
-                        case   "懷孕" :
-                            a=3;
+                        case "懷孕":
+                            a = 3;
                             break;
-                        case   "生長期" :
-                            a=4;
+                        case "生長期":
+                            a = 4;
                             break;
-                        case   "哺乳" :
-                            a=5;
+                        case "哺乳":
+                            a = 5;
                             break;
                     }
                     stress.setSelection(a);
