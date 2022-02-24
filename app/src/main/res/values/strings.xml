@@ -114,4 +114,9 @@
         <item>生長期</item>
         <item>哺乳</item>
     </string-array>
+    <string-array name="target">
+        <item>減重</item>
+        <item>維持目前體重</item>
+        <item>增重</item>
+    </string-array>
 </resources>
