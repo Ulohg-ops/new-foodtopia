@@ -38,10 +38,10 @@
             android:id="@+id/edit_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:src="@drawable/account_icon_edit"
+            android:layout_marginTop="45dp"
             android:layout_toEndOf="@+id/profile_name"
-            android:layout_marginTop="45dp"/>
+            android:background="#00000000"
+            android:src="@drawable/account_icon_edit" />
 
         <TextView
             android:id="@+id/profile_email"

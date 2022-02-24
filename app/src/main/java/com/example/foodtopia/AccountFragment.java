@@ -127,6 +127,8 @@ public class AccountFragment extends Fragment {
                         startActivity(intent);
                         break;
                     case 5:
+                        intent = new Intent(getActivity(), SettingActivity.class);
+                        startActivity(intent);
                         break;
                     default:
                         break;
