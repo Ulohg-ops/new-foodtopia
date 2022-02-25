@@ -73,7 +73,7 @@
                         android:inputType="text" />
 
                     <Spinner
-                        android:id="@+id/spinner1"
+                        android:id="@+id/spinnerAmount"
                         android:layout_marginStart="5dp"
                         android:layout_gravity="center"
                         android:layout_weight="2"
@@ -91,7 +91,7 @@
                     android:text="營養素"
                     android:textStyle="bold" />
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -100,24 +100,28 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
                         android:text="碳水化合物" />
 
                     <EditText
                         android:id="@+id/manual_carbohydrate"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:hint="例如 : 52g"
                         android:inputType="text" />
-                    <Spinner
-                        android:id="@+id/spinner2"
+                    <TextView
                         android:layout_marginStart="5dp"
-                        android:layout_gravity="center"
                         android:layout_width="wrap_content"
-                        android:layout_height="30dp"
-                        android:background="@drawable/add_spinner_back"/>
-                </LinearLayout>
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:text="g"
+                        android:layout_height="30dp"/>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -132,22 +136,22 @@
 
                     <EditText
                         android:id="@+id/manual_protein"
-                        android:layout_width="200dp"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_centerHorizontal="true"
                         android:hint="例如 : 2.5g"
                         android:inputType="text" />
 
-                    <Spinner
-                        android:id="@+id/spinner3"
-                        android:layout_marginStart="5dp"
-                        android:layout_gravity="center"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:background="@drawable/add_spinner_back"/>
-                </LinearLayout>
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:text="g"/>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -162,21 +166,21 @@
 
                     <EditText
                         android:id="@+id/manual_fat"
-                        android:layout_width="200dp"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_centerHorizontal="true"
                         android:hint="例如 : 1.5g"
                         android:inputType="text" />
-                    <Spinner
-                        android:id="@+id/spinner4"
-                        android:layout_marginStart="5dp"
-                        android:layout_gravity="center"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:background="@drawable/add_spinner_back"/>
-                </LinearLayout>
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:text="g"/>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -191,22 +195,22 @@
 
                     <EditText
                         android:id="@+id/manual_sugar"
-                        android:layout_width="200dp"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_centerHorizontal="true"
                         android:hint="例如 : 0g"
                         android:inputType="text" />
 
-                    <Spinner
-                        android:id="@+id/spinner5"
-                        android:layout_marginStart="5dp"
-                        android:layout_gravity="center"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:background="@drawable/add_spinner_back"/>
-                </LinearLayout>
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_centerVertical="true"
+                        android:text="g"/>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -221,21 +225,21 @@
 
                     <EditText
                         android:id="@+id/manual_sodium"
-                        android:layout_width="200dp"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_centerHorizontal="true"
                         android:hint="例如 : 89mg"
                         android:inputType="text" />
-                    <Spinner
-                        android:id="@+id/spinner6"
-                        android:layout_marginStart="5dp"
-                        android:layout_gravity="center"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:background="@drawable/add_spinner_back"/>
-                </LinearLayout>
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_centerVertical="true"
+                        android:text="mg"/>
+                </RelativeLayout>
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -250,19 +254,19 @@
 
                     <EditText
                         android:id="@+id/manual_kcal"
-                        android:layout_width="200dp"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
+                        android:layout_centerHorizontal="true"
                         android:hint="例如 : 72kcal"
                         android:inputType="text" />
-                    <Spinner
-                        android:id="@+id/spinner7"
-                        android:layout_marginStart="5dp"
-                        android:layout_gravity="center"
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:background="@drawable/add_spinner_back"/>
-                </LinearLayout>
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:text="kcal"/>
+                </RelativeLayout>
 
                 <RadioGroup
                     android:id="@+id/manual_radioGroup"
@@ -317,10 +321,6 @@
                     android:id="@+id/manual_result"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
-`
-
-
             </LinearLayout>
         </ScrollView>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -332,7 +332,7 @@
             app:backgroundTint="@color/light_purple"
             app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Circle"
             app:srcCompat="@drawable/add_icon_back"
-            android:layout_alignRight="@+id/manual_ScrollView"
+            android:layout_alignEnd="@+id/manual_ScrollView"
             android:layout_alignBottom="@+id/manual_ScrollView"
             android:layout_margin="16dp"
             app:layout_anchor="@id/manual_ScrollView"
