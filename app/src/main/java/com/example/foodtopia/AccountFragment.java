@@ -57,8 +57,6 @@ public class AccountFragment extends Fragment {
 
     // account list
     ListView listView;
-    ArrayList<String> arrayList;
-    ArrayAdapter<String> arrayAdapter;
 
     String[] list_name = {"個人資料", "鬧鐘", "居家運動建議", "飲食建議", "收藏", "設定"};
     int[] list_icon = {R.drawable.account_icon_info, R.drawable.account_icon_clock, R.drawable.account_icon_home, R.drawable.account_icon_description, R.drawable.account_icon_favorite, R.drawable.account_icon_setting};
