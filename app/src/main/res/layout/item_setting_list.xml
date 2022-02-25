@@ -16,7 +16,10 @@
         android:id="@+id/switcher"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/text"/>
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@+id/text"
+        android:checked="true"
+        android:theme="@style/setting_notification_switch" />
 
 
 </RelativeLayout>

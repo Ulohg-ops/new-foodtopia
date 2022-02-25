@@ -119,4 +119,6 @@
         <item>維持目前體重</item>
         <item>增重</item>
     </string-array>
+    <string name="channel_name">notification_test</string>
+    <string name="channel_description">notification_description</string>
 </resources>

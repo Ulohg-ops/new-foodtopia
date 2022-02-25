@@ -1,16 +1,25 @@
 package com.example.foodtopia;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +29,18 @@ public class SettingActivity extends AppCompatActivity {
     ListView listView_switch;
     ListView listView;
     ImageButton back;
+    private static final String CHANNEL_ID = "test";
 
     String[] list_name = {"常見問題", "聯絡我們", "分享給其他人"};
-    
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+        // 可以傳送通知
+        createNotificationChannel();
 
         listView_switch = findViewById(R.id.setting_list_switch);
         listView = findViewById(R.id.setting_list);
@@ -45,6 +59,7 @@ public class SettingActivity extends AppCompatActivity {
                 finish();
             }
         });
+
 
     }
 
@@ -69,8 +84,30 @@ public class SettingActivity extends AppCompatActivity {
         public View getView(int i, View view, ViewGroup viewGroup) {
             View view1 = getLayoutInflater().inflate(R.layout.item_setting_list, null);
             TextView text = view1.findViewById(R.id.text);
+            Switch switcher = view1.findViewById(R.id.switcher);
 
             text.setText("通知");
+            switcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                    if (switcher.isChecked()) {
+                        NotificationCompat.Builder builder = new NotificationCompat.Builder(SettingActivity.this, CHANNEL_ID)
+                                .setSmallIcon(R.drawable.notification_icon)
+                                .setContentTitle("測試")
+                                .setContentText("您已開啟通知")
+                                .setDefaults(Notification.DEFAULT_VIBRATE)
+                                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+//
+                        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(SettingActivity.this);
+                        managerCompat.notify(0, builder.build());
+                    }else {
+                        // 關閉通知
+                        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(SettingActivity.this);
+                        managerCompat.cancelAll();
+                        Toast.makeText(SettingActivity.this, "您已關閉通知", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
 
             return view1;
         }
@@ -101,6 +138,19 @@ public class SettingActivity extends AppCompatActivity {
             text.setText(list_name[i]);
 
             return view1;
+        }
+    }
+
+    // create notification
+    private void createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 

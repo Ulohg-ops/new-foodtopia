@@ -2,9 +2,14 @@ package com.example.foodtopia;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -17,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNavigationView;
+
     Fragment fragment = new DashboardFragment();
 //    check whether user log in  if not intent to login
 //    @Override
@@ -45,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame, fragment).commit();
 
 
-
-
         //點選下方工具列切換頁面
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
@@ -72,5 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+
     }
+
 }
