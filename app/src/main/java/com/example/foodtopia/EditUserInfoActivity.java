@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
@@ -43,11 +45,9 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 
 public class EditUserInfoActivity extends AppCompatActivity {
+    ProgressBar progress_circular;
     private Uri mImageUri;
-    String miUrlOk = "";
     private StorageTask uploadTask;
-    StorageReference storageRef;
-    private
     FirebaseAuth auth;
     StorageReference mStorageRef;
     DatabaseReference reference;
@@ -58,13 +58,12 @@ public class EditUserInfoActivity extends AppCompatActivity {
     TextInputLayout username, weight, height, calories_perday;
     Spinner workload, stress, target;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
+    String fileUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user_info);
-//        imageButton = findViewById(R.id.image_profile);
         username = findViewById(R.id.username);
         weight = findViewById(R.id.weight);
         height = findViewById(R.id.height);
@@ -77,10 +76,16 @@ public class EditUserInfoActivity extends AppCompatActivity {
         back = findViewById(R.id.btn_back);
         image_profile = findViewById(R.id.image_profile);
         btn_edit = findViewById(R.id.btn_edit);
+        progress_circular=findViewById(R.id.progress_circular);
+
+        mStorageRef = FirebaseStorage.getInstance().getReference("uploads");
 
         getWorkLoadSelection();
         getStrssSelection();
         getTargetSelection();
+        getUser();
+        getImage();
+        progress_circular.setVisibility(View.GONE);
 
 
         back.setOnClickListener(new View.OnClickListener() {
@@ -89,9 +94,6 @@ public class EditUserInfoActivity extends AppCompatActivity {
                 finish();
             }
         });
-        getUser();
-        getImage();
-
         image_profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -108,28 +110,10 @@ public class EditUserInfoActivity extends AppCompatActivity {
                         .setPositiveButton("確定", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
+                                progress_circular.setVisibility(View.VISIBLE);
                                 uploadFile();
-                                String username_edit = username.getEditText().getText().toString().trim();
-                                String weight_edit = weight.getEditText().getText().toString().trim();
-                                String height_edit = height.getEditText().getText().toString().trim();
-                                String calories_perday_edit = calories_perday.getEditText().toString();
-                                String workload_edit = workload.getSelectedItem().toString();
-                                String stress_edit = stress.getSelectedItem().toString();
-                                String target_edit = target.getSelectedItem().toString();
-                                auth = FirebaseAuth.getInstance();
-                                FirebaseUser firebaseUser = auth.getCurrentUser();
-                                String userID = firebaseUser.getUid();
-                                reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
-                                HashMap<String, Object> map = new HashMap<>();
-                                map.put("username", username_edit);
-                                map.put("weight", weight_edit);
-                                map.put("height", height_edit);
-                                map.put("calories_perday", calories_perday_edit);
-                                map.put("workload", workload_edit);
-                                map.put("stress", stress_edit);
-                                map.put("target", target_edit);
-                                map.put("imageurl",mImageUri);
-                                reference.updateChildren(map);
+                                progress_circular.setVisibility(View.GONE);
+                                Toast.makeText(EditUserInfoActivity.this, "修改成功", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -150,29 +134,109 @@ public class EditUserInfoActivity extends AppCompatActivity {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
+
     private void uploadFile() {
         if (mImageUri != null) {
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
             uploadTask = fileReference.putFile(mImageUri);
+            System.out.println(mImageUri);
             fileReference.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
                     Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
                     while (!urlTask.isSuccessful()) ;
                     Uri downloadUrl = urlTask.getResult();
-
                     Log.d("cc", "onSuccess: firebase download url: " + downloadUrl.toString()); //use if testing...don't need this line.
+                    fileUri = downloadUrl.toString();
+                    System.out.println("cccd" + fileUri);
+                    String username_edit = username.getEditText().getText().toString().trim();
+                    String weight_edit = weight.getEditText().getText().toString().trim();
+                    String height_edit = height.getEditText().getText().toString().trim();
+                    String calories_perday_edit = calories_perday.getEditText().getText().toString().trim();
+                    String workload_edit = workload.getSelectedItem().toString();
+                    String stress_edit = stress.getSelectedItem().toString();
+                    String target_edit = target.getSelectedItem().toString();
+                    auth = FirebaseAuth.getInstance();
+                    FirebaseUser firebaseUser = auth.getCurrentUser();
+                    String userID = firebaseUser.getUid();
+                    reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+                    HashMap<String, Object> map = new HashMap<>();
+                    map.put("username", username_edit);
+                    map.put("weight", weight_edit);
+                    map.put("height", height_edit);
+                    map.put("calories_per_day", calories_perday_edit);
+                    map.put("workload", workload_edit);
+                    map.put("stress", stress_edit);
+                    map.put("target", target_edit);
+                    map.put("imageurl", fileUri);
+                    reference.updateChildren(map);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(EditUserInfoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+
                 }
             });
         } else {
-            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
+            String username_edit = username.getEditText().getText().toString().trim();
+            String weight_edit = weight.getEditText().getText().toString().trim();
+            String height_edit = height.getEditText().getText().toString().trim();
+            String calories_perday_edit = calories_perday.getEditText().getText().toString().trim();
+            String workload_edit = workload.getSelectedItem().toString();
+            String stress_edit = stress.getSelectedItem().toString();
+            String target_edit = target.getSelectedItem().toString();
+            auth = FirebaseAuth.getInstance();
+            FirebaseUser firebaseUser = auth.getCurrentUser();
+            String userID = firebaseUser.getUid();
+            reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("username", username_edit);
+            map.put("weight", weight_edit);
+            map.put("height", height_edit);
+            map.put("calories_per_day", calories_perday_edit);
+            map.put("workload", workload_edit);
+            map.put("stress", stress_edit);
+            map.put("target", target_edit);
+            reference.updateChildren(map);
         }
+    }
+
+    private void openFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+
+    }
+
+    @Override
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
+            mImageUri = data.getData();
+            System.out.println(mImageUri);
+            Picasso.get().load(mImageUri).into(image_profile);
+            System.out.println("dasdsauiu" + mImageUri);
+        }
+    }
+
+    private void getImage() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                Glide.with(getApplicationContext()).load(user.getImageurl()).into(image_profile);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public void getTargetSelection() {
@@ -345,41 +409,4 @@ public class EditUserInfoActivity extends AppCompatActivity {
 
     }
 
-    private void openFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, PICK_IMAGE_REQUEST);
-
-    }
-
-    @Override
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data != null && data.getData() != null) {
-            mImageUri = data.getData();
-            System.out.println(mImageUri);
-            Picasso.get().load(mImageUri).into(image_profile);
-            System.out.println("dasdsauiu" + mImageUri);
-        }
-    }
-
-    private void getImage() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                Glide.with(getApplicationContext()).load(user.getImageurl()).into(image_profile);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 }

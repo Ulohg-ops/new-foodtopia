@@ -54,9 +54,6 @@
             android:name=".social.CommentsActivity"
             android:exported="true" />
         <activity
-            android:name=".TestActivity"
-            android:exported="true" />
-        <activity
             android:name=".social.PostActivity"
             android:exported="true" />
         <activity
