@@ -21,10 +21,12 @@
         <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/drawable/profile_btn.xml" value="0.18" />
         <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/drawable/setting.xml" value="0.18" />
         <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/activity_add_upload.xml" value="0.17135416666666667" />
+        <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/activity_login.xml" value="0.30833333333333335" />
         <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/activity_take_photo.xml" value="0.17135416666666667" />
         <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/custom_profile_list.xml" value="0.17135416666666667" />
         <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/fragment_account.xml" value="0.17135416666666667" />
         <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/fragment_add.xml" value="0.5" />
+        <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/fragment_add__manual.xml" value="0.35885416666666664" />
         <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/fragment_add__upload.xml" value="0.17135416666666667" />
         <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/fragment_add_menu.xml" value="0.17135416666666667" />
         <entry key="..\:/Programming_projects/new-foodtopia/app/src/main/res/layout/restuarant_product_cardview.xml" value="0.17135416666666667" />

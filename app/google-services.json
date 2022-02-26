@@ -8,35 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:501710130285:android:89169cbd8a5c1805c6c364",
-        "android_client_info": {
-          "package_name": "com.example.foodtopia"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "501710130285-ol9rdcgjfmnmeklm0ugluna8taf1jk75.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBtSuxlI2WZInZV4C16pwZ1u8b5oZt84yM"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "501710130285-ol9rdcgjfmnmeklm0ugluna8taf1jk75.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:501710130285:android:22c8e4e56a0be540c6c364",
         "android_client_info": {
           "package_name": "com.foodtopia.app"

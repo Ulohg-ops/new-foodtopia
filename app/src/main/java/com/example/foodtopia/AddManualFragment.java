@@ -1,9 +1,7 @@
 package com.example.foodtopia;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,20 +12,12 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.Toast;
-
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.FirebaseFirestore;
-
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class AddManualFragment extends Fragment {
     EditText editName, editAmount, editCarbohydrate, editProtein, editFat, editSugar, editSodium, editKcal;
@@ -36,7 +26,8 @@ public class AddManualFragment extends Fragment {
     String  choice;
     RadioGroup radioGroup;
     RadioButton breakfastBtn,lunchBtn,dinnerBtn,dessertBtn;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    private DatabaseReference mDatabase;
 
     Boolean spinner1First = true;
 
@@ -122,47 +113,31 @@ public class AddManualFragment extends Fragment {
             String sodium = editSodium.getText().toString().trim();
             String kcal = editKcal.getText().toString().trim();
 
-            //將份量的數字和單位合併為amount
+            //份量的單位
             String amountQuantifier = spinnerAmount.getSelectedItem().toString();
-            amount = amount+amountQuantifier;
-
-            Map<String,Object> meal = new HashMap<>();
-            meal.put("name",name);
-            meal.put("amount",amount);
-            meal.put("carbohydrate",carbohydrate);
-            meal.put("protein",protein);
-            meal.put("fat",fat);
-            meal.put("sugar",sugar);
-            meal.put("sodium",sodium);
-            meal.put("kcal",kcal);
 
             //將selectedText 指定為使用者選擇的項目:早餐、午餐、晚餐
             int radioButtonID = radioGroup.getCheckedRadioButtonId();
-            RadioButton radioButton = (RadioButton) radioGroup.findViewById(radioButtonID);
+            RadioButton radioButton = radioGroup.findViewById(radioButtonID);
             String selectedText = (String) radioButton.getText();
 
-            //設定document name eg:20220215_022555_早餐
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");
+            //設定 date, time
             Date current = new Date();
-            String documentName = sdf.format(current)+"_"+selectedText;
+            SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd");
+            String date = sdfDate.format(current);
+            SimpleDateFormat sdfTime = new SimpleDateFormat("HHmmss");
+            String time = sdfTime.format(current);
 
-            //得到使用者的信箱
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            String email="test_users";
-            if (user != null) {
-                email = user.getEmail();
-            }
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-            //新增document
-            db.collection(email).document(documentName)
-                    .set(meal)
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            Toast.makeText(getActivity(),"成功新增",Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(e -> Toast.makeText(getActivity(),"錯誤",Toast.LENGTH_SHORT).show());
+            mDatabase = FirebaseDatabase.getInstance().getReference("Diets");
+            //new diet node
+            String dietId = mDatabase.push().getKey();
+
+            Diet diet = new Diet(name,amount,amountQuantifier,kcal,carbohydrate,fat,selectedText,
+                    protein,sodium,sugar,date,time,uid);
+            mDatabase.child(dietId).setValue(diet);
+
         });
         //返回手動頁面
         back.setOnClickListener(view12 -> {
