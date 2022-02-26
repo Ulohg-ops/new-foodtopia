@@ -2,15 +2,15 @@ package com.example.foodtopia.Model;
 
 import java.util.List;
 
-public class restaurantProduct {
+public class RestaurantProduct {
     private String calories, name;
 
-    public restaurantProduct(String calories, String name) {
+    public RestaurantProduct(String calories, String name) {
         this.calories = calories;
         this.name = name;
     }
 
-    public restaurantProduct() {
+    public RestaurantProduct() {
 
     }
 

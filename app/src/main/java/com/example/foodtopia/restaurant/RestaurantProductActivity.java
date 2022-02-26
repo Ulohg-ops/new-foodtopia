@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodtopia.Adpater.CategoryTitleAdapter;
 import com.example.foodtopia.Model.AddTitle;
 import com.example.foodtopia.Model.Post;
-import com.example.foodtopia.Model.restaurantProduct;
+import com.example.foodtopia.Model.RestaurantProduct;
 import com.example.foodtopia.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,9 +31,6 @@ public class RestaurantProductActivity extends AppCompatActivity {
     RecyclerView mainCategoryRecycler;
     CategoryTitleAdapter categoryTitleAdapter;
     FloatingActionButton back;
-//    List<CategoryItem> categoryItemList = new ArrayList<>();
-//    List<CategoryItem> categoryItemList2 = new ArrayList<>();
-//    List<CategoryItem> categoryItemList3 = new ArrayList<>();
 
 
     String store_name;
@@ -59,7 +56,7 @@ public class RestaurantProductActivity extends AppCompatActivity {
                 finish();
             }
         });
-        List<restaurantProduct.AllCategory> allCategoryList = new ArrayList<>();
+        List<RestaurantProduct.AllCategory> allCategoryList = new ArrayList<>();
         AddTitle addTitle=new AddTitle();
         List<List<String>> title =addTitle.getTitles();
 
@@ -67,11 +64,9 @@ public class RestaurantProductActivity extends AppCompatActivity {
             for(String items : lists){
                 System.out.println(items);
                 List<Post.CategoryItem> itemList = new ArrayList<>();
-//                System.out.println(items);
-//                System.out.println(store_name);
                 if(items.contains(store_name.toLowerCase(Locale.ROOT))){
                     System.out.println(items);
-                    allCategoryList.add(new restaurantProduct.AllCategory(items, itemList));
+                    allCategoryList.add(new RestaurantProduct.AllCategory(items, itemList));
                     getData(itemList, items);
                 }
 
@@ -79,53 +74,9 @@ public class RestaurantProductActivity extends AppCompatActivity {
         }
         setMainCategoryRecycler(allCategoryList);
 
-        //        System.out.println(store_name.toLowerCase(Locale.ROOT)+"_food");
-//
-//        allCategoryList.add(new AllCategory(store_name + "食物", categoryItemList));
-//        allCategoryList.add(new AllCategory(store_name + "飲料", categoryItemList2));
-//        allCategoryList.add(new AllCategory(store_name + "點心", categoryItemList3));
-//
-//
-//        getData(categoryItemList, store_name.toLowerCase(Locale.ROOT) + "_food");
-//        getData(categoryItemList2, store_name.toLowerCase(Locale.ROOT) + "_beverage");
-//        getData(categoryItemList3, store_name.toLowerCase(Locale.ROOT) + "_dessert");
-
-
-//        List<List<String>> titles =new ArrayList<>();
-
-//        List<String> mcdonalds= new ArrayList<>();
-//        mcdonalds.add("mcdonalds_food");
-//        mcdonalds.add("mcdonalds_beverage");
-//        List<String> kfc = new ArrayList<>();
-//        kfc.add("kfc_food");
-//        kfc.add("kfc_beverage");
-//        kfc.add("kfc_dessert");
-//        titles.add(mcdonalds);
-//        titles.add(kfc);
-
-//        for(List<String> lists : titles){
-//            System.out.println(lists);
-//            for(String items : lists){
-//                System.out.println(items);
-//                List<CategoryItem> itemList = new ArrayList<>();
-//                if(items.toString().equals(store_name.toLowerCase(Locale.ROOT)+"_food")){
-//                    System.out.println(items);
-//                    allCategoryList.add(new AllCategory(items, itemList));
-//                    getData(itemList, store_name.toLowerCase(Locale.ROOT) + "_food");
-//                }else if( items.toString().equals(store_name.toLowerCase(Locale.ROOT)+"_beverage") ){
-//                    System.out.println(items);
-//                    allCategoryList.add(new AllCategory(items, itemList));
-//                    getData(itemList, store_name.toLowerCase(Locale.ROOT) + "_beverage");
-//                }
-//            }
-//        }
-
-
-
-
     }
 
-    private void setMainCategoryRecycler(List<restaurantProduct.AllCategory> allCategoryList) {
+    private void setMainCategoryRecycler(List<RestaurantProduct.AllCategory> allCategoryList) {
 
         mainCategoryRecycler = findViewById(R.id.RVparent);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -145,7 +96,8 @@ public class RestaurantProductActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
 //                                Log.d(TAG, document.getId() + " => " + document.getString("name"));
-                                categoryItems.add(new Post.CategoryItem(document.getString("name"),
+                                categoryItems.add(new Post.CategoryItem(
+                                         document.getString("name"),
                                          document.getString("calories"),
                                          document.getString("carbohydrate"),
                                          document.getString("fat"),

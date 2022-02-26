@@ -85,6 +85,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
         getTargetSelection();
         getUser();
         getImage();
+
         progress_circular.setVisibility(View.GONE);
 
 
@@ -219,7 +220,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
             mImageUri = data.getData();
             System.out.println(mImageUri);
             Picasso.get().load(mImageUri).into(image_profile);
-            System.out.println("dasdsauiu" + mImageUri);
+//            System.out.println("dasdsauiu" + mImageUri);
         }
     }
 

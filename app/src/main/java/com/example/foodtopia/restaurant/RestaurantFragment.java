@@ -1,6 +1,6 @@
 package com.example.foodtopia.restaurant;
 
-import com.example.foodtopia.Model.restaurants;
+import com.example.foodtopia.Model.Restaurants;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -19,7 +19,7 @@ import java.util.List;
 
 public class RestaurantFragment extends Fragment {
     private View view;
-    List<restaurants> memberList = new ArrayList<>();
+    List<Restaurants> memberList = new ArrayList<>();
     RecyclerView recyclerView;
     public RestaurantFragment() {
         // Required empty public constructor
@@ -37,14 +37,14 @@ public class RestaurantFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
 
-        memberList.add(new restaurants( R.drawable.restaurant_picture_logo1, "Mcdonalds",5));
-        memberList.add(new restaurants( R.drawable.restaurant_picture_logo2, "KFC",5));
-        memberList.add(new restaurants( R.drawable.restaurant_picture_logo3, "Subway",5));
-        memberList.add(new restaurants( R.drawable.restaurant_picture_logo6, "Mosburger",5));
-        memberList.add(new restaurants( R.drawable.restaurant_picture_logo5, "麥味登",5));
-        memberList.add(new restaurants( R.drawable.restaurant_picture_logo4, "Seven-Eleven",5));
-        memberList.add(new restaurants(R.drawable.restaurant_picture_logo7, "starbucks",5));
-        memberList.add(new restaurants( R.drawable.restaurant_picture_logo8, "FamilyMart",5));
+        memberList.add(new Restaurants( R.drawable.restaurant_picture_logo1, "Mcdonalds",5));
+        memberList.add(new Restaurants( R.drawable.restaurant_picture_logo2, "KFC",5));
+        memberList.add(new Restaurants( R.drawable.restaurant_picture_logo3, "Subway",5));
+        memberList.add(new Restaurants( R.drawable.restaurant_picture_logo6, "Mosburger",5));
+        memberList.add(new Restaurants( R.drawable.restaurant_picture_logo5, "麥味登",5));
+        memberList.add(new Restaurants( R.drawable.restaurant_picture_logo4, "Seven-Eleven",5));
+        memberList.add(new Restaurants(R.drawable.restaurant_picture_logo7, "starbucks",5));
+        memberList.add(new Restaurants( R.drawable.restaurant_picture_logo8, "FamilyMart",5));
 
         // MemberAdapter 會在步驟7建立
 

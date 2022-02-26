@@ -12,21 +12,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtopia.R;
 import com.example.foodtopia.Model.Post;
-import com.example.foodtopia.Model.restaurantProduct;
+import com.example.foodtopia.Model.RestaurantProduct;
 
 import java.util.List;
 
 public class CategoryTitleAdapter extends RecyclerView.Adapter<CategoryTitleAdapter.MainViewHolder> {
 
     private Context context;
-    private List<restaurantProduct.AllCategory> allCategoryList;
+    private List<RestaurantProduct.AllCategory> allCategoryList;
 
-    public CategoryTitleAdapter(Context context, List<restaurantProduct.AllCategory> allCategoryList) {
+    public CategoryTitleAdapter(Context context, List<RestaurantProduct.AllCategory> allCategoryList) {
         this.context = context;
         this.allCategoryList = allCategoryList;
     }
 
-    public CategoryTitleAdapter(List<restaurantProduct.AllCategory> allCategoryList) {
+    public CategoryTitleAdapter(List<RestaurantProduct.AllCategory> allCategoryList) {
         this.allCategoryList = allCategoryList;
     }
 

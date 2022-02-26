@@ -39,10 +39,10 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
     DatabaseReference reference;
     FirebaseAuth auth;
 
-    Date dNow ;
-    SimpleDateFormat ft =
-            new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz");
+
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
 
     public CategoryItemAdapter(Context context, List<Post.CategoryItem> categoryItemList) {
         this.context = context;
@@ -219,8 +219,15 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
         FirebaseUser firebaseUser = auth.getCurrentUser();
         String userID = firebaseUser.getUid();
         reference = FirebaseDatabase.getInstance().getReference().child("Diets");
-        ft = new SimpleDateFormat("yyyyMMdd_hhmmss");
-        dNow = new Date();
+
+
+        Date current = new Date();
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd");
+        String date = sdfDate.format(current);
+        SimpleDateFormat sdfTime = new SimpleDateFormat("HHmmss");
+        String time = sdfTime.format(current);
+
+
         String mealid = reference.push().getKey();
 
         HashMap<String, Object> map = new HashMap<>();
@@ -233,7 +240,8 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
         map.put("sodium", sodium);
         map.put("sugar", sugar);
         map.put("mealtime",mealtime);
-        map.put("timestamp",ft.format(dNow));
+        map.put("time",time);
+        map.put("date",date);
 
         reference.child(mealid).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -250,38 +258,6 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
         });
 
 
-
-
-
-//        Map<String, Object> user = new HashMap<>();
-//
-//        ft = new SimpleDateFormat("yyyyMMdd_hhmmss");
-//        dNow = new Date();
-//        user.put("foodname", foodname);
-//        user.put("calories", calories);
-//        user.put("carbohydrate", carbohydrate);
-//        user.put("fat", fat);
-//        user.put("protein", protein);
-//        user.put("saturatedfat", saturatedfat);
-//        user.put("unsaturatedfat", unsaturatedfat);
-//        user.put("sodium", sodium);
-//        user.put("sugar", sugar);
-
-
-//        db.collection("user_001").document(ft.format(dNow)+"_"+mealtime)
-//                .set(user)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Toast.makeText(context, "新增成功!!", Toast.LENGTH_SHORT).show();
-//                    }
-//                })
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        Log.w(TAG, "Error writing document", e);
-//                    }
-//                });
 
 
     }
