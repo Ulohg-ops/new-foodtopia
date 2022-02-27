@@ -7,6 +7,7 @@ import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -20,13 +21,21 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.foodtopia.add.Upload;
 import com.example.foodtopia.databinding.ActivityAddTakePhotoBinding;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -45,9 +54,12 @@ public class AddTakePhotoActivity extends AppCompatActivity {
     public static final String TAG = MainActivity.class.getSimpleName()+"My";
 
     Uri uri ;
+    String imgURL;
+    String mealtime;
     ImageView imageView;
-    StorageReference storageReference;
     ProgressDialog progressDialog;
+    StorageReference storageRef;
+    private DatabaseReference mDatabase;
 
     private String mPath = "";//設置高畫質的照片位址
     public static final int CAMERA_PERMISSION = 100;//檢測相機權限用
@@ -63,6 +75,9 @@ public class AddTakePhotoActivity extends AppCompatActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         
         imageView = findViewById(R.id.cameraImageView);
+
+        Intent intent=getIntent();
+        mealtime = intent.getStringExtra("choice");
 
         /**取得相機權限*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -112,10 +127,57 @@ public class AddTakePhotoActivity extends AppCompatActivity {
         progressDialog.setTitle("上傳中...");
         progressDialog.show();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.TAIWAN);
         Date now = new Date();
-        String fileName = formatter.format(now);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMdd", Locale.TAIWAN);
+        String date = formatter.format(now);
+        SimpleDateFormat timeFormatter = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.TAIWAN);
+        String time = timeFormatter.format(now);
 
+        storageRef = FirebaseStorage.getInstance().getReference("meals");
+        final StorageReference fileReference = storageRef.child(time
+                + "." + getFileExtension(uri));
+        UploadTask uploadTask = fileReference.putFile(uri);
+
+        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                return fileReference.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    imgURL = downloadUri.toString();
+
+                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    mDatabase = FirebaseDatabase.getInstance().getReference("uploads");
+                    //new node
+                    String uploadID = mDatabase.push().getKey();
+                    Upload photo = new Upload(uid, date, mealtime, imgURL);
+
+                    mDatabase.child(uploadID).setValue(photo);
+
+                    if (progressDialog.isShowing()){
+                        progressDialog.dismiss();
+                    }
+
+                } else {
+                    Toast.makeText(AddTakePhotoActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AddTakePhotoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        /*
         storageReference = FirebaseStorage.getInstance().getReference("meals/"+fileName);
         storageReference.putFile(uri)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -137,6 +199,15 @@ public class AddTakePhotoActivity extends AppCompatActivity {
 
             }
         });
+
+         */
+    }
+
+    //取得副檔名
+    private String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
     /**取得相片檔案的URI位址及設定檔案名稱*/

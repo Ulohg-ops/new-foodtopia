@@ -90,9 +90,11 @@ public class AddUploadActivity extends AppCompatActivity {
         Date now = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.TAIWAN);
         String date = dateFormat.format(now);
+        SimpleDateFormat timeFormat = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.TAIWAN);
+        String time = timeFormat.format(now);
 
         storageRef = FirebaseStorage.getInstance().getReference("meals");
-        final StorageReference fileReference = storageRef.child(System.currentTimeMillis()
+        final StorageReference fileReference = storageRef.child(time
                 + "." + getFileExtension(uri));
         UploadTask uploadTask = fileReference.putFile(uri);
 
