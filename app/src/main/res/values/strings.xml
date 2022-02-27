@@ -121,4 +121,5 @@
     </string-array>
     <string name="channel_name">notification_test</string>
     <string name="channel_description">notification_description</string>
+    <string name="calories_tracking_title">熱量追蹤</string>
 </resources>

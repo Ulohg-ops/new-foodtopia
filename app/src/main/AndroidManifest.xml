@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodTopia">
         <activity
+            android:name=".CaloriesTrackingActivity"
+            android:exported="false" />
+        <activity
             android:name=".SettingActivity"
             android:exported="false" />
         <activity

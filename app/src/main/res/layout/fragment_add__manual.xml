@@ -323,20 +323,21 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </ScrollView>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/add_menu_back_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="100dp"
-            app:backgroundTint="@color/light_purple"
-            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Circle"
-            app:srcCompat="@drawable/add_icon_back"
             android:layout_alignEnd="@+id/manual_ScrollView"
             android:layout_alignBottom="@+id/manual_ScrollView"
-            android:layout_margin="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            app:backgroundTint="@color/light_purple"
             app:layout_anchor="@id/manual_ScrollView"
             app:layout_anchorGravity="bottom|right|end"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Circle"
+            app:srcCompat="@drawable/add_icon_back"
             app:tint="@color/white" />
     </RelativeLayout>
 
