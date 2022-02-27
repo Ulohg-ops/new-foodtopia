@@ -1,4 +1,4 @@
-package com.example.foodtopia;
+package com.example.foodtopia.add;
 
 public class Diet {
     public String foodname;

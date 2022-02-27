@@ -5,16 +5,24 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.foodtopia.add.Upload;
 import com.example.foodtopia.databinding.ActivityAddUploadBinding;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -31,8 +39,11 @@ public class AddUploadActivity extends AppCompatActivity {
     Uri uri ;
     ImageView imageView;
 
-    StorageReference storageReference;
+    StorageReference storageRef;
     ProgressDialog progressDialog;
+    String mealtime;
+    String imgURL;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +53,9 @@ public class AddUploadActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         imageView = findViewById(R.id.uploadImageView);
+
+        Intent intent=getIntent();
+        mealtime = intent.getStringExtra("choice");
 
         binding.chooseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +69,6 @@ public class AddUploadActivity extends AppCompatActivity {
         binding.PhotoUploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(Add_Upload.this,"分析照片",Toast.LENGTH_SHORT).show();
                 uploadImage();
             }
         });
@@ -74,25 +87,85 @@ public class AddUploadActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("上傳中...");
         progressDialog.show();
-
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss", Locale.TAIWAN);
         Date now = new Date();
-        String fileName = formatter.format(now);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd", Locale.TAIWAN);
+        String date = dateFormat.format(now);
+
+        storageRef = FirebaseStorage.getInstance().getReference("meals");
+        final StorageReference fileReference = storageRef.child(System.currentTimeMillis()
+                + "." + getFileExtension(uri));
+        UploadTask uploadTask = fileReference.putFile(uri);
 
 
-        storageReference = FirebaseStorage.getInstance().getReference("meals/"+fileName);
+        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                return fileReference.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    imgURL = downloadUri.toString();
 
-        storageReference.putFile(uri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        binding.uploadImageView.setImageURI(null);
-                        Toast.makeText(AddUploadActivity.this,"上傳成功",Toast.LENGTH_SHORT).show();
-                        if (progressDialog.isShowing()){
-                            progressDialog.dismiss();
-                        }
+                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                    mDatabase = FirebaseDatabase.getInstance().getReference("uploads");
+                    //new node
+                    String uploadID = mDatabase.push().getKey();
+                    Upload photo = new Upload(uid, date, mealtime, imgURL);
+
+                    mDatabase.child(uploadID).setValue(photo);
+
+                    if (progressDialog.isShowing()){
+                        progressDialog.dismiss();
                     }
-                }).addOnFailureListener(new OnFailureListener() {
+
+                } else {
+                    Toast.makeText(AddUploadActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(AddUploadActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        /*
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    binding.uploadImageView.setImageURI(null);
+                    Toast.makeText(AddUploadActivity.this,"上傳成功",Toast.LENGTH_SHORT).show();
+                    if (progressDialog.isShowing()){
+                        progressDialog.dismiss();
+                    }
+                    Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+                        @Override
+                        public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                            if (!task.isSuccessful()) {
+                                throw task.getException();
+                            }
+                            // Continue with the task to get the download URL
+                            return storageRef.getDownloadUrl();
+                        }
+                    }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+                                Uri downloadUri = task.getResult();
+                                imgURL = downloadUri.toString();
+                            } else {
+                            }
+                        }
+                    });
+                }
+            }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 if (progressDialog.isShowing()){
@@ -102,6 +175,14 @@ public class AddUploadActivity extends AppCompatActivity {
 
             }
         });
+         */
+    }
+
+    //取得副檔名
+    private String getFileExtension(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
     @Override
@@ -110,15 +191,6 @@ public class AddUploadActivity extends AppCompatActivity {
         if (requestCode == SELECT_PHOTO && resultCode == RESULT_OK && data != null && data.getData()!= null){
             uri = data.getData();
             binding.uploadImageView.setImageURI(uri);
-
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(),uri);
-//                imageView.setImageBitmap(bitmap);
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
         }
     }
 }

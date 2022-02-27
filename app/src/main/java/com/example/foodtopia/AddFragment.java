@@ -34,6 +34,8 @@ public class AddFragment extends Fragment  {
     private View root;
     //Date 按鈕
     private Button dateBtn;
+    //choice
+    private String choice;
     //餐點熱量
     private TextView breakfastKcalText,lunchKcalText,dinnerKcalText,dessertKcalText;
 
@@ -170,6 +172,7 @@ public class AddFragment extends Fragment  {
             @Override
             public void onClick(View view) {
                 Bundle option = new Bundle();
+                choice = "早餐";
                 option.putString("option","1");
                 getParentFragmentManager().setFragmentResult("option1",option);
                 createPopUpDialog();
@@ -179,6 +182,7 @@ public class AddFragment extends Fragment  {
             @Override
             public void onClick(View view) {
                 Bundle option = new Bundle();
+                choice = "午餐";
                 option.putString("option","2");
                 getParentFragmentManager().setFragmentResult("option2",option);
                 createPopUpDialog();
@@ -188,6 +192,7 @@ public class AddFragment extends Fragment  {
             @Override
             public void onClick(View view) {
                 Bundle option = new Bundle();
+                choice = "晚餐";
                 option.putString("option","3");
                 getParentFragmentManager().setFragmentResult("option3",option);
                 createPopUpDialog();
@@ -197,6 +202,7 @@ public class AddFragment extends Fragment  {
             @Override
             public void onClick(View view) {
                 Bundle option = new Bundle();
+                choice = "點心";
                 option.putString("option","4");
                 getParentFragmentManager().setFragmentResult("option4",option);
                 createPopUpDialog();
@@ -235,8 +241,10 @@ public class AddFragment extends Fragment  {
         cameraBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(getActivity(),"拍攝照片",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), AddTakePhotoActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("choice",choice);
+                intent.putExtras(bundle);
                 startActivity(intent);
                 dialog.dismiss();
             }
@@ -246,8 +254,10 @@ public class AddFragment extends Fragment  {
         uploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(getActivity(),"選擇照片",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), AddUploadActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("choice",choice);
+                intent.putExtras(bundle);
                 startActivity(intent);
                 dialog.dismiss();
             }
