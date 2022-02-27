@@ -31,7 +31,6 @@ import com.example.foodtopia.databinding.ActivityAddTakePhotoBinding;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -79,13 +78,13 @@ public class AddTakePhotoActivity extends AppCompatActivity {
         Intent intent=getIntent();
         mealtime = intent.getStringExtra("choice");
 
-        /**取得相機權限*/
+        /*取得相機權限*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED)
                 requestPermissions(new String[]{Manifest.permission.CAMERA},CAMERA_PERMISSION);
         }
 
-        /**按下拍攝按鈕*/
+        /*按下拍攝按鈕*/
         binding.buttonHigh.setOnClickListener(v->{
             Intent highIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             //檢查是否已取得權限
@@ -104,7 +103,7 @@ public class AddTakePhotoActivity extends AppCompatActivity {
             startActivityForResult(highIntent,REQUEST_HIGH_IMAGE);//開啟相機
         });
 
-        /**按下分析按鈕*/
+        /*按下分析按鈕*/
         binding.cameraPhotoUploadBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,7 +111,7 @@ public class AddTakePhotoActivity extends AppCompatActivity {
 //                Toast.makeText(TakePhoto.this,"分析照片",Toast.LENGTH_SHORT).show();
             }
         });
-        /**按下返回按鈕*/
+        /*按下返回按鈕*/
         binding.cameraBackFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,31 +175,6 @@ public class AddTakePhotoActivity extends AppCompatActivity {
                 Toast.makeText(AddTakePhotoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        /*
-        storageReference = FirebaseStorage.getInstance().getReference("meals/"+fileName);
-        storageReference.putFile(uri)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        binding.cameraImageView.setImageURI(null);
-                        Toast.makeText(AddTakePhotoActivity.this,"上傳成功",Toast.LENGTH_SHORT).show();
-                        if (progressDialog.isShowing()){
-                            progressDialog.dismiss();
-                        }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                if (progressDialog.isShowing()){
-                    progressDialog.dismiss();
-                }
-                Toast.makeText(AddTakePhotoActivity.this,"上傳失敗",Toast.LENGTH_SHORT).show();
-
-            }
-        });
-
-         */
     }
 
     //取得副檔名
@@ -226,15 +200,15 @@ public class AddTakePhotoActivity extends AppCompatActivity {
         }
     }
 
-    /**取得照片回傳*/
+    /*取得照片回傳*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        /**可在此檢視回傳為哪個相片，requestCode為上述自定義，resultCode為-1就是有拍照，0則是使用者沒拍照*/
+        /*可在此檢視回傳為哪個相片，requestCode為上述自定義，resultCode為-1就是有拍照，0則是使用者沒拍照*/
         Log.d(TAG, "onActivityResult: requestCode: "+requestCode+", resultCode "+resultCode);
 
-        /**如果是高畫質的相片回傳*/
+        /*如果是高畫質的相片回傳*/
         if (requestCode == REQUEST_HIGH_IMAGE && resultCode == -1){
             ImageView imageHigh = binding.cameraImageView;
             new Thread(()->{
