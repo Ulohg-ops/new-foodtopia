@@ -18,14 +18,18 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.example.foodtopia.Model.User;
 import com.example.foodtopia.account.SavedActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -34,7 +38,7 @@ public class AccountFragment extends Fragment {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
+    ImageView image_profile;
 
     public AccountFragment() {
         // Required empty public constructor
@@ -74,6 +78,8 @@ public class AccountFragment extends Fragment {
 
         TextView profile_name = view.findViewById(R.id.profile_name);
         TextView profile_email = view.findViewById(R.id.profile_email);
+        image_profile = view.findViewById(R.id.profile_pic);
+        getImage();
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -109,9 +115,9 @@ public class AccountFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent intent;
-                switch (i){
-                    case 0 :
-                      intent= new Intent(getActivity(), EditUserInfoActivity.class);
+                switch (i) {
+                    case 0:
+                        intent = new Intent(getActivity(), EditUserInfoActivity.class);
                         startActivity(intent);
                         break;
                     case 1:
@@ -121,7 +127,7 @@ public class AccountFragment extends Fragment {
                     case 3:
                         break;
                     case 4:
-                         intent=new Intent(getActivity(), SavedActivity.class);
+                        intent = new Intent(getActivity(), SavedActivity.class);
                         startActivity(intent);
                         break;
                     case 5:
@@ -170,4 +176,33 @@ public class AccountFragment extends Fragment {
             return view1;
         }
     }
+
+    private void getImage() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                Glide.with(getActivity()).load(user.getImageurl()).into(image_profile);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }
+
+
+//<com.google.android.material.imageview.ShapeableImageView
+//        android:id="@+id/profile_pic"
+//        android:layout_width="100dp"
+//        android:layout_height="100dp"
+//        android:layout_marginStart="20dp"
+//        android:layout_marginTop="30dp"
+//        android:layout_marginEnd="30dp"
+//        android:layout_marginBottom="30dp"
+//        android:padding="3dp"
+//        android:src="@drawable/account_picture_profile"
+//        app:shapeAppearanceOverlay="@style/rectangle" />

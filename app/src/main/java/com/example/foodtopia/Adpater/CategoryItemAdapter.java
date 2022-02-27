@@ -62,12 +62,9 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
         String carbohydrate2 = categoryItemList.get(position).getCarbohydrate();
         String fat2 = categoryItemList.get(position).getFat();
         String protein2 = categoryItemList.get(position).getProtein();
-        String saturatedfat2 = categoryItemList.get(position).getSaturatedfat();
-        String unsaturatedfat2 = categoryItemList.get(position).getUnsaturatedfat();
         String sodium2 = categoryItemList.get(position).getSodium();
         String sugars2 = categoryItemList.get(position).getSugars();
 
-        String meal;
         holder.itemfood.setText(categoryItemList.get(position).getFoodName());
         holder.arrow.setOnClickListener(new View.OnClickListener() {
             @Override
