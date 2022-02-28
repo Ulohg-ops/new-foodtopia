@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtopia.R;
 import com.example.foodtopia.Model.Post;
+import com.example.foodtopia.add.Diet;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -28,10 +29,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
-public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapter.CategoryItemViewHolder> {
+public class ProductsCategoryItemAdapter extends RecyclerView.Adapter<ProductsCategoryItemAdapter.CategoryItemViewHolder> {
 
     private Context context;
     private List<Post.CategoryItem> categoryItemList;
@@ -44,7 +44,7 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
 
 
 
-    public CategoryItemAdapter(Context context, List<Post.CategoryItem> categoryItemList) {
+    public ProductsCategoryItemAdapter(Context context, List<Post.CategoryItem> categoryItemList) {
         this.context = context;
         this.categoryItemList = categoryItemList;
     }
@@ -73,12 +73,9 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
                 View diaglogView = LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.diaglog_restaurant_add_meal, null);
 
                 Spinner spinner = diaglogView.findViewById(R.id.spinner);
-                // Create an ArrayAdapter using the string array and a default spinner layout
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
                         R.array.meal_time, android.R.layout.simple_spinner_item);
-                // Specify the layout to use when the list of choices appears
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                // Apply the adapter to the spinner
                 spinner.setAdapter(adapter);
 
                 FloatingActionButton add;
@@ -135,12 +132,9 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
                 View diaglogView = LayoutInflater.from(view.getRootView().getContext()).inflate(R.layout.diaglog_restaurant_add_meal, null);
 
                 Spinner spinner = diaglogView.findViewById(R.id.spinner);
-                // Create an ArrayAdapter using the string array and a default spinner layout
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
                         R.array.meal_time, android.R.layout.simple_spinner_item);
-                // Specify the layout to use when the list of choices appears
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                // Apply the adapter to the spinner
                 spinner.setAdapter(adapter);
 
                 FloatingActionButton add;
@@ -216,31 +210,33 @@ public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapte
         FirebaseUser firebaseUser = auth.getCurrentUser();
         String userID = firebaseUser.getUid();
         reference = FirebaseDatabase.getInstance().getReference().child("Diets");
-
-
         Date current = new Date();
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd");
         String date = sdfDate.format(current);
         SimpleDateFormat sdfTime = new SimpleDateFormat("HHmmss");
         String time = sdfTime.format(current);
-
-
         String mealid = reference.push().getKey();
+        String amount="1";
+        String amountQuantifier="g";
 
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("foodname", foodname);
-        map.put("calories", calories);
-        map.put("userid",userID);
-        map.put("carbohydrate", carbohydrate);
-        map.put("fat", fat);
-        map.put("protein", protein);
-        map.put("sodium", sodium);
-        map.put("sugar", sugar);
-        map.put("mealtime",mealtime);
-        map.put("time",time);
-        map.put("date",date);
+        Diet diet = new Diet(foodname,amount,amountQuantifier,calories,carbohydrate,fat,mealtime,
+                protein,sodium,sugar,date,time,userID);
 
-        reference.child(mealid).setValue(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+//        HashMap<String, Object> map = new HashMap<>();
+//        map.put("foodname", foodname);
+//        map.put("calories", calories);
+//        map.put("userid",userID);
+//        map.put("carbohydrate", carbohydrate);
+//        map.put("fat", fat);
+//        map.put("protein", protein);
+//        map.put("sodium", sodium);
+//        map.put("sugar", sugar);
+//        map.put("mealtime",mealtime);
+//        map.put("time",time);
+//        map.put("date",date);
+
+
+        reference.child(mealid).setValue(diet).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){

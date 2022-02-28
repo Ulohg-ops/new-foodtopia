@@ -53,7 +53,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
     DatabaseReference reference;
     private static final int PICK_IMAGE_REQUEST = 1;
     Button btn_edit;
-    ImageButton back;
+    ImageButton btn_back;
     ImageView image_profile;
     TextInputLayout username, weight, height, calories_perday;
     Spinner workload, stress, target;
@@ -73,7 +73,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
         stress = findViewById(R.id.spinner_stress);
         target = findViewById(R.id.spinner_target);
 
-        back = findViewById(R.id.btn_back);
+        btn_back = findViewById(R.id.btn_back);
         image_profile = findViewById(R.id.image_profile);
         btn_edit = findViewById(R.id.btn_edit);
         progress_circular=findViewById(R.id.progress_circular);
@@ -84,12 +84,11 @@ public class EditUserInfoActivity extends AppCompatActivity {
         getStrssSelection();
         getTargetSelection();
         getUser();
-        getImage();
 
         progress_circular.setVisibility(View.GONE);
 
 
-        back.setOnClickListener(new View.OnClickListener() {
+        btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -149,7 +148,6 @@ public class EditUserInfoActivity extends AppCompatActivity {
                     Uri downloadUrl = urlTask.getResult();
                     Log.d("cc", "onSuccess: firebase download url: " + downloadUrl.toString()); //use if testing...don't need this line.
                     fileUri = downloadUrl.toString();
-                    System.out.println("cccd" + fileUri);
                     String username_edit = username.getEditText().getText().toString().trim();
                     String weight_edit = weight.getEditText().getText().toString().trim();
                     String height_edit = height.getEditText().getText().toString().trim();
@@ -161,6 +159,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
                     FirebaseUser firebaseUser = auth.getCurrentUser();
                     String userID = firebaseUser.getUid();
                     reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
+
                     HashMap<String, Object> map = new HashMap<>();
                     map.put("username", username_edit);
                     map.put("weight", weight_edit);
@@ -220,24 +219,29 @@ public class EditUserInfoActivity extends AppCompatActivity {
             mImageUri = data.getData();
             System.out.println(mImageUri);
             Picasso.get().load(mImageUri).into(image_profile);
-//            System.out.println("dasdsauiu" + mImageUri);
         }
     }
 
-    private void getImage() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(user.getUid());
-        reference.addValueEventListener(new ValueEventListener() {
+    public void getUser() {
+
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user = snapshot.getValue(User.class);
+                username.getEditText().setText(user.getUsername());
+                weight.getEditText().setText(user.getWeight());
+                height.getEditText().setText(user.getHeight());
+                calories_perday.getEditText().setText(user.getCalories_per_day());
                 Glide.with(getApplicationContext()).load(user.getImageurl()).into(image_profile);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+
     }
 
     public void getTargetSelection() {
@@ -351,63 +355,6 @@ public class EditUserInfoActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public void getUser() {
-
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        mDatabase.child("Users").child(user.getUid()).child("username").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                } else {
-                    username.getEditText().setText(String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });
-        mDatabase.child("Users").child(user.getUid()).child("weight").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                } else {
-                    weight.getEditText().setText(String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });
-        mDatabase.child("Users").child(user.getUid()).child("height").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                } else {
-                    height.getEditText().setText(String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });
-        mDatabase.child("Users").child(user.getUid()).child("calories_per_day").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                } else {
-                    calories_perday.getEditText().setText(String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });
-        mDatabase.child("Users").child(user.getUid()).child("wordload").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                } else {
-                }
-            }
-        });
-
-
     }
 
 }

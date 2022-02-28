@@ -28,7 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.example.foodtopia.Model.Comment;
 import java.util.List;
 
-public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ImageViewHolder> {
+public class SocialCommentAdapter extends RecyclerView.Adapter<SocialCommentAdapter.ImageViewHolder> {
 
     private Context mContext;
     private List<Comment> mComment;
@@ -36,7 +36,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ImageVie
 
     private FirebaseUser firebaseUser;
 
-    public CommentAdapter(Context context, List<Comment> comments, String postid){
+    public SocialCommentAdapter(Context context, List<Comment> comments, String postid){
         mContext = context;
         mComment = comments;
         this.postid = postid;
@@ -44,13 +44,13 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ImageVie
 
     @NonNull
     @Override
-    public CommentAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SocialCommentAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_social_comment, parent, false);
         return new ImageViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final CommentAdapter.ImageViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final SocialCommentAdapter.ImageViewHolder holder, final int position) {
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         final Comment comment = mComment.get(position);

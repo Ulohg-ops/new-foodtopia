@@ -19,11 +19,11 @@ import com.example.foodtopia.Model.Restaurants;
 
 import java.util.List;
 
-public class CardRecycleAdapter extends RecyclerView.Adapter<CardRecycleAdapter.ViewHolder> {
+public class RestaurantsCardRecycleAdapter extends RecyclerView.Adapter<RestaurantsCardRecycleAdapter.ViewHolder> {
     private Context context;
     private List<Restaurants> memberList;
 
-    public CardRecycleAdapter(Context context, List<Restaurants> memberList) {
+    public RestaurantsCardRecycleAdapter(Context context, List<Restaurants> memberList) {
         this.context = context;
         this.memberList = memberList;
     }

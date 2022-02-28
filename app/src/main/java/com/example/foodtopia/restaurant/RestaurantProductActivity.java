@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodtopia.Adpater.CategoryTitleAdapter;
+import com.example.foodtopia.Adpater.ProductsCategoryTitleAdapter;
 import com.example.foodtopia.Model.AddTitle;
 import com.example.foodtopia.Model.Post;
 import com.example.foodtopia.Model.RestaurantProduct;
@@ -29,7 +29,7 @@ import java.util.Locale;
 public class RestaurantProductActivity extends AppCompatActivity {
 
     RecyclerView mainCategoryRecycler;
-    CategoryTitleAdapter categoryTitleAdapter;
+    ProductsCategoryTitleAdapter categoryTitleAdapter;
     FloatingActionButton back;
 
 
@@ -81,7 +81,7 @@ public class RestaurantProductActivity extends AppCompatActivity {
         mainCategoryRecycler = findViewById(R.id.RVparent);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         mainCategoryRecycler.setLayoutManager(layoutManager);
-        categoryTitleAdapter = new CategoryTitleAdapter(this, allCategoryList);
+        categoryTitleAdapter = new ProductsCategoryTitleAdapter(this, allCategoryList);
         mainCategoryRecycler.setAdapter(categoryTitleAdapter);
 
     }

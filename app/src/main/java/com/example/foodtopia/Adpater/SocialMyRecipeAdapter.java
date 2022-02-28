@@ -23,25 +23,25 @@ import com.example.foodtopia.account.SavedItemActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyFotosAdapter extends RecyclerView.Adapter<MyFotosAdapter.ImageViewHolder> {
+public class SocialMyRecipeAdapter extends RecyclerView.Adapter<SocialMyRecipeAdapter.ImageViewHolder> {
 
     private Context mContext;
     private List<Post> mPosts;
 
-    public MyFotosAdapter(Context context, List<Post> posts){
+    public SocialMyRecipeAdapter(Context context, List<Post> posts){
         mContext = context;
         mPosts = posts;
     }
 
     @NonNull
     @Override
-    public MyFotosAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public SocialMyRecipeAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_social_fotos, parent, false);
         return new ImageViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyFotosAdapter.ImageViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final SocialMyRecipeAdapter.ImageViewHolder holder, final int position) {
 
         final Post post = mPosts.get(position);
 

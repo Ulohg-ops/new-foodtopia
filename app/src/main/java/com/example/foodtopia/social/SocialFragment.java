@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.example.foodtopia.Adpater.PostAdapter;
+import com.example.foodtopia.Adpater.RecipePostAdapter;
 import com.example.foodtopia.Model.Post;
 import com.example.foodtopia.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -29,7 +29,7 @@ import java.util.List;
 public class SocialFragment extends Fragment implements View.OnClickListener {
 
     private RecyclerView recyclerView;
-    private PostAdapter postAdapter;
+    private RecipePostAdapter recipePostAdapter;
     private List<Post> postList;
     private FloatingActionButton add_poster;
 
@@ -51,8 +51,8 @@ public class SocialFragment extends Fragment implements View.OnClickListener {
         recyclerView.setLayoutManager(mLayoutManager);
 
         postList = new ArrayList<>();
-        postAdapter = new PostAdapter(getContext(), postList);
-        recyclerView.setAdapter(postAdapter);
+        recipePostAdapter = new RecipePostAdapter(getContext(), postList);
+        recyclerView.setAdapter(recipePostAdapter);
 
         add_poster.setOnClickListener(this);
 
@@ -78,7 +78,7 @@ public class SocialFragment extends Fragment implements View.OnClickListener {
                     postList.add(post);
 
                 }
-                postAdapter.notifyDataSetChanged();
+                recipePostAdapter.notifyDataSetChanged();
                 progress_circular.setVisibility(View.GONE);
             }
 

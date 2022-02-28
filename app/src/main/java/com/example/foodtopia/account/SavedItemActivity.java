@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.example.foodtopia.Adpater.PostAdapter;
+import com.example.foodtopia.Adpater.RecipePostAdapter;
 import com.example.foodtopia.Model.Post;
 import com.example.foodtopia.R;
 import com.google.firebase.database.DataSnapshot;
@@ -23,7 +23,7 @@ import java.util.List;
 
 public class SavedItemActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private PostAdapter postAdapter;
+    private RecipePostAdapter recipePostAdapter;
     private List<Post> postList;
     private ImageButton back;
 
@@ -44,8 +44,8 @@ public class SavedItemActivity extends AppCompatActivity {
         mLayoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(mLayoutManager);
         postList = new ArrayList<>();
-        postAdapter = new PostAdapter(this, postList);
-        recyclerView.setAdapter(postAdapter);
+        recipePostAdapter = new RecipePostAdapter(this, postList);
+        recyclerView.setAdapter(recipePostAdapter);
         readPosts();
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +70,7 @@ public class SavedItemActivity extends AppCompatActivity {
                         break;
                     }
                 }
-                postAdapter.notifyDataSetChanged();
+                recipePostAdapter.notifyDataSetChanged();
             }
 
             @Override

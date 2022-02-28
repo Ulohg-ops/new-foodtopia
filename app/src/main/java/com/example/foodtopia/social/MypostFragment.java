@@ -12,7 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.foodtopia.Adpater.MyFotosAdapter;
+import com.example.foodtopia.Adpater.SocialMyRecipeAdapter;
 import com.example.foodtopia.Model.Post;
 import com.example.foodtopia.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,7 +32,7 @@ public class MypostFragment extends Fragment {
 
     FirebaseUser firebaseUser;
     private RecyclerView recyclerView;
-    private MyFotosAdapter myFotosAdapter;
+    private SocialMyRecipeAdapter socialMyRecipeAdapter;
     private List<Post> postList;
 
     @Override
@@ -51,8 +51,8 @@ public class MypostFragment extends Fragment {
 
         recyclerView.setLayoutManager(mLayoutManager);
         postList = new ArrayList<>();
-        myFotosAdapter = new MyFotosAdapter(getContext(), postList);
-        recyclerView.setAdapter(myFotosAdapter);
+        socialMyRecipeAdapter = new SocialMyRecipeAdapter(getContext(), postList);
+        recyclerView.setAdapter(socialMyRecipeAdapter);
 
 
         myFotos();
@@ -73,7 +73,7 @@ public class MypostFragment extends Fragment {
                     }
                 }
                 Collections.reverse(postList);
-                myFotosAdapter.notifyDataSetChanged();
+                socialMyRecipeAdapter.notifyDataSetChanged();
             }
 
             @Override

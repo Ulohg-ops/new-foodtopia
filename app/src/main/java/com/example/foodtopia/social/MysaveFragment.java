@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.foodtopia.Adpater.MyFotosAdapter;
+import com.example.foodtopia.Adpater.SocialMyRecipeAdapter;
 import com.example.foodtopia.Model.Post;
 import com.example.foodtopia.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,10 +31,10 @@ public class MysaveFragment extends Fragment {
     FirebaseUser firebaseUser;
 
     private RecyclerView recyclerView;
-    private MyFotosAdapter myFotosAdapter;
+    private SocialMyRecipeAdapter socialMyRecipeAdapter;
     private List<Post> postList;
     private List<Post> postList_saves;
-    private MyFotosAdapter myFotosAdapter_saves;
+    private SocialMyRecipeAdapter socialMyRecipeAdapter_saves;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,12 +51,12 @@ public class MysaveFragment extends Fragment {
 
         recyclerView.setLayoutManager(mLayoutManager);
         postList = new ArrayList<>();
-        myFotosAdapter = new MyFotosAdapter(getContext(), postList);
-        recyclerView.setAdapter(myFotosAdapter);
+        socialMyRecipeAdapter = new SocialMyRecipeAdapter(getContext(), postList);
+        recyclerView.setAdapter(socialMyRecipeAdapter);
 
         postList_saves = new ArrayList<>();
-        myFotosAdapter_saves = new MyFotosAdapter(getContext(), postList_saves);
-        recyclerView.setAdapter(myFotosAdapter_saves);
+        socialMyRecipeAdapter_saves = new SocialMyRecipeAdapter(getContext(), postList_saves);
+        recyclerView.setAdapter(socialMyRecipeAdapter_saves);
 
         mySaves();
         return view;
@@ -96,7 +96,7 @@ public class MysaveFragment extends Fragment {
                         }
                     }
                 }
-                myFotosAdapter_saves.notifyDataSetChanged();
+                socialMyRecipeAdapter_saves.notifyDataSetChanged();
             }
 
             @Override

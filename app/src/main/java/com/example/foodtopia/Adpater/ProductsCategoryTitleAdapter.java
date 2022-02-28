@@ -16,17 +16,17 @@ import com.example.foodtopia.Model.RestaurantProduct;
 
 import java.util.List;
 
-public class CategoryTitleAdapter extends RecyclerView.Adapter<CategoryTitleAdapter.MainViewHolder> {
+public class ProductsCategoryTitleAdapter extends RecyclerView.Adapter<ProductsCategoryTitleAdapter.MainViewHolder> {
 
     private Context context;
     private List<RestaurantProduct.AllCategory> allCategoryList;
 
-    public CategoryTitleAdapter(Context context, List<RestaurantProduct.AllCategory> allCategoryList) {
+    public ProductsCategoryTitleAdapter(Context context, List<RestaurantProduct.AllCategory> allCategoryList) {
         this.context = context;
         this.allCategoryList = allCategoryList;
     }
 
-    public CategoryTitleAdapter(List<RestaurantProduct.AllCategory> allCategoryList) {
+    public ProductsCategoryTitleAdapter(List<RestaurantProduct.AllCategory> allCategoryList) {
         this.allCategoryList = allCategoryList;
     }
 
@@ -65,7 +65,7 @@ public class CategoryTitleAdapter extends RecyclerView.Adapter<CategoryTitleAdap
 
     private void setCatItemRecycler(RecyclerView recyclerView, List<Post.CategoryItem> categoryItemList){
 
-        CategoryItemAdapter itemRecyclerAdapter = new CategoryItemAdapter(context, categoryItemList);
+        ProductsCategoryItemAdapter itemRecyclerAdapter = new ProductsCategoryItemAdapter(context, categoryItemList);
         recyclerView.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
         recyclerView.setAdapter(itemRecyclerAdapter);
 

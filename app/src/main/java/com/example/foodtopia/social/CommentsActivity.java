@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.foodtopia.Adpater.CommentAdapter;
+import com.example.foodtopia.Adpater.SocialCommentAdapter;
 import com.example.foodtopia.Model.Comment;
 import com.example.foodtopia.Model.User;
 import com.example.foodtopia.R;
@@ -33,7 +33,7 @@ import java.util.List;
 public class CommentsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private CommentAdapter commentAdapter;
+    private SocialCommentAdapter socialCommentAdapter;
     private List<Comment> commentList;
 
     EditText addcomment;
@@ -71,8 +71,8 @@ public class CommentsActivity extends AppCompatActivity {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         commentList = new ArrayList<>();
-        commentAdapter = new CommentAdapter(this, commentList, postid);
-        recyclerView.setAdapter(commentAdapter);
+        socialCommentAdapter = new SocialCommentAdapter(this, commentList, postid);
+        recyclerView.setAdapter(socialCommentAdapter);
 
         post = findViewById(R.id.post);
         addcomment = findViewById(R.id.add_comment);
@@ -153,7 +153,7 @@ public class CommentsActivity extends AppCompatActivity {
                     commentList.add(comment);
                 }
 
-                commentAdapter.notifyDataSetChanged();
+                socialCommentAdapter.notifyDataSetChanged();
             }
 
             @Override

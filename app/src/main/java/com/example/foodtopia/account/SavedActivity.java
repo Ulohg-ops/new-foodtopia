@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.example.foodtopia.Adpater.MyFotosAdapter;
+import com.example.foodtopia.Adpater.SocialMyRecipeAdapter;
 import com.example.foodtopia.R;
 import com.example.foodtopia.social.MypostFragment;
 import com.example.foodtopia.social.MysaveFragment;
@@ -27,7 +27,7 @@ public class SavedActivity extends AppCompatActivity {
         tableLayout = findViewById(R.id.tablayout);
         viewPager = findViewById(R.id.frame);
         tableLayout.setupWithViewPager(viewPager);
-        MyFotosAdapter.VPAdapter vpAdapter = new MyFotosAdapter.VPAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        SocialMyRecipeAdapter.VPAdapter vpAdapter = new SocialMyRecipeAdapter.VPAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         vpAdapter.addFragment(new MypostFragment(), "我的食譜");
         vpAdapter.addFragment(new MysaveFragment(), "收藏食譜");
         viewPager.setAdapter(vpAdapter);

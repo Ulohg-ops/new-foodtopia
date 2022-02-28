@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.foodtopia.Adpater.CardRecycleAdapter;
+import com.example.foodtopia.Adpater.RestaurantsCardRecycleAdapter;
 import com.example.foodtopia.R;
 
 import java.util.ArrayList;
@@ -59,7 +59,7 @@ public class RestaurantFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        recyclerView.setAdapter(new CardRecycleAdapter(getActivity(), memberList));
+        recyclerView.setAdapter(new RestaurantsCardRecycleAdapter(getActivity(), memberList));
         return view;
     }
 }

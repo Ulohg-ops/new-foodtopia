@@ -41,27 +41,27 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.List;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ImageViewHolder> {
+public class RecipePostAdapter extends RecyclerView.Adapter<RecipePostAdapter.ImageViewHolder> {
 
     private Context mContext;
     private List<Post> mPosts;
 
     private FirebaseUser firebaseUser;
 
-    public PostAdapter(Context context, List<Post> posts){
+    public RecipePostAdapter(Context context, List<Post> posts){
         mContext = context;
         mPosts = posts;
     }
 
     @NonNull
     @Override
-    public PostAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecipePostAdapter.ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_social_post, parent, false);
         return new ImageViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final PostAdapter.ImageViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final RecipePostAdapter.ImageViewHolder holder, final int position) {
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         final Post post = mPosts.get(position);
