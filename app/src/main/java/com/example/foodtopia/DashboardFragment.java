@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -50,17 +51,17 @@ public class DashboardFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
     }
 
     // retrieve data from firebase
     CircularProgressBar circularProgressBar;
     TextView calories;
+
+    AppCompatButton tracking_btn;
 
     //todo: need to change the path.
     private DatabaseReference mDatabase;
@@ -75,6 +76,7 @@ public class DashboardFragment extends Fragment {
 
         circularProgressBar = view.findViewById(R.id.circularProgressBar);
         calories = view.findViewById(R.id.calories);
+        tracking_btn = view.findViewById(R.id.tracking_btn);
 
         // get user id
         fAuth = FirebaseAuth.getInstance();
@@ -120,6 +122,13 @@ public class DashboardFragment extends Fragment {
             }
         });
 
+        tracking_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), CaloriesTrackingActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
