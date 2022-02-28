@@ -31,8 +31,6 @@ public class RestaurantProductActivity extends AppCompatActivity {
     RecyclerView mainCategoryRecycler;
     ProductsCategoryTitleAdapter categoryTitleAdapter;
     FloatingActionButton back;
-
-
     String store_name;
     TextView name;
 
