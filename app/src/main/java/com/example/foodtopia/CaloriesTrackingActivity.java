@@ -12,7 +12,10 @@ import android.view.View;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.ChartData;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
@@ -51,7 +54,6 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calories_tracking);
-        getChartData();
 
         // back button
         back_btn = findViewById(R.id.back_btn);
@@ -61,29 +63,30 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
                 finish();
             }
         });
-    }
 
-    // set data
-    private List<Entry> getChartData() {
+        // chart
+        chart.findViewById(R.id.chart);
 
         // get user id
         fAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = fAuth.getCurrentUser();
         String userID = firebaseUser.getUid();
 
-
         reference = FirebaseDatabase.getInstance().getReference("Diets");
         allRecordFromUser = reference.orderByChild("userid").equalTo(userID);
+
 
         // get user data
         allRecordFromUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                float total = 0;
                 for (DataSnapshot record : snapshot.getChildren()) {
-                    // iterate through all record with the same user
-                    String calories = record.child("calories").getValue(String.class);
-                    Log.d(TAG, calories);
+//                    String calories = record.child("calories").getValue(String.class);
+                    float calories = Float.valueOf(record.child("calories").getValue(String.class));
+                    total += calories;
                 }
+                Log.d(TAG, Float.toString(total));
             }
 
             @Override
@@ -92,12 +95,6 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
             }
         });
 
-        List<Entry> chartData = new ArrayList<>();
-        for (int i=0; i<31; i++) {
-            chartData.add(new Entry(i*2, i));
-        }
-        return chartData;
     }
-
 
 }
