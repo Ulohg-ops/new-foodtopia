@@ -1,6 +1,5 @@
 package com.example.foodtopia;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
