@@ -25,27 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:layout_below="@+id/chart"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="-48dp"
-                android:layout_centerHorizontal="true">
-
-                <View
-                    android:id="@+id/v_selected_label"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:layout_centerInParent="true" />
-
-                <View
-                    android:id="@+id/v_tooltip"
-                    android:layout_width="8dp"
-                    android:layout_height="8dp"
-                    android:layout_centerHorizontal="true"
-                    android:layout_alignParentBottom="true"/>
-            </RelativeLayout>
-
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/chart"
                 android:layout_width="match_parent"

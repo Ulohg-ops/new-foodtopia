@@ -65,7 +65,7 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
         });
 
         // chart
-        chart.findViewById(R.id.chart);
+        chart = findViewById(R.id.chart);
 
         // get user id
         fAuth = FirebaseAuth.getInstance();
@@ -86,7 +86,6 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
                     float calories = Float.valueOf(record.child("calories").getValue(String.class));
                     total += calories;
                 }
-                Log.d(TAG, Float.toString(total));
             }
 
             @Override
@@ -95,6 +94,23 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
             }
         });
 
-    }
+        ArrayList<Double> value = new ArrayList<Double>();
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        String title = "Title";
 
+        for (int i=0; i<6; i++) {
+            value.add(i * 100.1);
+        }
+
+        for (int i=0; i<value.size(); i++) {
+            BarEntry barEntry = new BarEntry(i, value.get(i).floatValue());
+            entries.add(barEntry);
+        }
+
+        BarDataSet barDataSet = new BarDataSet(entries, title);
+
+        BarData data = new BarData(barDataSet);
+        chart.setData(data);
+        chart.invalidate();
+    }
 }
