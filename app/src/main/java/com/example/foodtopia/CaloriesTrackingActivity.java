@@ -21,6 +21,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.ChartData;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
@@ -100,7 +101,9 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
 //                    System.out.println(alternateEntry.getKey() + ": " +
 //                            alternateEntry.getValue().toString());
 //                }
-                HashMap<String, Float> map2 = new HashMap<>();
+
+
+                HashMap<String, Float> calories_added = new HashMap<>();
                 for (Map.Entry<String, List<String>> entry : map.entrySet()) {
                     String key = entry.getKey();
                     List<String> value = entry.getValue();
@@ -109,14 +112,15 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
                         System.out.println("key : " + key + " value : " + aString);
                         td_calories_tt += Float.parseFloat(aString);
                     }
-                    map2.put(key, td_calories_tt);
+                    calories_added.put(key, td_calories_tt);
                 }
-                Map<String, Float> treeMap = new TreeMap(map2);
-                for (Map.Entry<String, Float> entry : treeMap.entrySet()) {
+                Map<String, Float> sorted_calories_added = new TreeMap(calories_added);
+
+                for (Map.Entry<String, Float> entry : sorted_calories_added.entrySet()) {
                     System.out.println(entry.getKey() + "/" + entry.getValue());
                 }
-//
-//                for (String str : treeMap.keySet()) {
+
+                //                for (String str : treeMap.keySet()) {
 //                    System.out.println(str);
 //                }
 ////
@@ -127,13 +131,11 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
                 ArrayList<Float> value = new ArrayList<Float>();
                 ArrayList<BarEntry> entries = new ArrayList<>();
                 String title = "Calories";
+                int a=55688;
 
-
-
-                int a=300;
-                for (Map.Entry<String, Float> entry : treeMap.entrySet()) {
+                for (Map.Entry<String, Float> entry : sorted_calories_added.entrySet()) {
                         value.add(entry.getValue());
-                        BarEntry barEntry = new BarEntry(a++, entry.getValue());
+                        BarEntry barEntry = new BarEntry(a+=1, entry.getValue());
                         entries.add(barEntry);
                 }
                 BarDataSet barDataSet = new BarDataSet(entries, title);
@@ -145,31 +147,6 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
                 chart.setFitBars(true);
                 chart.setData(data);
                 chart.invalidate();
-                chart.animateY(2000);
-
-
-//                ArrayList<Double> value = new ArrayList<Double>();
-//                ArrayList<BarEntry> entries = new ArrayList<>();
-//                String title = "Title";
-//
-//                for (int i=0; i<6; i++) {
-//                    value.add(i * 100.1);
-//                }
-//
-//                for (int i=0; i<value.size(); i++) {
-//                    BarEntry barEntry = new BarEntry(i+5, value.get(i).floatValue());
-//                    entries.add(barEntry);
-//                }
-//
-//                BarDataSet barDataSet = new BarDataSet(entries, title);
-//                barDataSet.setColors(ColorTemplate.getHoloBlue());
-//                barDataSet.setValueTextColor(Color.BLACK);
-//                barDataSet.setValueTextSize(16f);
-//
-//                BarData data = new BarData(barDataSet);
-//                chart.setFitBars(true);
-//                chart.setData(data);
-//                chart.invalidate();
 //                chart.animateY(2000);
 
 
@@ -216,59 +193,5 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
         });
 
 
-//        // get user id
-//        fAuth = FirebaseAuth.getInstance();
-//        FirebaseUser firebaseUser = fAuth.getCurrentUser();
-//        String userID = firebaseUser.getUid();
-//
-//        reference = FirebaseDatabase.getInstance().getReference("Diets");
-//        allRecordFromUser = reference.orderByChild("userid").equalTo(userID);
-//
-//
-//
-//
-//        // get user data
-//        allRecordFromUser.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                float total = 0;
-//                for (DataSnapshot record : snapshot.getChildren()) {
-////                    String calories = record.child("calories").getValue(String.class);
-//                    float calories = Float.valueOf(record.child("calories").getValue(String.class));
-//                    total += calories;
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//
-//        ArrayList<Double> value = new ArrayList<Double>();
-//        ArrayList<BarEntry> entries = new ArrayList<>();
-//        String title = "Title";
-//
-//        for (int i=0; i<10; i++) {
-//            value.add(i * 100.1);
-//        }
-//
-//        for (int i=0; i<10; i++) {
-//            BarEntry barEntry = new BarEntry(i, value.get(i).floatValue());
-//            entries.add(barEntry);
-//        }
-//
-//        BarDataSet barDataSet = new BarDataSet(entries, title);
-//        barDataSet.setColors(ColorTemplate.getHoloBlue());
-//        barDataSet.setValueTextColor(Color.BLACK);
-//        barDataSet.setValueTextSize(16f);
-//
-//
-//        BarData data = new BarData(barDataSet);
-//
-//        chart.setFitBars(true);
-//        chart.setData(data);
-//        chart.invalidate();
-//        chart.animateY(2000);
     }
 }
