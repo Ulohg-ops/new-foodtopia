@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:501710130285:android:22c8e4e56a0be540c6c364",
         "android_client_info": {
-          "package_name": "com.foodtopia.app"
+          "package_name": "com.example.foodtopia"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "501710130285-igmhhlchjdcuupbcjvqev9lmrv545b5i.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.foodtopia.app",
+            "package_name": "com.example.foodtopia",
             "certificate_hash": "849bd2e76277ac8e1c0c2c4eb5db3bb35b273d21"
           }
         },

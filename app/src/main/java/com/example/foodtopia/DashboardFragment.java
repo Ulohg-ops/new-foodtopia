@@ -123,8 +123,6 @@ public class DashboardFragment extends Fragment {
                             //set text inside the circular
                             String text = "-" + (finalTotal-cpd) + "\n" + "kcal";
                             calories.setText(text);
-
-
                         }else {
                             int color = Color.rgb(90, 106, 207);
                             circularProgressBar.setProgressBarColor(color);
