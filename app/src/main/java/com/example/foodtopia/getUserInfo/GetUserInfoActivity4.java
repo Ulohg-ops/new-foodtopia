@@ -50,8 +50,6 @@ public class GetUserInfoActivity4 extends AppCompatActivity {
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("target", radioButton.getText());
                 reference.updateChildren(map);
-
-
                 moveToNext();
             }
         });
