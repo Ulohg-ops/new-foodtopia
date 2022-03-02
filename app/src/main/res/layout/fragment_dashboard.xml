@@ -65,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:textAlignment="center"
+                android:text="0\nkcal"
                 android:textSize="40dp" />
 
         </RelativeLayout>
