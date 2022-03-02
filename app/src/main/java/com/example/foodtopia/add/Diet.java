@@ -14,13 +14,14 @@ public class Diet {
     public String date;
     public String time;
     public String userid;
+    public String userid_date;
 
     public Diet(){
     }
 
     public Diet (String foodname,String amount,String amountQuantifier, String calories, String carbohydrate,
                  String fat, String mealtime, String protein, String sodium, String sugar,
-                 String date, String time, String userid){
+                 String date, String time, String userid, String userid_date){
         this.foodname = foodname;
         this.amount = amount;
         this.amountQuantifier = amountQuantifier;
@@ -34,6 +35,7 @@ public class Diet {
         this.date = date;
         this.time = time;
         this.userid = userid;
+        this.userid_date = userid_date;
     }
 
 }

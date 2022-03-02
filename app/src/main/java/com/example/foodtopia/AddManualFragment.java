@@ -137,12 +137,14 @@ public class AddManualFragment extends Fragment {
 
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+            String userid_date = String.format("%s_%s", uid, date);
+
             mDatabase = FirebaseDatabase.getInstance().getReference("Diets");
             //new diet node
             String dietId = mDatabase.push().getKey();
 
             Diet diet = new Diet(name,amount,amountQuantifier,kcal,carbohydrate,fat,selectedText,
-                    protein,sodium,sugar,date,time,uid);
+                    protein,sodium,sugar,date,time,uid,userid_date);
             mDatabase.child(dietId).setValue(diet).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {

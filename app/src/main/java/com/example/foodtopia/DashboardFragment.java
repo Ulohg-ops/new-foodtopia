@@ -24,6 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.database.core.Tag;
 import com.google.firebase.firestore.DocumentReference;
@@ -39,6 +40,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import org.w3c.dom.Document;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import javax.security.auth.callback.Callback;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -60,12 +66,15 @@ public class DashboardFragment extends Fragment {
     // retrieve data from firebase
     CircularProgressBar circularProgressBar;
     TextView calories;
-
     AppCompatButton tracking_btn;
 
-    //todo: need to change the path.
-    private DatabaseReference mDatabase;
+    DatabaseReference mDatabase;
+    DatabaseReference reference;
     FirebaseAuth fAuth;
+    Query allRecordFromUser;
+
+    // get the date
+    String date = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,42 +92,62 @@ public class DashboardFragment extends Fragment {
         FirebaseUser firebaseUser = fAuth.getCurrentUser();
         String userID = firebaseUser.getUid();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Users").child(userID);
-        mDatabase.addValueEventListener(new ValueEventListener() {
+        String user_date = String.format("%s_%s", userID, date);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference("Diets");
+        allRecordFromUser = mDatabase.orderByChild("userid_date").equalTo(user_date);
+
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(userID);
+
+        // query
+        allRecordFromUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String calories_taken = snapshot.child("calories_taken").getValue().toString();
-                String calories_per_day = snapshot.child("calories_per_day").getValue().toString();
-
-                float cpd = Float.valueOf(calories_per_day);
-                float ct = Float.valueOf(calories_taken);
-
-                if (ct > cpd) {
-                    int progress_red = Color.rgb(237, 122, 107);
-                    circularProgressBar.setProgressWithAnimation(cpd);
-                    circularProgressBar.setProgressBarColor(progress_red);
-
-                    //set text inside the circular
-                    String text = "-" + (ct-cpd) + "\n" + "kcal";
-                    calories.setText(text);
-
-
-                }else {
-                    int color = Color.rgb(90, 106, 207);
-                    circularProgressBar.setProgressBarColor(color);
-                    circularProgressBar.setProgressWithAnimation(ct);
-                    circularProgressBar.setProgressMax(cpd);
-
-                    //set text inside the circular
-                    String text = calories_taken + "\n" + "kcal";
-                    calories.setText(text);
+                float total = 0;
+                for (DataSnapshot record : snapshot.getChildren()) {
+                    float calories = Float.valueOf(record.child("calories").getValue(String.class));
+                    total += calories;
                 }
+                float finalTotal = total;
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String calories_per_day = snapshot.child("calories_per_day").getValue().toString();
+                        float cpd = Float.valueOf(calories_per_day);
 
+                        if (finalTotal > cpd) {
+                            int progress_red = Color.rgb(237, 122, 107);
+                            circularProgressBar.setProgressWithAnimation(cpd);
+                            circularProgressBar.setProgressBarColor(progress_red);
+
+                            //set text inside the circular
+                            String text = "-" + (finalTotal-cpd) + "\n" + "kcal";
+                            calories.setText(text);
+
+
+                        }else {
+                            int color = Color.rgb(90, 106, 207);
+                            circularProgressBar.setProgressBarColor(color);
+                            circularProgressBar.setProgressWithAnimation(finalTotal);
+                            circularProgressBar.setProgressMax(cpd);
+
+                            //set text inside the circular
+                            String text = finalTotal + "\n" + "kcal";
+                            calories.setText(text);
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Log.w(TAG, "loadPost:onCancelled", error.toException());
+                    }
+                });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.w(TAG, "loadPost:onCancelled", error.toException());
+
             }
         });
 
@@ -132,5 +161,6 @@ public class DashboardFragment extends Fragment {
 
         return view;
     }
+
 
 }
