@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -44,11 +45,13 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.TimeUnit;
 
 public class CaloriesTrackingActivity extends AppCompatActivity {
 
@@ -127,6 +130,8 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
 //                for (Map.Entry<String, Float> entry : map2.entrySet()) {
 //                    System.out.println(entry.getKey() + "/" + entry.getValue());
 //                }
+
+                chart.getXAxis().setValueFormatter(new BarChartXAxisValueFormatter());
 
                 ArrayList<Float> value = new ArrayList<Float>();
                 ArrayList<BarEntry> entries = new ArrayList<>();

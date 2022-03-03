@@ -221,7 +221,7 @@ public class ProductsCategoryItemAdapter extends RecyclerView.Adapter<ProductsCa
         String userid_date = firebaseUser.getUid() + "_" + date;
 
         Diet diet = new Diet(foodname,amount,amountQuantifier,calories,carbohydrate,fat,mealtime,
-                protein,sodium,sugar,"20220225",time,userID,userid_date);
+                protein,sodium,sugar,date,time,userID,userid_date);
 
 //        HashMap<String, Object> map = new HashMap<>();
 //        map.put("foodname", foodname);

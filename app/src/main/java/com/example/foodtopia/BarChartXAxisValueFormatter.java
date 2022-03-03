@@ -1,12 +1,15 @@
 package com.example.foodtopia;
 
+import android.icu.text.SimpleDateFormat;
+
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public  class BarChartXAxisValueFormatter extends IndexAxisValueFormatter {
+public class BarChartXAxisValueFormatter  extends IndexAxisValueFormatter {
 
     @Override
     public String getFormattedValue(float value) {
