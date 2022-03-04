@@ -68,6 +68,8 @@ dependencies {
 
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
+    implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
+
 }
 
 //connect to firebase

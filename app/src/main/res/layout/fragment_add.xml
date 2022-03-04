@@ -105,34 +105,16 @@
 
                         </RelativeLayout>
                         <!--餐點                -->
-                        <LinearLayout
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="10dp"
-                            android:layout_gravity="center">
-                            <TextView
-                                android:id="@+id/breakfastText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:textStyle="bold"
-                                android:gravity="left"/>
-                            <TextView
-                                android:id="@+id/breakfastQuantifier"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
-                                android:textColor="@color/gray"/>
-                        </LinearLayout>
-
-                        <View
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerView_breakfast"
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="1dp"
-                            android:background="@color/gray" />
+                            android:layout_height="match_parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
+                        <!--新增早餐的按鈕      -->
                         <Button
                             android:id="@+id/addBreakfastBtn"
                             style="@style/Widget.Material3.Button.TextButton"
@@ -143,7 +125,6 @@
                             android:textColor="@color/gray"
                             app:icon="@drawable/navbar_icon_add"
                             app:iconTint="@color/dark_purple" />
-
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
@@ -199,34 +180,14 @@
 
                         </RelativeLayout>
                         <!--餐點                -->
-                        <LinearLayout
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="10dp"
-                            android:layout_gravity="center">
-                            <TextView
-                                android:id="@+id/lunchText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:textStyle="bold"
-                                android:gravity="left"/>
-                            <TextView
-                                android:id="@+id/lunchQuantifier"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
-                                android:textColor="@color/gray"/>
-                        </LinearLayout>
-
-                        <View
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerView_lunch"
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="1dp"
-                            android:background="@color/gray" />
-
+                            android:layout_height="match_parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
                         <Button
                             android:id="@+id/addLunchBtn"
                             style="@style/Widget.Material3.Button.TextButton"
@@ -292,34 +253,14 @@
 
                         </RelativeLayout>
                         <!--餐點                -->
-                        <LinearLayout
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="10dp"
-                            android:layout_gravity="center">
-                            <TextView
-                                android:id="@+id/dinnerText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:textStyle="bold"
-                                android:gravity="left"/>
-                            <TextView
-                                android:id="@+id/dinnerQuantifier"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
-                                android:textColor="@color/gray"/>
-                        </LinearLayout>
-
-                        <View
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerView_dinner"
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="1dp"
-                            android:background="@color/gray" />
-
+                            android:layout_height="match_parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
                         <Button
                             android:id="@+id/addDinnerBtn"
                             style="@style/Widget.Material3.Button.TextButton"
@@ -387,34 +328,14 @@
 
                         </RelativeLayout>
                         <!--餐點                -->
-                        <LinearLayout
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="10dp"
-                            android:layout_gravity="center">
-                            <TextView
-                                android:id="@+id/dessertText"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:textStyle="bold"
-                                android:gravity="left"/>
-                            <TextView
-                                android:id="@+id/dessertQuantifier"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:gravity="right"
-                                android:textColor="@color/gray"/>
-                        </LinearLayout>
-
-                        <View
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerView_dessert"
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_margin="1dp"
-                            android:background="@color/gray" />
-
+                            android:layout_height="match_parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
                         <Button
                             android:id="@+id/addDessertBtn"
                             style="@style/Widget.Material3.Button.TextButton"
@@ -425,7 +346,6 @@
                             android:textColor="@color/gray"
                             app:icon="@drawable/navbar_icon_add"
                             app:iconTint="@color/dark_purple" />
-
 
                     </LinearLayout>
 

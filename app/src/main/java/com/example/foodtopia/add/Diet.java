@@ -37,5 +37,4 @@ public class Diet {
         this.userid = userid;
         this.userid_date = userid_date;
     }
-
 }
