@@ -13,12 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.foodtopia.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
 
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
     private ArrayList<HashMap<String,String>> arrayList;
     public MealAdapter(ArrayList<HashMap<String,String>> arrayList) {
@@ -58,6 +61,7 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         holder.foodName.setText(arrayList.get(position).get("foodname"));
         holder.quantifier.setText(arrayList.get(position).get("quantifier"));
 
+        //編輯
         holder.editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,12 +71,19 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
             }
         });
 
+        //刪除
         holder.deleteBtn.setOnClickListener((v -> {
             holder.swipeRevealLayout.close(true);
+
+            String key = arrayList.get(position).get("Id");
+            DatabaseReference mDietRef = FirebaseDatabase.getInstance().getReference()
+                    .child("Diets").child(key);
+            mDietRef.removeValue();
+
             arrayList.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position,arrayList.size());
-        }));//holder.btDelete
+        }));
     }
 
     @Override
