@@ -32,7 +32,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="30dp"
 
-        android:hint="身高">
+        android:hint="身高(單位：公分)">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -47,7 +47,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
 
-        android:hint="體重">
+        android:hint="體重(單位：公斤)">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"

@@ -17,11 +17,11 @@
         android:layout_gravity="center"/>
 
     <TextView
-        android:layout_width="230dp"
-        android:layout_height="178dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        android:gravity="top"
-        android:text="感謝你使用FoodTopia請幫我們輸入幾項資料讓我們能夠計算出你的營養需求幫助你達成目標"
+        android:gravity="center"
+        android:text="感謝您使用FoodTopia\n請幫我們輸入幾項資料\n讓我們能夠計算出你的營養需求\n幫助你達成目標"
         android:textColor="@color/og_context"
         android:textSize="18dp" />
 
@@ -30,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="60dp"
+        android:layout_marginTop="80dp"
         android:backgroundTint="@color/black"
         android:text="我知道了"
         android:textColor="@color/white" />
