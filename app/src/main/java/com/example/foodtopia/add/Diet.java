@@ -37,4 +37,48 @@ public class Diet {
         this.userid = userid;
         this.userid_date = userid_date;
     }
+
+    public String getFoodname() {
+        return foodname;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public String getAmountQuantifier() {
+        return amountQuantifier;
+    }
+
+    public String getCalories() {
+        return calories;
+    }
+
+    public String getCarbohydrate() {
+        return carbohydrate;
+    }
+
+    public String getFat() {
+        return fat;
+    }
+
+    public String getMealtime() {
+        return mealtime;
+    }
+
+    public String getProtein() {
+        return protein;
+    }
+
+    public String getSodium() {
+        return sodium;
+    }
+
+    public String getSugar() {
+        return sugar;
+    }
+
+    public String getDate() {
+        return date;
+    }
 }

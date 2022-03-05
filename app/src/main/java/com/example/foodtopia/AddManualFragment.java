@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodtopia.add.Diet;
@@ -21,20 +23,26 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class AddManualFragment extends Fragment {
+public class AddManualFragment extends Fragment{
     EditText editName, editAmount, editCarbohydrate, editProtein, editFat, editSugar, editSodium, editKcal;
     Button add;
     FloatingActionButton back;
     String  choice;
     RadioGroup radioGroup;
     RadioButton breakfastBtn,lunchBtn,dinnerBtn,dessertBtn;
+    Spinner spinnerAmount;
 
     private DatabaseReference mDatabase;
+    private String key;
 
     Boolean spinner1First = true;
 
@@ -90,11 +98,20 @@ public class AddManualFragment extends Fragment {
                     dessertBtn.setChecked(true);
                 });
 
-        Spinner spinnerAmount = view.findViewById(R.id.spinnerAmount);
+        spinnerAmount = view.findViewById(R.id.spinnerAmount);
         //Spinner的Adapter
         ArrayAdapter adapter1 = ArrayAdapter.createFromResource(getActivity()
                 ,R.array.quantifier_array,android.R.layout.simple_dropdown_item_1line);
         spinnerAmount.setAdapter(adapter1);
+
+        //get dietID，並且獲取資料讓使用者修改
+        getParentFragmentManager().setFragmentResultListener("dietID"
+                , this, (requestKey, result) -> {
+                    key  = result.getString("key");
+                    TextView title = view.findViewById(R.id.manual_title);
+                    title.append("修改");
+                    editMeal();
+                });
 
         //按下第一個Spinner，選擇份量單位
         spinnerAmount.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -138,24 +155,42 @@ public class AddManualFragment extends Fragment {
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
             String userid_date = String.format("%s_%s", uid, date);
 
-            mDatabase = FirebaseDatabase.getInstance().getReference("Diets");
-            //new diet node
-            String dietId = mDatabase.push().getKey();
-
             //設定餐點資料
             Diet diet = new Diet(name,amount,amountQuantifier,kcal,carbohydrate,fat,selectedText,
                     protein,sodium,sugar,date,time,uid,userid_date);
-            mDatabase.child(dietId).setValue(diet).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Toast.makeText(getActivity(),"上傳成功",Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getActivity(),"上傳失敗",Toast.LENGTH_SHORT).show();
-                }
-            });
+
+            if (key != null){   //修改
+                mDatabase = FirebaseDatabase.getInstance().getReference("Diets");
+                mDatabase.child(key).setValue(diet)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getActivity(),"修改成功",Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getActivity(),"修改失敗",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+            else {  //新增
+                mDatabase = FirebaseDatabase.getInstance().getReference("Diets");
+                //new diet node
+                String dietId = mDatabase.push().getKey();
+                mDatabase.child(dietId).setValue(diet).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(getActivity(),"上傳成功",Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(),"上傳失敗",Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         });
         //返回手動頁面
         back.setOnClickListener(view12 -> {
@@ -166,5 +201,67 @@ public class AddManualFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void editMeal() {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Diets").child(key);
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists()){
+                    Diet diet = snapshot.getValue(Diet.class);
+                    //填入資料
+                    editName.setText(diet.getFoodname());
+                    if (diet.getAmount()!=null){
+                        editAmount.setText(diet.getAmount());
+                    }
+                    if (diet.getCarbohydrate()!=null){
+                        editCarbohydrate.setText(diet.getCarbohydrate());
+                    }
+                    if (diet.getProtein()!=null){
+                        editProtein.setText(diet.getProtein());
+                    }
+                    if (diet.getFat()!=null){
+                        editFat.setText(diet.getFat());
+                    }
+                    if (diet.getSugar()!=null){
+                        editSugar.setText(diet.getSugar());
+                    }
+                    if (diet.getSodium()!=null){
+                        editSodium.setText(diet.getSodium());
+                    }
+                    if (diet.getCalories()!=null){
+                        editKcal.setText(diet.getCalories());
+                    }
+                    if (diet.getMealtime()!=null){
+                        String mealtime = diet.getMealtime();
+                        switch (mealtime){
+                            case "早餐":
+                                breakfastBtn.setChecked(true);
+                                break;
+                            case "午餐":
+                                lunchBtn.setChecked(true);
+                                break;
+                            case "晚餐":
+                                dinnerBtn.setChecked(true);
+                                break;
+                            case "點心":
+                                dessertBtn.setChecked(true);
+                                break;
+                        }
+                    }
+                    if (diet.getAmountQuantifier()!=null){
+                        String amountQuantifier = diet.getAmountQuantifier();
+                        ArrayAdapter mAdap = (ArrayAdapter) spinnerAmount.getAdapter();
+                        int spinnerPos = mAdap.getPosition(amountQuantifier);
+                        spinnerAmount.setSelection(spinnerPos);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
     }
 }

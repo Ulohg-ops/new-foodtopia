@@ -237,22 +237,22 @@ public class AddFragment extends Fragment  {
                 }
                 //顯示早餐熱量並設定早餐的Adapter
                 breakfastKcalText.setText(breakfastKcal+" kcal");
-                MealAdapter adapter1 = new MealAdapter(arrayList_Breakfast);
+                MealAdapter adapter1 = new MealAdapter(arrayList_Breakfast,getActivity());
                 recyclerView_breakfast.setAdapter(adapter1);
 
                 //午餐
                 lunchKcalText.setText(lunchKcal+" kcal");
-                MealAdapter adapter2 = new MealAdapter(arrayList_Lunch);
+                MealAdapter adapter2 = new MealAdapter(arrayList_Lunch,getActivity());
                 recyclerView_lunch.setAdapter(adapter2);
 
                 //晚餐
                 dinnerKcalText.setText(dinnerKcal+" kcal");
-                MealAdapter adapter3 = new MealAdapter(arrayList_Dinner);
+                MealAdapter adapter3 = new MealAdapter(arrayList_Dinner,getActivity());
                 recyclerView_dinner.setAdapter(adapter3);
 
                 //點心
                 dessertKcalText.setText(dessertKcal+" kcal");
-                MealAdapter adapter4 = new MealAdapter(arrayList_Dessert);
+                MealAdapter adapter4 = new MealAdapter(arrayList_Dessert,getActivity());
                 recyclerView_dessert.setAdapter(adapter4);
 
             }

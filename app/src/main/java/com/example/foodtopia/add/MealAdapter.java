@@ -1,17 +1,22 @@
 package com.example.foodtopia.add;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
+import com.example.foodtopia.AddManualFragment;
 import com.example.foodtopia.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -21,12 +26,15 @@ import java.util.HashMap;
 
 public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
 
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
     private ArrayList<HashMap<String,String>> arrayList;
-    public MealAdapter(ArrayList<HashMap<String,String>> arrayList) {
+    private Context context;
+    private String key;
+
+    public MealAdapter(ArrayList<HashMap<String,String>> arrayList, Context context) {
         super();
         this.arrayList = arrayList;
+        this.context = context;
     }
     public class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -62,24 +70,29 @@ public class MealAdapter extends RecyclerView.Adapter<MealAdapter.ViewHolder> {
         holder.quantifier.setText(arrayList.get(position).get("quantifier"));
 
         //編輯
-        holder.editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(view.getContext(), "Edit",
-                        Toast.LENGTH_SHORT).show();
-                holder.swipeRevealLayout.close(true);
-            }
+        holder.editBtn.setOnClickListener(view1 -> {
+            holder.swipeRevealLayout.close(true);
+            key = arrayList.get(position).get("Id");
+            Fragment fragment = new AddManualFragment();
+            Bundle dietID = new Bundle();
+            dietID.putString("key",key);
+            FragmentManager manager = ((AppCompatActivity)context).getSupportFragmentManager();
+            manager.setFragmentResult("dietID",dietID);
+            ((AppCompatActivity)context).getSupportFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
+
         });
 
         //刪除
         holder.deleteBtn.setOnClickListener((v -> {
             holder.swipeRevealLayout.close(true);
 
-            String key = arrayList.get(position).get("Id");
+            //刪除資料庫裡的資料
+            key = arrayList.get(position).get("Id");
             DatabaseReference mDietRef = FirebaseDatabase.getInstance().getReference()
                     .child("Diets").child(key);
             mDietRef.removeValue();
 
+            //刪除recyclerview裡的資料
             arrayList.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position,arrayList.size());
