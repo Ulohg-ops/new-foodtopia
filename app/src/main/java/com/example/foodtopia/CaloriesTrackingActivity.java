@@ -15,6 +15,8 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.example.foodtopia.Model.User;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
@@ -26,6 +28,7 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
@@ -100,28 +103,124 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
                     }
                     alternateList.add(record.child("calories").getValue().toString());
                 }
-//                for(Map.Entry<String, List<String>> alternateEntry : map.entrySet()) {
-//                    System.out.println(alternateEntry.getKey() + ": " +
-//                            alternateEntry.getValue().toString());
-//                }
 
+                for (Map.Entry<String, List<String>> alternateEntry : map.entrySet()) {
+                    System.out.println(alternateEntry.getKey() + ": " +
+                            alternateEntry.getValue().toString());
+                }
 
                 HashMap<String, Float> calories_added = new HashMap<>();
+//                String a = "568.5";
+//                String b = "456.545";
+//                String c = "116.545";
+//                String d = "416.545";
+//                String e = "126.545";
+//                String f = "456.545";
+//                String g = "116.545";
+//                String h = "416.545";
+//                String i = "416.545";
+//                String j = "456.545";
+//                String k = "116.545";
+//                String l = "416.545";
+//                calories_added.put("20220208", Float.parseFloat(a));
+//                calories_added.put("20220209", Float.parseFloat(b));
+//                calories_added.put("202202010", Float.parseFloat(c));
+//                calories_added.put("202202011", Float.parseFloat(d));
+//                calories_added.put("202202211", Float.parseFloat(e));
+//                calories_added.put("202202012", Float.parseFloat(f));
+//                calories_added.put("202202013", Float.parseFloat(g));
+//                calories_added.put("202202014", Float.parseFloat(h));
+//                calories_added.put("2022020113", Float.parseFloat(i));
+//                calories_added.put("2022020121", Float.parseFloat(j));
+//                calories_added.put("2022020134", Float.parseFloat(k));
+//                calories_added.put("2022020154", Float.parseFloat(l));
+
+//                int ass = 20220208;
+
+//                HashMap<String, Float> calories_added2 = new HashMap<>();
+//                int a = 0;
                 for (Map.Entry<String, List<String>> entry : map.entrySet()) {
-                    String key = entry.getKey();
-                    List<String> value = entry.getValue();
                     float td_calories_tt = 0;
-                    for (String aString : value) {
-                        System.out.println("key : " + key + " value : " + aString);
+                    for (String aString : entry.getValue()) {
+                        System.out.println("key : " + entry.getKey() + " value : " + aString);
                         td_calories_tt += Float.parseFloat(aString);
                     }
-                    calories_added.put(key, td_calories_tt);
+                    calories_added.put(entry.getKey(), td_calories_tt);
+//                    a++;
+//                    if (a == 8) {
+//                        break;
+//                    }
                 }
+
+
                 Map<String, Float> sorted_calories_added = new TreeMap(calories_added);
 
+
+//                for (Map.Entry<String, Float> entry : sorted_calories_added.entrySet()) {
+//                    System.out.println(entry.getKey() + "++++" + entry.getValue());
+//                }
+
+                //                <------------------------------------------------------------------------>
+                ArrayList<String> myList = new ArrayList<>();
                 for (Map.Entry<String, Float> entry : sorted_calories_added.entrySet()) {
-                    System.out.println(entry.getKey() + "/" + entry.getValue());
+                myList.add(entry.getKey());
                 }
+
+//                myList.add("1");
+//                myList.add("2");
+//                myList.add("3");
+//                myList.add("4");
+//                myList.add("5");
+//                myList.add("6");
+//                myList.add("7");
+//                myList.add("8");
+//                myList.add("9");
+//                myList.add("10");
+//                myList.add("11");
+//                myList.add("12");
+//                myList.add("13");
+
+                XAxis xAxis = chart.getXAxis();
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                xAxis.setDrawGridLines(false);
+                xAxis.setValueFormatter(new BarChartXAxisValueFormatter());
+                xAxis.setValueFormatter(new IndexAxisValueFormatter(myList));
+                Map<String, Float> test = new TreeMap();
+
+//                for (Map.Entry<String, Float> entry : test.entrySet()) {
+//                    System.out.println(entry.getKey() + "/" + entry.getValue());
+//                }
+
+                ////
+                ArrayList<BarEntry> entries = new ArrayList<>();
+                String title = "Calories";
+                int ac = 0;
+                for (Map.Entry<String, Float> entry : sorted_calories_added.entrySet()) {
+                    BarEntry barEntry = new BarEntry(ac++, entry.getValue());
+                    entries.add(barEntry);
+                }
+
+//
+//                for (int i = 0; i < 6; ++i) {
+//                    BarEntry entry = new BarEntry(i, i + 1);
+//                    entries.add(entry);
+//                }
+
+                BarDataSet barDataSet = new BarDataSet(entries, title);
+
+                barDataSet.setColors(ColorTemplate.getHoloBlue());
+                barDataSet.setValueTextColor(Color.BLACK);
+                barDataSet.setValueTextSize(16f);
+//
+                BarData data = new BarData(barDataSet);
+                chart.setFitBars(true);
+                chart.setData(data);
+                chart.invalidate();
+                chart.animateY(2000);
+                chart.getDescription().setEnabled(false);
+
+//      <------------------------------------------------------------------------>
+
 
                 //                for (String str : treeMap.keySet()) {
 //                    System.out.println(str);
@@ -131,28 +230,51 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
 //                    System.out.println(entry.getKey() + "/" + entry.getValue());
 //                }
 
-                chart.getXAxis().setValueFormatter(new BarChartXAxisValueFormatter());
 
-                ArrayList<Float> value = new ArrayList<Float>();
-                ArrayList<BarEntry> entries = new ArrayList<>();
-                String title = "Calories";
-                int a=55688;
-
-                for (Map.Entry<String, Float> entry : sorted_calories_added.entrySet()) {
-                        value.add(entry.getValue());
-                        BarEntry barEntry = new BarEntry(a+=1, entry.getValue());
-                        entries.add(barEntry);
-                }
-                BarDataSet barDataSet = new BarDataSet(entries, title);
-                barDataSet.setColors(ColorTemplate.getHoloBlue());
-                barDataSet.setValueTextColor(Color.BLACK);
-                barDataSet.setValueTextSize(16f);
-
-                BarData data = new BarData(barDataSet);
-                chart.setFitBars(true);
-                chart.setData(data);
-                chart.invalidate();
-//                chart.animateY(2000);
+//                String[] months = {"20220501", "20220601", "20220602", "20220603", "20220604", "20220605"};
+//                ArrayList<String> mm = new ArrayList<>();
+//                mm.add("ccc");
+//                mm.add("ddd");
+//                mm.add("eee");
+////
+//                chart.setDrawBarShadow(false);
+//                chart.setDrawValueAboveBar(false);
+//                chart.getDescription().setEnabled(false);
+//                chart.setDrawGridBackground(false);
+//
+//                XAxis xaxis = chart.getXAxis();
+//                xaxis.setDrawGridLines(false);
+//                xaxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//                xaxis.setGranularity(1f);
+//                xaxis.setDrawLabels(true);
+//                xaxis.setDrawAxisLine(false);
+//                xaxis.setValueFormatter(new IndexAxisValueFormatter(mm));
+//
+//
+//                chart.getAxisRight().setEnabled(false);
+//
+//                Legend legend = chart.getLegend();
+//                legend.setEnabled(false);
+//
+//                ArrayList<BarEntry> valueSet1 = new ArrayList<BarEntry>();
+//
+//                for (int i = 0; i < 6; ++i) {
+//                    BarEntry entry = new BarEntry(i, (i + 1) * 10);
+//                    valueSet1.add(entry);
+//                }
+//                for (Map.Entry<String, Float> entry : sorted_calories_added.entrySet()) {
+//                    BarEntry barEntry = new BarEntry(TimeUnit.MILLISECONDS.toDays((long)a++), entry.getValue());
+//                    entries.add(barEntry);
+////                }
+//                List<IBarDataSet> dataSets = new ArrayList<>();
+//                BarDataSet barDataSet = new BarDataSet(valueSet1, " ");
+//                barDataSet.setColor(Color.CYAN);
+//                barDataSet.setDrawValues(false);
+//                dataSets.add(barDataSet);
+//
+//                BarData data = new BarData(dataSets);
+//                chart.setData(data);
+//                chart.invalidate();
 
 
                 ////---------------ver2

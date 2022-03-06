@@ -1,16 +1,19 @@
 package com.example.foodtopia;
 
 import android.icu.text.SimpleDateFormat;
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
 
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.sql.Date;
 import java.util.concurrent.TimeUnit;
+
 
 public class BarChartXAxisValueFormatter  extends IndexAxisValueFormatter {
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public String getFormattedValue(float value) {
 
@@ -20,7 +23,7 @@ public class BarChartXAxisValueFormatter  extends IndexAxisValueFormatter {
         // Show time in local version
         Date timeMilliseconds = new Date(emissionsMilliSince1970Time);
         SimpleDateFormat dateTimeFormat = new SimpleDateFormat("MM-dd");
-
+        System.out.println("datetime"+dateTimeFormat.format(timeMilliseconds));
         return dateTimeFormat.format(timeMilliseconds);
     }
 }
