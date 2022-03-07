@@ -166,12 +166,17 @@ public class EditUserInfoActivity extends AppCompatActivity {
                     String stress_edit = stress.getSelectedItem().toString();
                     String target_edit = target.getSelectedItem().toString();
                     int gender = radioGroup.getCheckedRadioButtonId();
+                    String genderText="";
+                    if(gender==2131362273){
+                        genderText="Male";
+                    }else{
+                        genderText="Female";
+                    }
                     radioButton = (RadioButton) findViewById(gender);
                     auth = FirebaseAuth.getInstance();
                     FirebaseUser firebaseUser = auth.getCurrentUser();
                     String userID = firebaseUser.getUid();
                     reference = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
-
                     HashMap<String, Object> map = new HashMap<>();
                     map.put("username", username_edit);
                     map.put("weight", weight_edit);
@@ -181,7 +186,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
                     map.put("stress", stress_edit);
                     map.put("target", target_edit);
                     map.put("imageurl", fileUri);
-                    map.put("gender", radioButton.getText());
+                    map.put("gender", genderText);
                     reference.updateChildren(map);
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -199,6 +204,14 @@ public class EditUserInfoActivity extends AppCompatActivity {
             String workload_edit = workload.getSelectedItem().toString();
             String stress_edit = stress.getSelectedItem().toString();
             String target_edit = target.getSelectedItem().toString();
+            int gender = radioGroup.getCheckedRadioButtonId();
+            String genderText="";
+            if(gender==2131362273){
+                genderText="Male";
+            }else{
+                genderText="Female";
+            }
+            radioButton = (RadioButton) findViewById(gender);
             auth = FirebaseAuth.getInstance();
             FirebaseUser firebaseUser = auth.getCurrentUser();
             String userID = firebaseUser.getUid();
@@ -211,6 +224,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
             map.put("workload", workload_edit);
             map.put("stress", stress_edit);
             map.put("target", target_edit);
+            map.put("gender", genderText);
             reference.updateChildren(map);
         }
     }
