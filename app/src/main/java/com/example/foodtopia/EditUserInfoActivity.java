@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +59,9 @@ public class EditUserInfoActivity extends AppCompatActivity {
     ImageView image_profile;
     TextInputLayout username, weight, height, calories_perday;
     Spinner workload, stress, target;
+    RadioGroup radioGroup;
+    RadioButton radioButton_f, radioButton_m;
+    RadioButton radioButton;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     String fileUri;
 
@@ -68,6 +73,10 @@ public class EditUserInfoActivity extends AppCompatActivity {
         weight = findViewById(R.id.weight);
         height = findViewById(R.id.height);
         calories_perday = findViewById(R.id.calories_perday);
+
+        radioButton_f = findViewById(R.id.radio_f);
+        radioButton_m = findViewById(R.id.radio_m);
+        radioGroup = findViewById(R.id.radioGroup);
 
         workload = findViewById(R.id.spinner_workload);
         stress = findViewById(R.id.spinner_stress);
@@ -84,6 +93,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
         getStrssSelection();
         getTargetSelection();
         getUser();
+        getGender();
 
         progress_circular.setVisibility(View.GONE);
 
@@ -155,6 +165,8 @@ public class EditUserInfoActivity extends AppCompatActivity {
                     String workload_edit = workload.getSelectedItem().toString();
                     String stress_edit = stress.getSelectedItem().toString();
                     String target_edit = target.getSelectedItem().toString();
+                    int gender = radioGroup.getCheckedRadioButtonId();
+                    radioButton = (RadioButton) findViewById(gender);
                     auth = FirebaseAuth.getInstance();
                     FirebaseUser firebaseUser = auth.getCurrentUser();
                     String userID = firebaseUser.getUid();
@@ -169,6 +181,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
                     map.put("stress", stress_edit);
                     map.put("target", target_edit);
                     map.put("imageurl", fileUri);
+                    map.put("gender", radioButton.getText());
                     reference.updateChildren(map);
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -178,6 +191,7 @@ public class EditUserInfoActivity extends AppCompatActivity {
                 }
             });
         } else {
+            // gender update 沒有防呆
             String username_edit = username.getEditText().getText().toString().trim();
             String weight_edit = weight.getEditText().getText().toString().trim();
             String height_edit = height.getEditText().getText().toString().trim();
@@ -242,6 +256,26 @@ public class EditUserInfoActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void getGender() {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("Users").child(user.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String gender = snapshot.child("gender").getValue().toString();
+                if (gender.equalsIgnoreCase("Male")) {
+                    radioButton_m.setChecked(true);
+                } else if (gender.equalsIgnoreCase("Female")) {
+                    radioButton_f.setChecked(true);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void getTargetSelection() {

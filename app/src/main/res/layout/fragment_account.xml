@@ -18,9 +18,10 @@
             android:id="@+id/profile_pic"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/account_picture_profile"
-            android:layout_margin="25dp"
-            />
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="25dp" />
 
 
         <TextView
