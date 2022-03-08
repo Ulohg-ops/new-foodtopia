@@ -117,7 +117,7 @@ public class RegisterActivity extends AppCompatActivity {
         mToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Login.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
 //                Intent intent = new Intent();
 //                intent.setClass(Login.this, Register.class);

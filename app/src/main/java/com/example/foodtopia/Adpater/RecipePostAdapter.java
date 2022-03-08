@@ -90,7 +90,6 @@ public class RecipePostAdapter extends RecyclerView.Adapter<RecipePostAdapter.Im
                 if (holder.like.getTag().equals("like")) {
                     FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostid())
                             .child(firebaseUser.getUid()).setValue(true);
-                    addNotification(post.getPublisher(), post.getPostid());
                 } else {
                     FirebaseDatabase.getInstance().getReference().child("Likes").child(post.getPostid())
                             .child(firebaseUser.getUid()).removeValue();
@@ -148,9 +147,8 @@ public class RecipePostAdapter extends RecyclerView.Adapter<RecipePostAdapter.Im
                                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()){
-                                                    deleteNotifications(id, firebaseUser.getUid());
-                                                }
+                                                Toast.makeText(mContext, "刪除成功!!", Toast.LENGTH_SHORT).show();
+
                                             }
                                         });
                                 return true;
@@ -202,42 +200,42 @@ public class RecipePostAdapter extends RecyclerView.Adapter<RecipePostAdapter.Im
         }
     }
 
-    private void addNotification(String userid, String postid){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(userid);
-
-        HashMap<String, Object> hashMap = new HashMap<>();
-        hashMap.put("userid", firebaseUser.getUid());
-        hashMap.put("text", "liked your post");
-        hashMap.put("postid", postid);
-        hashMap.put("ispost", true);
-
-        reference.push().setValue(hashMap);
-    }
-
-    private void deleteNotifications(final String postid, String userid){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(userid);
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    if (snapshot.child("postid").getValue().equals(postid)){
-                        snapshot.getRef().removeValue()
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        Toast.makeText(mContext, "刪除貼文成功!!", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
+//    private void addNotification(String userid, String postid){
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(userid);
+//
+//        HashMap<String, Object> hashMap = new HashMap<>();
+//        hashMap.put("userid", firebaseUser.getUid());
+//        hashMap.put("text", "liked your post");
+//        hashMap.put("postid", postid);
+//        hashMap.put("ispost", true);
+//
+//        reference.push().setValue(hashMap);
+//    }
+//
+//    private void deleteNotifications(final String postid, String userid){
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Notifications").child(userid);
+//        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+//                    if (snapshot.child("postid").getValue().equals(postid)){
+//                        snapshot.getRef().removeValue()
+//                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                    @Override
+//                                    public void onComplete(@NonNull Task<Void> task) {
+//                                        Toast.makeText(mContext, "刪除貼文成功!!", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                });
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 
     private void nrLikes(final TextView likes, String postId){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Likes").child(postId);

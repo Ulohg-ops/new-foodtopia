@@ -132,19 +132,19 @@ public class DashboardFragment extends Fragment {
                 }
                 int carbonFinalTotal = carbonTotal;
                 //蛋白質總量
-//                int proteinTotal = 0;
-//                for (DataSnapshot record : snapshot.getChildren()) {
-//                    int protein = Integer.valueOf(record.child("protein").getValue(String.class));
-//                    proteinTotal += protein;
-//                }
-//                int proteinFinalTotal = proteinTotal;
-                //脂肪總量
-//                int fatTotal = 0;
-//                for (DataSnapshot record : snapshot.getChildren()) {
-//                    int fat = Integer.valueOf(record.child("fat").getValue(String.class));
-//                    fatTotal += fat;
-//                }
-//                int fatFinalTotal = fatTotal;
+                int proteinTotal = 0;
+                for (DataSnapshot record : snapshot.getChildren()) {
+                    int protein = Integer.valueOf(record.child("protein").getValue(String.class));
+                    proteinTotal += protein;
+                }
+                int proteinFinalTotal = proteinTotal;
+//                脂肪總量
+                int fatTotal = 0;
+                for (DataSnapshot record : snapshot.getChildren()) {
+                    int fat = Integer.valueOf(record.child("fat").getValue(String.class));
+                    fatTotal += fat;
+                }
+                int fatFinalTotal = fatTotal;
 
                 reference.addValueEventListener(new ValueEventListener() {
                     @Override

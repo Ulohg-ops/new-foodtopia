@@ -28,7 +28,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     EditText mEmail, mPassword;
     Button mLoginBtn;
     TextView mToRegister;
@@ -75,10 +75,10 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(Login.this, "登入成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }else{
-                            Toast.makeText(Login.this, "錯誤:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "錯誤:" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -151,7 +151,7 @@ public class Login extends AppCompatActivity {
                 });
     }
     private void updateUI(FirebaseUser user) {
-        Intent intent = new Intent(Login.this, GetUserInfoActivity1.class);
+        Intent intent = new Intent(LoginActivity.this, GetUserInfoActivity1.class);
         startActivity(intent);
     }
 }

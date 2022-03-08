@@ -2,14 +2,9 @@ package com.example.foodtopia;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -38,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if(FirebaseAuth.getInstance().getCurrentUser()==null){
-            startActivity(new Intent(this,Login.class));
+            startActivity(new Intent(this, LoginActivity.class));
             finish();
         }
 

@@ -83,7 +83,6 @@ public class GetUserInfoActivity5 extends AppCompatActivity {
         HashMap<String, Object> map = new HashMap<>();
         map.put("workload", workload.getSelectedItem().toString());
         map.put("stress", stress.getSelectedItem().toString());
-        map.put("calories_taken", "3000");
         reference.updateChildren(map);
     }
 
@@ -96,6 +95,9 @@ public class GetUserInfoActivity5 extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
                 double calories_perday=0;
+                double protein_perday=0;
+                double carbohydrate_perday=0;
+                double fat_perday=0;
                 Double height=Double.parseDouble(user.getHeight());
                 Double weight=Double.parseDouble(user.getWeight());
                 int age=Integer.parseInt(user.getAge());
@@ -134,8 +136,14 @@ public class GetUserInfoActivity5 extends AppCompatActivity {
                     calories_perday*=act;
                     calories_perday=Math.round(calories_perday);
                 }
+                protein_perday=Math.round(0.8*weight);
+                carbohydrate_perday=Math.round(0.55*calories_perday);
+                fat_perday=Math.round((35*weight*0.2)/9);
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("calories_per_day",calories_perday+"");
+                map.put("protein_per_day",protein_perday+"");
+                map.put("carbon_per_day",carbohydrate_perday+"");
+                map.put("fat_per_day",fat_perday+"");
                 reference.updateChildren(map);
             }
 
