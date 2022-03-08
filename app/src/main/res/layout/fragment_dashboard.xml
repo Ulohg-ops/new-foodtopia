@@ -121,6 +121,7 @@
 
             <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
+                android:id="@+id/carbonProgressBar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -133,6 +134,7 @@
             //文字：碳水化合物剩餘量
 
             <TextView
+                android:id="@+id/carbonTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -165,6 +167,7 @@
             //直方圖：蛋白質
             <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
+                android:id="@+id/proteinProgressBar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -176,6 +179,7 @@
                 android:scaleY="8" />
             //文字：蛋白質剩餘量
             <TextView
+                android:id="@+id/proteinTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -208,6 +212,7 @@
             //圖示：直方圖
             <ProgressBar
                 style="?android:attr/progressBarStyleHorizontal"
+                android:id="@+id/fatProgressBar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -219,6 +224,7 @@
                 android:scaleY="8"/>
             //文字：脂肪剩餘量
             <TextView
+                android:id="@+id/fatTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
