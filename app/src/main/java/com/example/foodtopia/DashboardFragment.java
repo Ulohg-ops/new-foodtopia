@@ -3,11 +3,13 @@ package com.example.foodtopia;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
 
@@ -70,11 +72,11 @@ public class DashboardFragment extends Fragment {
     TextView calories;
     AppCompatButton tracking_btn;
     ProgressBar carbonProgressbar;
-//    ProgressBar proteinProgressBar;
-//    ProgressBar fatProgressBar;
+    ProgressBar proteinProgressBar;
+    ProgressBar fatProgressBar;
     TextView carbonTextView;
-//    TextView proteinTextView;
-//    TextView fatTextView;
+    TextView proteinTextView;
+    TextView fatTextView;
 
     DatabaseReference mDatabase;
     DatabaseReference reference;
@@ -95,11 +97,11 @@ public class DashboardFragment extends Fragment {
         calories = view.findViewById(R.id.calories);
         tracking_btn = view.findViewById(R.id.tracking_btn);
         carbonProgressbar = view.findViewById(R.id.carbonProgressBar);
-//        proteinProgressBar = view.findViewById(R.id.proteinProgressBar);
-//        fatProgressBar = view.findViewById(R.id.fatProgressBar);
+        proteinProgressBar = view.findViewById(R.id.proteinProgressBar);
+        fatProgressBar = view.findViewById(R.id.fatProgressBar);
         carbonTextView = view.findViewById(R.id.carbonTextView);
-//        proteinTextView = view.findViewById(R.id.proteinTextView);
-//        fatTextView = view.findViewById(R.id.fatTextView);
+        proteinTextView = view.findViewById(R.id.proteinTextView);
+        fatTextView = view.findViewById(R.id.fatTextView);
 
 
         // get user id
@@ -125,28 +127,29 @@ public class DashboardFragment extends Fragment {
                 }
                 float finalTotal = total;
                 //碳水化合物總量
-                int carbonTotal = 0;
+                float carbonTotal = 0;
                 for (DataSnapshot record : snapshot.getChildren()) {
-                    int carbon = Integer.valueOf(record.child("carbohydrate").getValue(String.class));
+                    float carbon = Float.valueOf(record.child("carbohydrate").getValue(String.class));
                     carbonTotal += carbon;
                 }
-                int carbonFinalTotal = carbonTotal;
+                float carbonFinalTotal = carbonTotal;
                 //蛋白質總量
-                int proteinTotal = 0;
+                float proteinTotal = 0;
                 for (DataSnapshot record : snapshot.getChildren()) {
-                    int protein = Integer.valueOf(record.child("protein").getValue(String.class));
+                    float protein = Float.valueOf(record.child("protein").getValue(String.class));
                     proteinTotal += protein;
                 }
-                int proteinFinalTotal = proteinTotal;
+                float proteinFinalTotal = proteinTotal;
 //                脂肪總量
-                int fatTotal = 0;
+                float fatTotal = 0;
                 for (DataSnapshot record : snapshot.getChildren()) {
-                    int fat = Integer.valueOf(record.child("fat").getValue(String.class));
+                    Float fat = Float.valueOf(record.child("fat").getValue(String.class));
                     fatTotal += fat;
                 }
-                int fatFinalTotal = fatTotal;
+                float fatFinalTotal = fatTotal;
 
                 reference.addValueEventListener(new ValueEventListener() {
+                    @RequiresApi(api = Build.VERSION_CODES.N)
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String calories_per_day = snapshot.child("calories_per_day").getValue().toString();
@@ -171,55 +174,55 @@ public class DashboardFragment extends Fragment {
                         }
                         //碳水化合物
                         String carbon_per_day = snapshot.child("carbon_per_day").getValue().toString();
-                        int carbonPD = Integer.valueOf(carbon_per_day);
+                        float carbonPD = Float.valueOf(carbon_per_day);
                         if (carbonFinalTotal > carbonPD) {
-                            carbonProgressbar.setProgress(carbonPD);
-                            carbonProgressbar.setMax(carbonPD);
+                            carbonProgressbar.setProgress((int)carbonPD);
+                            carbonProgressbar.setMax((int)carbonPD);
                             //顯示文字
-                            String text = "超出" + (carbonFinalTotal-carbonPD) + "g";
+                            String text = "超出" + (Math.round(carbonFinalTotal-carbonPD)) + "g";
                             carbonTextView.setText(text);
                             carbonTextView.setTextColor(Color.rgb(237, 122, 107));
                         }else {
-                            carbonProgressbar.setProgress(carbonFinalTotal);
-                            carbonProgressbar.setMax(carbonPD);
+                            carbonProgressbar.setProgress((int)carbonFinalTotal);
+                            carbonProgressbar.setMax((int)carbonPD);
                             //顯示文字
-                            String text = "剩餘" + carbonFinalTotal + "g";
+                            String text = "剩餘" + Math.round(carbonFinalTotal) + "g";
                             carbonTextView.setText(text);
                         }
                         //蛋白質
-//                        String protein_per_day = snapshot.child("protein_per_day").getValue().toString();
-//                        int proteinPD = Integer.valueOf(protein_per_day);
-//                        if (proteinFinalTotal > proteinPD) {
-//                            proteinProgressBar.setProgress(proteinPD);
-//                            proteinProgressBar.setMax(proteinPD);
-//                            //顯示文字
-//                            String text = "超出" + (proteinFinalTotal-proteinPD) + "g";
-//                            proteinTextView.setText(text);
-//                            proteinTextView.setTextColor(Color.rgb(237, 122, 107));
-//                        }else {
-//                            proteinProgressBar.setProgress(proteinFinalTotal);
-//                            proteinProgressBar.setMax(proteinPD);
-//                            //顯示文字
-//                            String text = "剩餘" + proteinFinalTotal + "g";
-//                            proteinTextView.setText(text);
-//                        }
+                        String protein_per_day = snapshot.child("protein_per_day").getValue().toString();
+                        float proteinPD = Float.valueOf(protein_per_day);
+                        if (proteinFinalTotal > proteinPD) {
+                            proteinProgressBar.setProgress((int)proteinPD);
+                            proteinProgressBar.setMax((int)proteinPD);
+                            //顯示文字
+                            String text = "超出" + Math.round(proteinFinalTotal-proteinPD) + "g";
+                            proteinTextView.setText(text);
+                            proteinTextView.setTextColor(Color.rgb(237, 122, 107));
+                        }else {
+                            proteinProgressBar.setProgress((int)proteinFinalTotal);
+                            proteinProgressBar.setMax((int)proteinPD);
+                            //顯示文字
+                            String text = "剩餘" + Math.round(proteinFinalTotal) + "g";
+                            proteinTextView.setText(text);
+                        }
                         //脂肪
-//                        String fat_per_day = snapshot.child("fat_per_day").getValue().toString();
-//                        int fatPD = Integer.valueOf(fat_per_day);
-//                        if (fatFinalTotal > fatPD) {
-//                            fatProgressBar.setProgress(fatPD);
-//                            fatProgressBar.setMax(fatPD);
-//                            //顯示文字
-//                            String text = "超出" + (fatFinalTotal-fatPD) + "g";
-//                            fatTextView.setText(text);
-//                            fatTextView.setTextColor(Color.rgb(237, 122, 107));
-//                        }else {
-//                            fatProgressBar.setProgress(fatFinalTotal);
-//                            fatProgressBar.setMax(fatPD);
-//                            //顯示文字
-//                            String text = "剩餘" + fatFinalTotal + "g";
-//                            fatTextView.setText(text);
-//                        }
+                        String fat_per_day = snapshot.child("fat_per_day").getValue().toString();
+                        float fatPD = Float.valueOf(fat_per_day);
+                        if (fatFinalTotal > fatPD) {
+                            fatProgressBar.setProgress((int)fatPD);
+                            fatProgressBar.setMax((int)fatPD);
+                            //顯示文字
+                            String text = "超出" + Math.round(fatFinalTotal-fatPD) + "g";
+                            fatTextView.setText(text);
+                            fatTextView.setTextColor(Color.rgb(237, 122, 107));
+                        }else {
+                            fatProgressBar.setProgress((int)fatFinalTotal);
+                            fatProgressBar.setMax((int)fatPD);
+                            //顯示文字
+                            String text = "剩餘" + Math.round(fatFinalTotal) + "g";
+                            fatTextView.setText(text);
+                        }
                     }
 
                     @Override
