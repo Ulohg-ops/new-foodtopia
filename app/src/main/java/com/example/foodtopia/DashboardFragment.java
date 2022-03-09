@@ -44,6 +44,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import org.w3c.dom.Document;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -125,7 +127,8 @@ public class DashboardFragment extends Fragment {
                     float calories = Float.valueOf(record.child("calories").getValue(String.class));
                     total += calories;
                 }
-                float finalTotal = total;
+                float finalTotal = round(total);
+
                 //碳水化合物總量
                 float carbonTotal = 0;
                 for (DataSnapshot record : snapshot.getChildren()) {
@@ -154,6 +157,7 @@ public class DashboardFragment extends Fragment {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         String calories_per_day = snapshot.child("calories_per_day").getValue().toString();
                         float cpd = Float.valueOf(calories_per_day);
+                        cpd = round(cpd);
                         if (finalTotal > cpd) {
                             int progress_red = Color.rgb(237, 122, 107);
                             circularProgressBar.setProgressWithAnimation(cpd);
@@ -251,5 +255,11 @@ public class DashboardFragment extends Fragment {
         return view;
     }
 
+    // 取兩位小數
+    public static float round(float d) {
+        BigDecimal bd = new BigDecimal(Float.toString(d));
+        bd = bd.setScale(2, BigDecimal.ROUND_HALF_UP);
+        return bd.floatValue();
+    }
 
 }

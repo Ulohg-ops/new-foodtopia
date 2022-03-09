@@ -39,7 +39,7 @@ public class OnboardingActivity extends AppCompatActivity {
         //If is first launch app run onboarding screen and set the App_START to FALSE
         //determine whether the App_START is FALSE
         //If it is FALSE,go to Login page
-
+//
 //        if (!isFirstTimeAppStart()) {
 //            setAppStartStatus(false);
 //            startActivity(new Intent(OnboardingActivity.this, Login.class));
