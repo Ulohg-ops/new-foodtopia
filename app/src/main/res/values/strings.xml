@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name">FoodTopia</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -122,4 +122,6 @@
     <string name="channel_name">notification_test</string>
     <string name="channel_description">notification_description</string>
     <string name="calories_tracking_title">熱量追蹤</string>
+    <string name="calories"><xliff:g id="calories">%2$1.2f</xliff:g></string>
+
 </resources>
