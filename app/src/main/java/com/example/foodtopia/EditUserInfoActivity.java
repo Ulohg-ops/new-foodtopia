@@ -156,7 +156,6 @@ public class EditUserInfoActivity extends AppCompatActivity {
                     Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
                     while (!urlTask.isSuccessful()) ;
                     Uri downloadUrl = urlTask.getResult();
-                    Log.d("cc", "onSuccess: firebase download url: " + downloadUrl.toString()); //use if testing...don't need this line.
                     fileUri = downloadUrl.toString();
                     String username_edit = username.getEditText().getText().toString().trim();
                     String weight_edit = weight.getEditText().getText().toString().trim();
@@ -172,6 +171,48 @@ public class EditUserInfoActivity extends AppCompatActivity {
                     }else{
                         genderText="Female";
                     }
+                    double calories_perday=0;
+                    double protein_perday=0;
+                    double carbohydrate_perday=0;
+                    double fat_perday=0;
+                    Double height=Double.parseDouble(height_edit);
+                    Double weight=Double.parseDouble(weight_edit);
+                    double act=0;
+                    switch (workload_edit) {
+                        case "臥床躺著不動":
+                            act = 1.1;
+                            break;
+                        case "幾乎很少或坐著不動":
+                            act = 1.2;
+                            break;
+                        case "每周1-2次":
+                            act = 1.4;
+                            break;
+                        case "每周3-5次":
+                            act = 1.6 ;
+                            break;
+                        case "每周6-7次":
+                            act = 1.8;
+                            break;
+                        case "每天重度運動":
+                            act = 1.9;
+                            break;
+                        case "重勞力工作者":
+                            act = 2;
+                            break;
+                    }
+                    if(genderText.equals("Male")){
+                        calories_perday=10*weight+6.25*height-5*20+5;
+                        calories_perday*=act;
+                        calories_perday=Math.round(calories_perday);
+                    }else{
+                        calories_perday=10*weight+6.25*height-5*20-161;
+                        calories_perday*=act;
+                        calories_perday=Math.round(calories_perday);
+                    }
+                    protein_perday=Math.round(0.8*weight);
+                    carbohydrate_perday=Math.round(0.55*calories_perday);
+                    fat_perday=Math.round((35*weight*0.2)/9);
                     radioButton = (RadioButton) findViewById(gender);
                     auth = FirebaseAuth.getInstance();
                     FirebaseUser firebaseUser = auth.getCurrentUser();
@@ -187,6 +228,10 @@ public class EditUserInfoActivity extends AppCompatActivity {
                     map.put("target", target_edit);
                     map.put("imageurl", fileUri);
                     map.put("gender", genderText);
+                    map.put("calories_per_day",calories_perday+"");
+                    map.put("protein_per_day",protein_perday+"");
+                    map.put("carbon_per_day",carbohydrate_perday+"");
+                    map.put("fat_per_day",fat_perday+"");
                     reference.updateChildren(map);
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -211,6 +256,49 @@ public class EditUserInfoActivity extends AppCompatActivity {
             }else{
                 genderText="Female";
             }
+            double calories_perday=0;
+            double protein_perday=0;
+            double carbohydrate_perday=0;
+            double fat_perday=0;
+            Double height=Double.parseDouble(height_edit);
+            Double weight=Double.parseDouble(weight_edit);
+            double act=0;
+            switch (workload_edit) {
+                case "臥床躺著不動":
+                    act = 1.1;
+                    break;
+                case "幾乎很少或坐著不動":
+                    act = 1.2;
+                    break;
+                case "每周1-2次":
+                    act = 1.4;
+                    break;
+                case "每周3-5次":
+                    act = 1.6 ;
+                    break;
+                case "每周6-7次":
+                    act = 1.8;
+                    break;
+                case "每天重度運動":
+                    act = 1.9;
+                    break;
+                case "重勞力工作者":
+                    act = 2;
+                    break;
+            }
+            if(genderText.equals("Male")){
+                calories_perday=10*weight+6.25*height-5*20+5;
+                calories_perday*=act;
+                calories_perday=Math.round(calories_perday);
+            }else{
+                calories_perday=10*weight+6.25*height-5*20-161;
+                calories_perday*=act;
+                calories_perday=Math.round(calories_perday);
+            }
+            protein_perday=Math.round(0.8*weight);
+            carbohydrate_perday=Math.round(0.55*calories_perday);
+            fat_perday=Math.round((35*weight*0.2)/9);
+
             radioButton = (RadioButton) findViewById(gender);
             auth = FirebaseAuth.getInstance();
             FirebaseUser firebaseUser = auth.getCurrentUser();
@@ -225,6 +313,10 @@ public class EditUserInfoActivity extends AppCompatActivity {
             map.put("stress", stress_edit);
             map.put("target", target_edit);
             map.put("gender", genderText);
+            map.put("calories_per_day",calories_perday+"");
+            map.put("protein_per_day",protein_perday+"");
+            map.put("carbon_per_day",carbohydrate_perday+"");
+            map.put("fat_per_day",fat_perday+"");
             reference.updateChildren(map);
         }
     }

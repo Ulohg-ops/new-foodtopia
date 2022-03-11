@@ -120,14 +120,13 @@
             //圖示：直方圖
 
             <ProgressBar
-                style="?android:attr/progressBarStyleHorizontal"
                 android:id="@+id/carbonProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:indeterminate="false"
-                android:max="126"
-                android:progress="79"
+                android:progress="0"
                 android:progressBackgroundTint="#9096B8"
                 android:progressTint="#5A6ACF"
                 android:scaleY="8" />
@@ -139,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="15dp"
-                android:text="剩餘 47g"
+                android:text="剩餘"
                 android:textColorHint="#7A8089"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -156,39 +155,44 @@
             android:textSize="15sp" />
 
         //營養素攝取量質方圖(蛋白質)
+
+        //文字:蛋白質標示
+
         <LinearLayout
             android:id="@+id/protein"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/carbon"
             android:layout_marginHorizontal="80dp"
+            android:layout_marginTop="1dp"
             android:gravity="center_vertical"
             android:orientation="horizontal">
             //直方圖：蛋白質
+
             <ProgressBar
-                style="?android:attr/progressBarStyleHorizontal"
                 android:id="@+id/proteinProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:indeterminate="false"
-                android:max="169"
-                android:progress="60"
+                android:progress="0"
                 android:progressBackgroundTint="#9096B8"
                 android:progressTint="#5A6ACF"
                 android:scaleY="8" />
             //文字：蛋白質剩餘量
+
             <TextView
                 android:id="@+id/proteinTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="15dp"
-                android:text="剩餘 109g"
+                android:text="剩餘"
                 android:textColorHint="#7A8089"
                 android:textSize="15sp" />
         </LinearLayout>
-        //文字:蛋白質標示
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -217,8 +221,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:indeterminate="false"
-                android:max="48"
-                android:progress="32"
+                android:progress="0"
                 android:progressBackgroundTint="#9096B8"
                 android:progressTint="#5A6ACF"
                 android:scaleY="8"/>
@@ -229,7 +232,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="15dp"
-                android:text="剩餘 16g"
+                android:text="剩餘"
                 android:textColorHint="#7A8089"
                 android:textSize="15sp" />
         </LinearLayout>

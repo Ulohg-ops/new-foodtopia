@@ -193,16 +193,3 @@ public class AccountFragment extends Fragment {
         });
     }
 }
-
-
-//<com.google.android.material.imageview.ShapeableImageView
-//        android:id="@+id/profile_pic"
-//        android:layout_width="100dp"
-//        android:layout_height="100dp"
-//        android:layout_marginStart="20dp"
-//        android:layout_marginTop="30dp"
-//        android:layout_marginEnd="30dp"
-//        android:layout_marginBottom="30dp"
-//        android:padding="3dp"
-//        android:src="@drawable/account_picture_profile"
-//        app:shapeAppearanceOverlay="@style/rectangle" />
