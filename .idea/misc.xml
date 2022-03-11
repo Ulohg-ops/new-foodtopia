@@ -45,6 +45,7 @@
         <entry key="..\:/Project/foodtopia_ver3/app/src/main/res/layout/activity_get_user_info4.xml" value="0.175" />
         <entry key="..\:/Project/foodtopia_ver3/app/src/main/res/layout/activity_get_user_info5.xml" value="0.175" />
         <entry key="..\:/Project/foodtopia_ver3/app/src/main/res/layout/activity_setting.xml" value="0.22" />
+        <entry key="..\:/Project/foodtopia_ver3/app/src/main/res/layout/activity_social_post.xml" value="0.14855072463768115" />
         <entry key="..\:/Project/foodtopia_ver3/app/src/main/res/layout/fragment_account.xml" value="0.1" />
         <entry key="..\:/Project/foodtopia_ver3/app/src/main/res/layout/fragment_account_saved_mypost.xml" value="0.1" />
         <entry key="..\:/Project/foodtopia_ver3/app/src/main/res/layout/fragment_account_saved_mysave.xml" value="0.175" />
@@ -163,12 +164,10 @@
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/activity_saved2.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/activity_saved_item.xml" value="0.22" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/activity_setting.xml" value="0.27291666666666664" />
-        <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/activity_social_post.xml" value="0.25" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/activity_take_photo.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/add_popup_dialog.xml" value="0.25" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/category_row_items.xml" value="0.13272543059777103" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/comment_item.xml" value="0.536" />
-        <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/content_main.xml" value="0.13385416666666666" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/custom_profile_list.xml" value="0.33" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/diaglog_restaurant_add_meal.xml" value="0.18" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/layout/dialog_add_menu.xml" value="0.27291666666666664" />
