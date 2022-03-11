@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,6 +28,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
     EditText mEmail, mPassword;
@@ -37,6 +42,8 @@ public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mGoogleSignInClient;
+    String googleDisplayName = "";
+    String googleImageURL = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,6 +131,8 @@ public class LoginActivity extends AppCompatActivity {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.getId());
+                googleDisplayName = account.getDisplayName();
+                googleImageURL = account.getPhotoUrl().toString();
                 firebaseAuthWithGoogle(account.getIdToken());
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
@@ -151,6 +160,14 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
     private void updateUI(FirebaseUser user) {
+        if (user != null) {
+            String uid = user.getUid();
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+            HashMap<String,Object> map = new HashMap<>();
+            map.put("username",googleDisplayName);
+            map.put("imageurl",googleImageURL);
+            reference.updateChildren(map);
+        }
         Intent intent = new Intent(LoginActivity.this, GetUserInfoActivity1.class);
         startActivity(intent);
     }
