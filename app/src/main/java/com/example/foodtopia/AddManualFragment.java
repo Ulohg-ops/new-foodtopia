@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,13 +130,25 @@ public class AddManualFragment extends Fragment{
         add.setOnClickListener(view1 -> {
 
             String name = editName.getText().toString().trim();
+            if(TextUtils.isEmpty(name)) {
+                editName.setError("請輸入食品名稱");
+                return;
+            }
             String amount = editAmount.getText().toString().trim();
+            if(TextUtils.isEmpty(amount)) {
+                editAmount.setError("請輸入份量");
+                return;
+            }
             String carbohydrate = editCarbohydrate.getText().toString().trim();
             String protein = editProtein.getText().toString().trim();
             String fat = editFat.getText().toString().trim();
             String sugar = editSugar.getText().toString().trim();
             String sodium = editSodium.getText().toString().trim();
             String kcal = editKcal.getText().toString().trim();
+            if(TextUtils.isEmpty(kcal)) {
+                editKcal.setError("請輸入熱量");
+                return;
+            }
 
             //份量的單位
             String amountQuantifier = spinnerAmount.getSelectedItem().toString();
