@@ -75,7 +75,6 @@
 
             <EditText
                 android:id="@+id/description"
-                android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:layout_marginLeft="12dp"
@@ -83,7 +82,8 @@
                 android:background="#F8F6F2"
                 android:gravity="top"
                 android:hint="無糖優格 當季水果 堅果 燕麥 高蛋白粉"
-                android:maxLines="20" />
+                android:maxLines="20"
+                android:padding="5dp" />
 
             <Button
                 android:id="@+id/post"
