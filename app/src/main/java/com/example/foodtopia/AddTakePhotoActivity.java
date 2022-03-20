@@ -9,7 +9,6 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -23,11 +22,13 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.foodtopia.add.Upload;
 import com.example.foodtopia.databinding.ActivityAddTakePhotoBinding;
+import com.example.foodtopia.ml.Food101ModelUnquant;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -39,8 +40,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.tensorflow.lite.DataType;
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
+
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -64,15 +70,14 @@ public class AddTakePhotoActivity extends AppCompatActivity {
     public static final int CAMERA_PERMISSION = 100;//檢測相機權限用
     public static final int REQUEST_HIGH_IMAGE = 101;//檢測相機回傳
 
+    private final int imageSize = 224;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityAddTakePhotoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_NOSENSOR);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        
         imageView = findViewById(R.id.cameraImageView);
 
         Intent intent=getIntent();
@@ -175,6 +180,71 @@ public class AddTakePhotoActivity extends AppCompatActivity {
                 Toast.makeText(AddTakePhotoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+        Bitmap imageBitmap = BitmapFactory.decodeFile(mPath);
+        imageBitmap = Bitmap.createScaledBitmap(imageBitmap,imageSize,imageSize,false);
+        classifyImage(imageBitmap);
+    }
+
+    public void classifyImage(Bitmap image){
+        try {
+            //TODO Change Model
+            Food101ModelUnquant model = Food101ModelUnquant.newInstance(getApplicationContext());
+
+            // Creates inputs for reference.
+            TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
+            ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4 * imageSize * imageSize * 3);
+            byteBuffer.order(ByteOrder.nativeOrder());
+
+            // get 1D array of 224 * 224 pixels in image
+            int [] intValues = new int[imageSize * imageSize];
+            image.getPixels(intValues, 0, image.getWidth(), 0, 0, image.getWidth(), image.getHeight());
+
+            // iterate over pixels and extract R, G, and B values. Add to bytebuffer.
+            int pixel = 0;
+            for(int i = 0; i < imageSize; i++){
+                for(int j = 0; j < imageSize; j++){
+                    int val = intValues[pixel++]; // RGB
+                    byteBuffer.putFloat(((val >> 16) & 0xFF) * (1.f / 255.f));
+                    byteBuffer.putFloat(((val >> 8) & 0xFF) * (1.f / 255.f));
+                    byteBuffer.putFloat((val & 0xFF) * (1.f / 255.f));
+                }
+            }
+
+            inputFeature0.loadBuffer(byteBuffer);
+
+            // Runs model inference and gets result.
+            Food101ModelUnquant.Outputs outputs = model.process(inputFeature0);
+            TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
+
+            float[] confidences = outputFeature0.getFloatArray();
+            // find the index of the class with the biggest confidence.
+            int maxPos = 0;
+            float maxConfidence = 0;
+            for(int i = 0; i < confidences.length; i++){
+                if(confidences[i] > maxConfidence){
+                    maxConfidence = confidences[i];
+                    maxPos = i;
+                }
+            }
+            TextView result = findViewById(R.id.textView_result);
+            // TODO Adjust label
+            //label
+            String[] classes = {"apple_pie", "baby_back_ribs", "baklava", "beef_carpaccio", "beef_tartare",
+                    "beet_salad", "beignets","bibimbap"};
+            result.setText(classes[maxPos]);
+
+            String s = "";
+            for(int i = 0; i < classes.length; i++){
+                s += String.format("%s: %.1f%%\n", classes[i], confidences[i] * 100);
+            }
+            result.append("\n"+s);
+
+
+            // Releases model resources if no longer used.
+            model.close();
+        } catch (IOException e) {
+
+        }
     }
 
     //取得副檔名
