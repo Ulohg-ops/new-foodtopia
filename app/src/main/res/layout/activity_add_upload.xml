@@ -48,20 +48,20 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/uploadImageView"
-        app:layout_constraintVertical_bias="0.224" />
+        app:layout_constraintVertical_bias="0.126" />
 
     <Button
         android:id="@+id/PhotoUploadBtn"
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
+        android:layout_marginEnd="48dp"
         android:text="分析照片"
         android:textColor="@color/dark_purple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/uploadImageView"
-        app:layout_constraintVertical_bias="0.225" />
+        app:layout_constraintVertical_bias="0.126" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_upload_back_fab"
@@ -73,22 +73,37 @@
         app:layout_anchorGravity="bottom|right|end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.929"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseBtn"
-        app:layout_constraintVertical_bias="0.155"
+        app:layout_constraintVertical_bias="1.0"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Circle"
         app:srcCompat="@drawable/add_icon_back"
         app:tint="@color/white" />
+
 
     <TextView
         android:id="@+id/textView_upload_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="請選擇最接近的食物"
+        android:textSize="20dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.338"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseBtn"
-        app:layout_constraintVertical_bias="0.235" />
+        app:layout_constraintTop_toBottomOf="@+id/uploadImageView"
+        app:layout_constraintVertical_bias="0.329" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView_result"
+        android:layout_width="399dp"
+        android:layout_height="152dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/uploadImageView"
+        app:layout_constraintVertical_bias="0.892" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

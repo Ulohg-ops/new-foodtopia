@@ -60,10 +60,8 @@ public class RestaurantProductActivity extends AppCompatActivity {
 
         for(List<String> lists : title){
             for(String items : lists){
-//                System.out.println(items);
                 List<Post.CategoryItem> itemList = new ArrayList<>();
                 if(items.contains(store_name.toLowerCase(Locale.ROOT))){
-//                    System.out.println(items);
                     allCategoryList.add(new RestaurantProduct.AllCategory(items, itemList));
                     getData(itemList, items);
                 }

@@ -41,20 +41,6 @@ public class RestaurantsCardRecycleAdapter extends RecyclerView.Adapter<Restaura
         final Restaurants member = memberList.get(position);
         holder.storeImage.setImageResource(member.getImage());
         holder.storeName.setText(member.getName());
-
-//        if (position % 6 == 0) {
-//            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c1));
-//        } else if (position % 6 == 1) {
-//            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c2));
-//        } else if (position % 6 == 2) {
-//            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c3));
-//        } else if (position % 6 == 3) {
-//            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c4));
-//        } else if (position % 6 == 4) {
-//            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c5));
-//        } else if (position % 6 == 5) {
-//            holder.linearBg.setBackgroundColor(ContextCompat.getColor(context, R.color.cv_c6));
-//        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
