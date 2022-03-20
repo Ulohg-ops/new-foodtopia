@@ -26,7 +26,7 @@
         android:id="@+id/cameraImageView"
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_marginTop="92dp"
+        android:layout_marginTop="24dp"
         android:scaleType="centerInside"
         android:src="@drawable/add_icon_photo"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,26 +39,26 @@
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="60dp"
+        android:layout_marginEnd="64dp"
         android:text="分析照片"
         android:textColor="@color/dark_purple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cameraImageView"
-        app:layout_constraintVertical_bias="0.225" />
+        app:layout_constraintVertical_bias="0.095" />
 
     <Button
         android:id="@+id/buttonHigh"
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="48dp"
         android:text="相片拍攝"
         android:textColor="@color/dark_purple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cameraImageView"
-        app:layout_constraintVertical_bias="0.225" />
+        app:layout_constraintVertical_bias="0.095" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/camera_back_fab"
@@ -70,25 +70,60 @@
         app:layout_anchorGravity="bottom|right|end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.929"
+        app:layout_constraintHorizontal_bias="0.954"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cameraPhotoUploadBtn"
-        app:layout_constraintVertical_bias="0.333"
+        app:layout_constraintVertical_bias="0.753"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Circle"
         app:srcCompat="@drawable/add_icon_back"
         app:tint="@color/white" />
 
     <TextView
-        android:id="@+id/textView_result"
+        android:id="@+id/textView_taking_result"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.343"
+        app:layout_constraintHorizontal_bias="0.136"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonHigh"
-        app:layout_constraintVertical_bias="0.071" />
+        app:layout_constraintVertical_bias="0.109" />
 
+    <Button
+        android:id="@+id/btn_taking_predict1"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:textColor="@color/dark_purple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.099"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView_taking_result" />
 
+    <Button
+        android:id="@+id/btn_taking_predict2"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/dark_purple"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.099"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_taking_predict1" />
+
+    <Button
+        android:id="@+id/btn_taking_predict3"
+        style="@style/Widget.Material3.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/dark_purple"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.099"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_taking_predict2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

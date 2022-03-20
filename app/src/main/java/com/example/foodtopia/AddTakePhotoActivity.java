@@ -1,11 +1,11 @@
 package com.example.foodtopia;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -19,8 +19,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,10 +29,6 @@ import com.bumptech.glide.Glide;
 import com.example.foodtopia.add.Upload;
 import com.example.foodtopia.databinding.ActivityAddTakePhotoBinding;
 import com.example.foodtopia.ml.Food101ModelUnquant;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -48,8 +44,12 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class AddTakePhotoActivity extends AppCompatActivity {
@@ -72,6 +72,7 @@ public class AddTakePhotoActivity extends AppCompatActivity {
 
     private final int imageSize = 224;
 
+    @SuppressLint("QueryPermissionsNeeded")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,20 +110,14 @@ public class AddTakePhotoActivity extends AppCompatActivity {
         });
 
         /*按下分析按鈕*/
-        binding.cameraPhotoUploadBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                uploadImage();
+        binding.cameraPhotoUploadBtn.setOnClickListener(view -> {
+            uploadImage();
 //                Toast.makeText(TakePhoto.this,"分析照片",Toast.LENGTH_SHORT).show();
-            }
         });
         /*按下返回按鈕*/
-        binding.cameraBackFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AddTakePhotoActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        binding.cameraBackFab.setOnClickListener(view -> {
+            Intent intent1 = new Intent(AddTakePhotoActivity.this, MainActivity.class);
+            startActivity(intent1);
         });
     }
 
@@ -142,44 +137,34 @@ public class AddTakePhotoActivity extends AppCompatActivity {
                 + "." + getFileExtension(uri));
         UploadTask uploadTask = fileReference.putFile(uri);
 
-        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                if (!task.isSuccessful()) {
-                    throw task.getException();
+        uploadTask.continueWithTask(task -> {
+            if (!task.isSuccessful()) {
+                throw Objects.requireNonNull(task.getException());
+            }
+            return fileReference.getDownloadUrl();
+        }).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Uri downloadUri = task.getResult();
+                imgURL = downloadUri.toString();
+
+                String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
+                mDatabase = FirebaseDatabase.getInstance().getReference("uploads");
+                //new node
+                String uploadID = mDatabase.push().getKey();
+                Upload photo = new Upload(uid, date, mealtime, imgURL);
+
+                assert uploadID != null;
+                mDatabase.child(uploadID).setValue(photo);
+
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
                 }
-                return fileReference.getDownloadUrl();
+
+            } else {
+                Toast.makeText(AddTakePhotoActivity.this, "Failed", Toast.LENGTH_SHORT).show();
             }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    Uri downloadUri = task.getResult();
-                    imgURL = downloadUri.toString();
-
-                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                    mDatabase = FirebaseDatabase.getInstance().getReference("uploads");
-                    //new node
-                    String uploadID = mDatabase.push().getKey();
-                    Upload photo = new Upload(uid, date, mealtime, imgURL);
-
-                    mDatabase.child(uploadID).setValue(photo);
-
-                    if (progressDialog.isShowing()){
-                        progressDialog.dismiss();
-                    }
-
-                } else {
-                    Toast.makeText(AddTakePhotoActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(AddTakePhotoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        }).addOnFailureListener(e -> Toast.makeText(AddTakePhotoActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
         Bitmap imageBitmap = BitmapFactory.decodeFile(mPath);
         imageBitmap = Bitmap.createScaledBitmap(imageBitmap,imageSize,imageSize,false);
         classifyImage(imageBitmap);
@@ -217,28 +202,42 @@ public class AddTakePhotoActivity extends AppCompatActivity {
             TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
 
             float[] confidences = outputFeature0.getFloatArray();
-            // find the index of the class with the biggest confidence.
-            int maxPos = 0;
-            float maxConfidence = 0;
-            for(int i = 0; i < confidences.length; i++){
-                if(confidences[i] > maxConfidence){
-                    maxConfidence = confidences[i];
-                    maxPos = i;
-                }
-            }
-            TextView result = findViewById(R.id.textView_result);
+
+            TextView result = findViewById(R.id.textView_taking_result);
             // TODO Adjust label
             //label
-            String[] classes = {"apple_pie", "baby_back_ribs", "baklava", "beef_carpaccio", "beef_tartare",
-                    "beet_salad", "beignets","bibimbap"};
-            result.setText(classes[maxPos]);
+            String[] classes = {"apple pie", "baby back ribs", "baklava", "beef carpaccio", "beef tartare",
+                    "beet salad", "beignets","bibimbap"};
+            result.setText("預估結果:");
 
-            String s = "";
+            TreeMap<Float, String> confidenceMap = new TreeMap<>();
             for(int i = 0; i < classes.length; i++){
-                s += String.format("%s: %.1f%%\n", classes[i], confidences[i] * 100);
+                confidenceMap.put(confidences[i] * 100,classes[i]);
             }
-            result.append("\n"+s);
+//confidence
+            List<Float> keyList = new ArrayList<>(confidenceMap.keySet());
+            //label classes
+            List<String> valueList = new ArrayList<>(confidenceMap.values());
 
+            Button predict1 = findViewById(R.id.btn_taking_predict1);
+            Button predict2 = findViewById(R.id.btn_taking_predict2);
+            Button predict3 = findViewById(R.id.btn_taking_predict3);
+            predict1.setText(1+". "+valueList.get(valueList.size()-1)+
+                    ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-1)));
+            predict2.setText(2+". "+valueList.get(valueList.size()-2)+
+                    ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-2)));
+            predict3.setText(3+". "+valueList.get(valueList.size()-3)+
+                    ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-3)));
+
+            predict1.setOnClickListener(view -> {
+                Toast.makeText(this,valueList.get(valueList.size()-1),Toast.LENGTH_SHORT).show();
+            });
+            predict2.setOnClickListener(view -> {
+                Toast.makeText(this,valueList.get(valueList.size()-2),Toast.LENGTH_SHORT).show();
+            });
+            predict3.setOnClickListener(view -> {
+                Toast.makeText(this,valueList.get(valueList.size()-3),Toast.LENGTH_SHORT).show();
+            });
 
             // Releases model resources if no longer used.
             model.close();

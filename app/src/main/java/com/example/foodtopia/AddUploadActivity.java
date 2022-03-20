@@ -1,12 +1,9 @@
 package com.example.foodtopia;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -14,23 +11,15 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.foodtopia.Adpater.AddFoodNameRecycleAdapter;
-import com.example.foodtopia.Adpater.ProductsCategoryTitleAdapter;
-import com.example.foodtopia.Model.Foods;
-import com.example.foodtopia.Model.Restaurants;
 import com.example.foodtopia.add.Upload;
 import com.example.foodtopia.databinding.ActivityAddUploadBinding;
 import com.example.foodtopia.ml.Food101ModelUnquant;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -44,38 +33,30 @@ import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.sql.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-import java.util.SortedSet;
+import java.util.Objects;
+import java.util.TreeMap;
 
 public class AddUploadActivity extends AppCompatActivity {
 
     ActivityAddUploadBinding binding;
-    List<Foods> memberList = new ArrayList<>();
-    AddFoodNameRecycleAdapter addFoodNameRecycleAdapter;
 
     int SELECT_PHOTO = 1;
-    Uri uri;
+    Uri uri ;
     ImageView imageView;
-    RecyclerView recyclerView;
+
     StorageReference storageRef;
     ProgressDialog progressDialog;
-    TextView result;
     String mealtime;
     String imgURL;
     private DatabaseReference mDatabase;
 
     private Bitmap imageBitmap;
-    private final int imageSize = 224;
+    private final int imageSize=224;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,40 +64,23 @@ public class AddUploadActivity extends AppCompatActivity {
 
         binding = ActivityAddUploadBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        result= findViewById(R.id.textView_upload_result);
-        recyclerView = findViewById(R.id.recycleView_result);
+
         imageView = findViewById(R.id.uploadImageView);
 
-        Intent intent = getIntent();
-
+        Intent intent=getIntent();
         mealtime = intent.getStringExtra("choice");
 
-        binding.chooseBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType("image/*");
-                startActivityForResult(intent, SELECT_PHOTO);
-            }
-        });
-        addFoodNameRecycleAdapter = new AddFoodNameRecycleAdapter(this, memberList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(addFoodNameRecycleAdapter);
-
-
-        binding.PhotoUploadBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                uploadImage();
-            }
+        binding.chooseBtn.setOnClickListener(view -> {
+            Intent intent1 = new Intent(Intent.ACTION_PICK);
+            intent1.setType("image/*");
+            startActivityForResult(intent1,SELECT_PHOTO);
         });
 
-        binding.addUploadBackFab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AddUploadActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        binding.PhotoUploadBtn.setOnClickListener(view -> uploadImage());
+
+        binding.addUploadBackFab.setOnClickListener(view -> {
+            Intent intent12 = new Intent(AddUploadActivity.this, MainActivity.class);
+            startActivity(intent12);
         });
     }
 
@@ -137,50 +101,41 @@ public class AddUploadActivity extends AppCompatActivity {
         UploadTask uploadTask = fileReference.putFile(uri);
 
 
-        uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-            @Override
-            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-                if (!task.isSuccessful()) {
-                    throw task.getException();
+        uploadTask.continueWithTask(task -> {
+            if (!task.isSuccessful()) {
+                throw Objects.requireNonNull(task.getException());
+            }
+            return fileReference.getDownloadUrl();
+        }).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Uri downloadUri = task.getResult();
+                imgURL = downloadUri.toString();
+
+                String uid = Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
+                mDatabase = FirebaseDatabase.getInstance().getReference("uploads");
+                //new node
+                String uploadID = mDatabase.push().getKey();
+                Upload photo = new Upload(uid, date, mealtime, imgURL);
+
+                assert uploadID != null;
+                mDatabase.child(uploadID).setValue(photo);
+
+                if (progressDialog.isShowing()){
+                    progressDialog.dismiss();
                 }
-                return fileReference.getDownloadUrl();
+
+            } else {
+                Toast.makeText(AddUploadActivity.this, "Failed", Toast.LENGTH_SHORT).show();
             }
-        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-                    Uri downloadUri = task.getResult();
-                    imgURL = downloadUri.toString();
+        }).addOnFailureListener(e -> Toast.makeText(AddUploadActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
 
-                    String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                    mDatabase = FirebaseDatabase.getInstance().getReference("uploads");
-                    //new node
-                    String uploadID = mDatabase.push().getKey();
-                    Upload photo = new Upload(uid, date, mealtime, imgURL);
-
-                    mDatabase.child(uploadID).setValue(photo);
-
-                    if (progressDialog.isShowing()) {
-                        progressDialog.dismiss();
-                    }
-
-                } else {
-                    Toast.makeText(AddUploadActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(AddUploadActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        imageBitmap = Bitmap.createScaledBitmap(imageBitmap, imageSize, imageSize, false);
+        imageBitmap = Bitmap.createScaledBitmap(imageBitmap,imageSize,imageSize,false);
 //        binding.uploadImageView.setImageBitmap(imageBitmap);
         classifyImage(imageBitmap);
     }
 
+    @SuppressLint({"SetTextI18n", "DefaultLocale"})
     private void classifyImage(Bitmap imageBitmap) {
         try {
             //TODO Change Model
@@ -192,13 +147,13 @@ public class AddUploadActivity extends AppCompatActivity {
             byteBuffer.order(ByteOrder.nativeOrder());
 
             // get 1D array of 224 * 224 pixels in image
-            int[] intValues = new int[imageSize * imageSize];
+            int [] intValues = new int[imageSize * imageSize];
             imageBitmap.getPixels(intValues, 0, imageBitmap.getWidth(), 0, 0, imageBitmap.getWidth(), imageBitmap.getHeight());
 
             // iterate over pixels and extract R, G, and B values. Add to bytebuffer.
             int pixel = 0;
-            for (int i = 0; i < imageSize; i++) {
-                for (int j = 0; j < imageSize; j++) {
+            for(int i = 0; i < imageSize; i++){
+                for(int j = 0; j < imageSize; j++){
                     int val = intValues[pixel++]; // RGB
                     byteBuffer.putFloat(((val >> 16) & 0xFF) * (1.f / 255.f));
                     byteBuffer.putFloat(((val >> 8) & 0xFF) * (1.f / 255.f));
@@ -214,30 +169,48 @@ public class AddUploadActivity extends AppCompatActivity {
 
             float[] confidences = outputFeature0.getFloatArray();
 
-            HashMap<String, Float> map = new HashMap<>();
-
+            TextView result = findViewById(R.id.textView_upload_result);
+            // TODO Adjust label
+            //label
             String[] classes = {"apple_pie", "baby_back_ribs", "baklava", "beef_carpaccio", "beef_tartare",
-                    "beet_salad", "beignets", "bibimbap"};
+                    "beet_salad", "beignets","bibimbap"};
+            result.setText("預估結果:");
 
-            for (int i = 0; i < confidences.length; i++) {
-                System.out.println(confidences[i] + "\n");
-                if (confidences[i] > 0.1) {
-                    map.put(classes[i], confidences[i]);
-                }
+            TreeMap<Float, String> confidenceMap = new TreeMap<>();
+            for(int i = 0; i < classes.length; i++){
+                confidenceMap.put(confidences[i] * 100,classes[i]);
             }
+//confidence
+            List<Float> keyList = new ArrayList<>(confidenceMap.keySet());
+            //label classes
+            List<String> valueList = new ArrayList<>(confidenceMap.values());
 
-            for (Map.Entry<String, Float> entry : map.entrySet()) {
-                System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
-                memberList.add(new Foods(entry.getKey()));
-            }
+            Button predict1 = findViewById(R.id.btn_upload_predict1);
+            Button predict2 = findViewById(R.id.btn_upload_predict2);
+            Button predict3 = findViewById(R.id.btn_upload_predict3);
+            predict1.setText(1+". "+valueList.get(valueList.size()-1)+
+                    ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-1)));
+            predict2.setText(2+". "+valueList.get(valueList.size()-2)+
+                    ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-2)));
+            predict3.setText(3+". "+valueList.get(valueList.size()-3)+
+                    ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-3)));
 
-            addFoodNameRecycleAdapter.notifyDataSetChanged();
-            result.setVisibility(View.VISIBLE);
+            predict1.setOnClickListener(view -> {
+                Toast.makeText(this,valueList.get(valueList.size()-1),Toast.LENGTH_SHORT).show();
+            });
+            predict2.setOnClickListener(view -> {
+                Toast.makeText(this,valueList.get(valueList.size()-2),Toast.LENGTH_SHORT).show();
+            });
+            predict3.setOnClickListener(view -> {
+                Toast.makeText(this,valueList.get(valueList.size()-3),Toast.LENGTH_SHORT).show();
+            });
+
+
+            // Releases model resources if no longer used.
             model.close();
-        } catch (
-                IOException e) {
-        }
+        } catch (IOException e) {
 
+        }
     }
 
     //取得副檔名
@@ -250,7 +223,7 @@ public class AddUploadActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SELECT_PHOTO && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == SELECT_PHOTO && resultCode == RESULT_OK && data != null && data.getData()!= null){
             uri = data.getData();
             binding.uploadImageView.setImageURI(uri);
             try {
