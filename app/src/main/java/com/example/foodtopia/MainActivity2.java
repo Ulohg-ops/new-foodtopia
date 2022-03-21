@@ -17,7 +17,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.foodtopia.ml.Food101ModelUnquant;
 import com.example.foodtopia.ml.Model;
+import com.google.android.gms.common.util.ArrayUtils;
 
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
@@ -63,6 +65,7 @@ public class MainActivity2 extends AppCompatActivity {
     public void classifyImage(Bitmap image) {
         try {
             Model model = Model.newInstance(getApplicationContext());
+            Food101ModelUnquant model1 = Food101ModelUnquant.newInstance(getApplicationContext());
 
             // Creates inputs for reference.
             TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
@@ -85,29 +88,61 @@ public class MainActivity2 extends AppCompatActivity {
 
             // Runs model inference and gets result.
             Model.Outputs outputs = model.process(inputFeature0);
+            Food101ModelUnquant.Outputs outputs1 = model1.process(inputFeature0);
+
             TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
+            TensorBuffer outputFeature1 = outputs1.getOutputFeature0AsTensorBuffer();
 
             float[] confidences = outputFeature0.getFloatArray();
+            float[] confidences2 = outputFeature1.getFloatArray();
+//            float[] combine = ArrayUtils.concat(confidences, confidences2);
             int maxPos = 0;
             float maxConfidence = 0;
+            int arrayFlag = 0;
             for (int i=0; i< confidences.length; i++) {
                 if (confidences[i] > maxConfidence) {
                     maxConfidence = confidences[i];
                     maxPos = i;
                 }
             }
-            String[] classes = {"caesar salad", "cheese cake"};
+            for (int i=0; i<confidences2.length; i++) {
+                if (confidences2[i] > maxConfidence) {
+                    maxConfidence = confidences2[i];
+                    maxPos = i;
+                    arrayFlag = 1;
+                    Log.d("Tag", "hihi");
+                }
+            }
+//            String[][] classes = {{"caesar salad", "cheese cake"}, {"apple_pie", "baby_back_ribs", "baklava", "beef_carpaccio", "beef_tartare",
+//                    "beet_salad", "beignets", "bibimbap"}};
+//            String[] classes = {"caesar salad", "cheese cake"};
 
-            result.setText(classes[maxPos]);
+            String[] classes = {"caesar salad", "cheese cake"};
+            String[] classes2 = {"apple_pie", "baby_back_ribs", "baklava", "beef_carpaccio", "beef_tartare",
+                    "beet_salad", "beignets", "bibimbap"};
+
+            if (arrayFlag == 0) {
+                result.setText(classes[maxPos]);
+            }else {
+                result.setText(classes2[maxPos]);
+            }
+
+//            result.setText(classes[arrayFlag][maxPos]);
 
             String s ="";
-            for(int i=0; i< classes.length; i++) {
+            //todo
+            for (int i=0; i<classes.length; i++) {
                 s += String.format("%s: %.1f%%\n", classes[i], confidences[i] * 100);
             }
+            for (int i=0; i<classes2.length; i++) {
+                s += String.format("%s: %.1f%%\n", classes2[i], confidences2[i] * 100);
+            }
+
             confidence.setText(s);
 
             // Releases model resources if no longer used.
             model.close();
+            model1.close();
         } catch (IOException e) {
             // TODO Handle the exception
         }
