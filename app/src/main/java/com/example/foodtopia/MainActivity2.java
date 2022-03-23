@@ -194,6 +194,12 @@ public class MainActivity2 extends AppCompatActivity {
             String[] classes2 = {"chicken_quesadilla", "chicken_wings", "chocolate_cake", "chocolate_mousse", "churros", "clam_chowder", "club_sandwich", "crab_cakes", "creme_brulee", "croque_madame"};
             String[] classes3 = {"cup_cakes", "deviled_egg", "donuts", "dumplings", "edamame", "eggs_benedict", "escargots", "filet_mignon", "fish_and_chips", "foie_gras"};
             String[] classes4 = {"french_fries", "french_onion_soup", "french_toast", "fried_calamari", "fried_rice", "frozen_yogurt", "garlic_bread", "greek_salad", "grilled_cheese_sandwich", "grilled_salmon"};
+            String[] classes5 = {"hamburger", "hot_and_sour_soup","hot_dog","hummus","ice_cream","lasagna","lobster_bisque","lobster_roll_sandwich","macaroni_and_cheese","macarons"};
+            String[] classes6 = {"miso_soup","mussels","nachos","omelette","onion_rings","oysters","pad_thai","paella","pancakes","peking_duck"};
+            String[] classes7 = {"pho","pizza","pork_chop","poutine","prime_rib","pulled_pork_sandwich","ramen","ravioli","red_velvet_cake","risotto"};
+            String[] classes8 = {"samosa","sashimi","scallops","seaweed_salad","shrimp_and_grits","spaghetti_bolognese","spaghetti_carbonara","spring_rolls","steak","strawberry_shortcake"};
+            String[] classes9 = {"sushi","tacos","takoyaki","tiramisu","tuna_tartare","waffles","guacamole","gyoza"};
+
 
 
             TreeMap<Float, String> confidenceMap = new TreeMap<>();
@@ -210,21 +216,21 @@ public class MainActivity2 extends AppCompatActivity {
                 confidenceMap.put(confidences4[i] * 100,classes4[i]);
             }
             Log.d("tag", confidenceMap.toString());
-//            for(int i = 0; i < classes5.length; i++){
-//                confidenceMap.put(confidences5[i] * 100,classes5[i]);
-//            }
-//            for(int i = 0; i < classes6.length; i++){
-//                confidenceMap.put(confidences6[i] * 100,classes6[i]);
-//            }
-//            for(int i = 0; i < classes7.length; i++){
-//                confidenceMap.put(confidences7[i] * 100,classes7[i]);
-//            }
-//            for(int i = 0; i < classes8.length; i++){
-//                confidenceMap.put(confidences8[i] * 100,classes8[i]);
-//            }
-//            for(int i = 0; i < classes9.length; i++){
-//                confidenceMap.put(confidences9[i] * 100,classes9[i]);
-//            }
+            for(int i = 0; i < classes5.length; i++){
+                confidenceMap.put(confidences5[i] * 100,classes5[i]);
+            }
+            for(int i = 0; i < classes6.length; i++){
+                confidenceMap.put(confidences6[i] * 100,classes6[i]);
+            }
+            for(int i = 0; i < classes7.length; i++){
+                confidenceMap.put(confidences7[i] * 100,classes7[i]);
+            }
+            for(int i = 0; i < classes8.length; i++){
+                confidenceMap.put(confidences8[i] * 100,classes8[i]);
+            }
+            for(int i = 0; i < classes9.length; i++){
+                confidenceMap.put(confidences9[i] * 100,classes9[i]);
+            }
 
             //confidence
             List<Float> keyList = new ArrayList<>(confidenceMap.keySet());
