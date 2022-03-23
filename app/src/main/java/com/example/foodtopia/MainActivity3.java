@@ -8,10 +8,16 @@ import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,13 +32,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
+import org.checkerframework.checker.units.qual.C;
 import org.tensorflow.lite.DataType;
 import org.tensorflow.lite.support.image.TensorImage;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 import org.tensorflow.lite.task.vision.detector.Detection;
 import org.tensorflow.lite.task.vision.detector.ObjectDetector;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -45,12 +54,12 @@ import java.util.Objects;
 import java.util.TreeMap;
 
 public class MainActivity3 extends AppCompatActivity {
-    private static final String TAG ="ccc" ;
+    private static final String TAG = "ccc";
     private ObjectDetector detector = null;
     ActivityAddUploadBinding binding;
 
     int SELECT_PHOTO = 1;
-    Uri uri ;
+    Uri uri;
     ImageView imageView;
 
     StorageReference storageRef;
@@ -60,7 +69,7 @@ public class MainActivity3 extends AppCompatActivity {
     private DatabaseReference mDatabase;
 
     private Bitmap imageBitmap;
-    private final int imageSize=224;
+    private final int imageSize = 224;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,16 +81,27 @@ public class MainActivity3 extends AppCompatActivity {
 
         imageView = findViewById(R.id.uploadImageView);
 
-        Intent intent=getIntent();
+        Intent intent = getIntent();
         mealtime = intent.getStringExtra("choice");
 
         binding.chooseBtn.setOnClickListener(view -> {
             Intent intent1 = new Intent(Intent.ACTION_PICK);
             intent1.setType("image/*");
-            startActivityForResult(intent1,SELECT_PHOTO);
+            startActivityForResult(intent1, SELECT_PHOTO);
         });
 
-        binding.PhotoUploadBtn.setOnClickListener(view -> uploadImage());
+        binding.PhotoUploadBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                initializeDetector();
+                try {
+                    Bitmap bmp=BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+                    runObjectDetection(bmp);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         binding.addUploadBackFab.setOnClickListener(view -> {
             Intent intent12 = new Intent(MainActivity3.this, MainActivity.class);
@@ -89,17 +109,13 @@ public class MainActivity3 extends AppCompatActivity {
         });
     }
 
-    private void uploadImage() {
-        imageBitmap = Bitmap.createScaledBitmap(imageBitmap,imageSize,imageSize,false);
-//        binding.uploadImageView.setImageBitmap(imageBitmap);
-        classifyImage(imageBitmap);
-    }
 
-    @SuppressLint({"SetTextI18n", "DefaultLocale"})
+
     private void classifyImage(Bitmap imageBitmap) {
         initializeDetector();
         runObjectDetection(imageBitmap);
     }
+
     private void initializeDetector() {
         ObjectDetector.ObjectDetectorOptions options = ObjectDetector.ObjectDetectorOptions.builder()
                 .setMaxResults(5)
@@ -126,27 +142,34 @@ public class MainActivity3 extends AppCompatActivity {
 
         if (!results.isEmpty()) {
             //results list contain list of detected objects
-            Log.e(TAG,"Objects = " + results);
+            Log.e(TAG, "Objects = " + results);
         }
-    }
-    //取得副檔名
-    private String getFileExtension(Uri uri) {
-        ContentResolver cR = getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cR.getType(uri));
+        Bitmap bitmap2 = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+        Paint pen = new Paint();
+        pen.setTextAlign(Paint.Align.LEFT);
+        pen.setColor(Color.RED);
+        pen.setStrokeWidth(8F);
+        pen.setStyle(Paint.Style.STROKE);
+        Canvas canvas1 = new Canvas(bitmap2);
+        Rect rect1 = new Rect(-4, 7, 428, 319);
+        canvas1.drawRect(rect1, pen);
+        imageView.setImageBitmap(bitmap2);
+//        for(Detection detection : results){
+//
+//            detection.getBoundingBox();
+//        }
+
+
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == SELECT_PHOTO && resultCode == RESULT_OK && data != null && data.getData()!= null){
+
+        if (requestCode == 1 && resultCode == RESULT_OK
+                && data != null && data.getData() != null) {
             uri = data.getData();
-            binding.uploadImageView.setImageURI(uri);
-            try {
-                imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Picasso.get().load(uri).into(imageView);
         }
     }
 }

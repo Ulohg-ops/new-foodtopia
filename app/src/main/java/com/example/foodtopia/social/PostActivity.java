@@ -181,31 +181,5 @@ public class PostActivity extends AppCompatActivity {
         }
     }
 
-
-//    private void uploadFile() {
-//        if (mImageUri != null) {
-//            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
-//            mUploadTask = fileReference.putFile(mImageUri);
-//            fileReference.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//                @Override
-//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//
-//                    Toast.makeText(PostActivity.this, "Upload Successful", Toast.LENGTH_SHORT).show();
-//                    Task<Uri> urlTask = taskSnapshot.getStorage().getDownloadUrl();
-//                    while (!urlTask.isSuccessful()) ;
-//                    Uri downloadUrl = urlTask.getResult();
-//
-//                    Log.d(TAG, "onSuccess: firebase download url: " + downloadUrl.toString()); //use if testing...don't need this line.
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(PostActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//        } else {
-//            Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
-//        }
-//    }
 }
 
