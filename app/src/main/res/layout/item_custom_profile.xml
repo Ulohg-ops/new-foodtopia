@@ -11,12 +11,13 @@
 
         <ImageView
             android:id="@+id/icon"
-            android:src="@drawable/account_icon_info"
-            android:layout_marginStart="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"/>
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="0.5dp"
+            android:src="@drawable/account_icon_info" />
 
         <TextView
             android:id="@+id/text"

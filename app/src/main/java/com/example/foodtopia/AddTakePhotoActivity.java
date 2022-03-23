@@ -28,7 +28,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.foodtopia.add.Upload;
 import com.example.foodtopia.databinding.ActivityAddTakePhotoBinding;
-import com.example.foodtopia.ml.Food101ModelUnquant;
+import com.example.foodtopia.ml.Model;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -173,7 +173,7 @@ public class AddTakePhotoActivity extends AppCompatActivity {
     public void classifyImage(Bitmap image){
         try {
             //TODO Change Model
-            Food101ModelUnquant model = Food101ModelUnquant.newInstance(getApplicationContext());
+            Model model = Model.newInstance(getApplicationContext());
 
             // Creates inputs for reference.
             TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
@@ -198,7 +198,7 @@ public class AddTakePhotoActivity extends AppCompatActivity {
             inputFeature0.loadBuffer(byteBuffer);
 
             // Runs model inference and gets result.
-            Food101ModelUnquant.Outputs outputs = model.process(inputFeature0);
+            Model.Outputs outputs = model.process(inputFeature0);
             TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
 
             float[] confidences = outputFeature0.getFloatArray();
@@ -214,7 +214,7 @@ public class AddTakePhotoActivity extends AppCompatActivity {
             for(int i = 0; i < classes.length; i++){
                 confidenceMap.put(confidences[i] * 100,classes[i]);
             }
-//confidence
+            //confidence
             List<Float> keyList = new ArrayList<>(confidenceMap.keySet());
             //label classes
             List<String> valueList = new ArrayList<>(confidenceMap.values());

@@ -2,26 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/og_bg2"
+    android:background="#D9D7F1"
     android:gravity="center"
     android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/onboarding_icon_plan" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:fontFamily="@font/aldrich"
+        android:fontFamily="@font/caveat"
         android:gravity="center"
         android:text="Deit Plan"
         android:textColor="@color/black"
-        android:textSize="36dp" />
+        android:textSize="36dp"
+        android:layout_marginTop="40dp"/>
 
     <TextView
-        android:layout_width="280dp"
-        android:layout_height="170dp"
-        android:fontFamily="@font/aldrich"
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_medium"
         android:gravity="center"
-        android:text="We have multiple diet plan for you to choose.Just choose suitable one achieve your ideal body."
-        android:textColor="@color/og_context"
-        android:textSize="18dp" />
+        android:text="We have multiple diet plan for you to choose.\nJust choose suitable one achieve your ideal body."
+        android:textColor="#3E497A"
+        android:textSize="20dp"
+        android:layout_marginTop="40dp"/>
 </LinearLayout>

@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.view.Display;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,7 +20,7 @@ import android.widget.Toast;
 
 import com.example.foodtopia.add.Upload;
 import com.example.foodtopia.databinding.ActivityAddUploadBinding;
-import com.example.foodtopia.ml.Food101ModelUnquant;
+import com.example.foodtopia.ml.Model;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -139,7 +140,7 @@ public class AddUploadActivity extends AppCompatActivity {
     private void classifyImage(Bitmap imageBitmap) {
         try {
             //TODO Change Model
-            Food101ModelUnquant model = Food101ModelUnquant.newInstance(getApplicationContext());
+            Model model = Model.newInstance(getApplicationContext());
 
             // Creates inputs for reference.
             TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
@@ -164,7 +165,7 @@ public class AddUploadActivity extends AppCompatActivity {
             inputFeature0.loadBuffer(byteBuffer);
 
             // Runs model inference and gets result.
-            Food101ModelUnquant.Outputs outputs = model.process(inputFeature0);
+            Model.Outputs outputs = model.process(inputFeature0);
             TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
 
             float[] confidences = outputFeature0.getFloatArray();

@@ -30,6 +30,7 @@
             android:layout_below="@+id/title_dashboard"
             android:layout_alignRight="@id/title_dashboard"
             android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
             android:background="#FFFFFF"
             android:drawableRight="@drawable/dashboard_icon_timeline"
             android:paddingRight="13dp"
@@ -44,13 +45,13 @@
             android:layout_height="250dp"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="95dp"
             android:orientation="vertical">
 
             <com.mikhaellopez.circularprogressbar.CircularProgressBar
                 android:id="@+id/circularProgressBar"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
                 android:layout_centerInParent="true"
                 app:cpb_background_progressbar_color="@color/remaining"
                 app:cpb_background_progressbar_width="25dp"
@@ -80,10 +81,12 @@
             android:layout_alignLeft="@+id/circular_container"
             android:drawableStart="@drawable/dashboard_background_circle_taken"
             android:drawablePadding="10dp"
+            android:layout_marginTop="10dp"
             android:text="已攝取量"
             android:textSize="20dp" />
 
         //圓形示意圖顏色標示(剩餘攝取量)
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -91,17 +94,19 @@
             android:layout_alignRight="@id/circular_container"
             android:drawableStart="@drawable/dashboard_background_circle_remain"
             android:drawablePadding="10dp"
+            android:layout_marginTop="10dp"
             android:text="剩餘攝取量"
             android:textSize="20dp" />
 
         //副標:營養素攝取量
+
         <TextView
             android:id="@+id/nutrition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/standard"
             android:layout_centerInParent="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="55dp"
             android:text="營養素攝取量"
             android:textAlignment="center"
             android:textSize="20sp" />
@@ -205,6 +210,7 @@
             android:textSize="15sp" />
 
         //營養素攝取量質方圖(脂肪)
+
         <LinearLayout
             android:id="@+id/fat"
             android:layout_width="match_parent"
@@ -214,9 +220,10 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
             //圖示：直方圖
+
             <ProgressBar
-                style="?android:attr/progressBarStyleHorizontal"
                 android:id="@+id/fatProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -224,8 +231,9 @@
                 android:progress="0"
                 android:progressBackgroundTint="#9096B8"
                 android:progressTint="#5A6ACF"
-                android:scaleY="8"/>
+                android:scaleY="8" />
             //文字：脂肪剩餘量
+
             <TextView
                 android:id="@+id/fatTextView"
                 android:layout_width="wrap_content"
@@ -258,6 +266,7 @@
             android:layout_alignLeft="@+id/fat"
             android:drawableStart="@drawable/dashboard_background_circle_taken"
             android:drawablePadding="10dp"
+            android:layout_marginTop="10dp"
             android:text="已攝取量"
             android:textSize="15sp" />
 
@@ -270,6 +279,7 @@
             android:layout_alignRight="@+id/fat"
             android:drawableStart="@drawable/dashboard_background_circle_remain"
             android:drawablePadding="10dp"
+            android:layout_marginTop="10dp"
             android:text="剩餘攝取量"
             android:textSize="15sp" />
 
