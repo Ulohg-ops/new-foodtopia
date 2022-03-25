@@ -32,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class AddManualFragment extends Fragment{
     EditText editName, editAmount, editCarbohydrate, editProtein, editFat, editSugar, editSodium, editKcal;
@@ -160,9 +161,9 @@ public class AddManualFragment extends Fragment{
 
             //設定 date, time
             Date current = new Date();
-            SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd");
+            SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd", Locale.TAIWAN);
             String date = sdfDate.format(current);
-            SimpleDateFormat sdfTime = new SimpleDateFormat("HHmmss");
+            SimpleDateFormat sdfTime = new SimpleDateFormat("HHmmss",Locale.TAIWAN);
             String time = sdfTime.format(current);
 
             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();

@@ -52,6 +52,7 @@ public class AddUploadActivity extends AppCompatActivity {
     StorageReference storageRef;
     ProgressDialog progressDialog;
     String mealtime;
+    String prediction;
     String imgURL;
     private DatabaseReference mDatabase;
 
@@ -172,15 +173,16 @@ public class AddUploadActivity extends AppCompatActivity {
             TextView result = findViewById(R.id.textView_upload_result);
             // TODO Adjust label
             //label
-            String[] classes = {"apple_pie", "baby_back_ribs", "baklava", "beef_carpaccio", "beef_tartare",
-                    "beet_salad", "beignets","bibimbap"};
+            String[] classes = {"apple pie", "baby back ribs", "baklava", "beef carpaccio", "beef tartare",
+                    "beet salad", "beignets","bibimbap"};
             result.setText("預估結果:");
 
             TreeMap<Float, String> confidenceMap = new TreeMap<>();
             for(int i = 0; i < classes.length; i++){
                 confidenceMap.put(confidences[i] * 100,classes[i]);
             }
-//confidence
+
+            //confidence
             List<Float> keyList = new ArrayList<>(confidenceMap.keySet());
             //label classes
             List<String> valueList = new ArrayList<>(confidenceMap.values());
@@ -196,20 +198,38 @@ public class AddUploadActivity extends AppCompatActivity {
                     ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-3)));
 
             predict1.setOnClickListener(view -> {
-                Toast.makeText(this,valueList.get(valueList.size()-1),Toast.LENGTH_SHORT).show();
+                prediction = valueList.get(valueList.size()-1);
+                Intent intent = new Intent(AddUploadActivity.this, AnalyzeResultActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("mealtime",mealtime);
+                bundle.putString("prediction",prediction);
+                intent.putExtras(bundle);
+                startActivity(intent);
             });
             predict2.setOnClickListener(view -> {
-                Toast.makeText(this,valueList.get(valueList.size()-2),Toast.LENGTH_SHORT).show();
+                prediction = valueList.get(valueList.size()-2);
+                Intent intent = new Intent(AddUploadActivity.this, AnalyzeResultActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("mealtime",mealtime);
+                bundle.putString("prediction",prediction);
+                intent.putExtras(bundle);
+                startActivity(intent);
             });
             predict3.setOnClickListener(view -> {
-                Toast.makeText(this,valueList.get(valueList.size()-3),Toast.LENGTH_SHORT).show();
+                prediction = valueList.get(valueList.size()-3);
+                Intent intent = new Intent(AddUploadActivity.this, AnalyzeResultActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("mealtime",mealtime);
+                bundle.putString("prediction",prediction);
+                intent.putExtras(bundle);
+                startActivity(intent);
             });
 
 
             // Releases model resources if no longer used.
             model.close();
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
     }
 
