@@ -72,7 +72,6 @@ public class AnalysisResultsActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         mealtime = b.getString("mealtime");
         prediction = b.getString("prediction");
-        title.append("Mealtime: "+mealtime+"\nPrediction: "+prediction);
         fetchData(prediction);  //get data from api
 
         manual_name = findViewById(R.id.manual_name);

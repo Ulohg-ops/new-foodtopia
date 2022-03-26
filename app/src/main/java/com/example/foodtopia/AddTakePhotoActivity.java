@@ -28,7 +28,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.foodtopia.add.Upload;
 import com.example.foodtopia.databinding.ActivityAddTakePhotoBinding;
-import com.example.foodtopia.ml.Model;
+import com.example.foodtopia.ml.ModelAll;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -65,6 +65,7 @@ public class AddTakePhotoActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     StorageReference storageRef;
     private DatabaseReference mDatabase;
+    private String prediction;
 
     private String mPath = "";//設置高畫質的照片位址
     public static final int CAMERA_PERMISSION = 100;//檢測相機權限用
@@ -170,10 +171,11 @@ public class AddTakePhotoActivity extends AppCompatActivity {
         classifyImage(imageBitmap);
     }
 
+    @SuppressLint({"DefaultLocale", "SetTextI18n"})
     public void classifyImage(Bitmap image){
         try {
             //TODO Change Model
-            Model model = Model.newInstance(getApplicationContext());
+            ModelAll model = ModelAll.newInstance(getApplicationContext());
 
             // Creates inputs for reference.
             TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
@@ -198,7 +200,7 @@ public class AddTakePhotoActivity extends AppCompatActivity {
             inputFeature0.loadBuffer(byteBuffer);
 
             // Runs model inference and gets result.
-            Model.Outputs outputs = model.process(inputFeature0);
+            ModelAll.Outputs outputs = model.process(inputFeature0);
             TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
 
             float[] confidences = outputFeature0.getFloatArray();
@@ -206,8 +208,22 @@ public class AddTakePhotoActivity extends AppCompatActivity {
             TextView result = findViewById(R.id.textView_taking_result);
             // TODO Adjust label
             //label
-            String[] classes = {"apple pie", "baby back ribs", "baklava", "beef carpaccio", "beef tartare",
-                    "beet salad", "beignets","bibimbap"};
+            String[] classes = {"apple pie", "baby back ribs", "beignets", "bibimbap", "bread pudding",
+                    "breakfast burrito", "bruschetta", "caesar salad", "cheesecake", "chicken curry",
+                    "chicken quesadilla", "chicken wings", "chocolate cake", "chocolate mousse",
+                    "churros", "clam chowder", "club sandwich", "crab cakes", "creme brulee",
+                    "croque madame", "cup cakes", "deviled egg", "donuts", "dumplings", "edamame",
+                    "eggs benedict", "escargots", "filet mignon", "fish and chips", "foie gras",
+                    "french fries", "french onion soup", "french toast", "fried calamari", "fried rice",
+                    "frozen yogurt", "garlic bread", "greek salad", "grilled cheese sandwich",
+                    "grilled salmon", "guacamole","gyoza", "hamburger", "hot and sour soup","hot dog",
+                    "hummus","ice cream","lasagna","lobster bisque","lobster roll sandwich",
+                    "macaroni and cheese","macarons", "miso soup","mussels","nachos","omelette",
+                    "onion rings","oysters","pad thai","paella","pancakes","peking duck", "pho","pizza",
+                    "pork chop","poutine","prime rib","pulled pork sandwich","ramen","ravioli",
+                    "red velvet cake","risotto", "samosa","sashimi","scallops","seaweed salad",
+                    "spaghetti bolognese","spaghetti carbonara","spring rolls","steak","strawberry shortcake",
+                    "sushi","tacos","takoyaki","tiramisu","waffles"};
             result.setText("預估結果:");
 
             TreeMap<Float, String> confidenceMap = new TreeMap<>();
@@ -229,9 +245,25 @@ public class AddTakePhotoActivity extends AppCompatActivity {
             predict3.setText(3+". "+valueList.get(valueList.size()-3)+
                     ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-3)));
 
-            predict1.setOnClickListener(view -> Toast.makeText(this,valueList.get(valueList.size()-1),Toast.LENGTH_SHORT).show());
-            predict2.setOnClickListener(view -> Toast.makeText(this,valueList.get(valueList.size()-2),Toast.LENGTH_SHORT).show());
-            predict3.setOnClickListener(view -> Toast.makeText(this,valueList.get(valueList.size()-3),Toast.LENGTH_SHORT).show());
+            Intent intentPrediction = new Intent(AddTakePhotoActivity.this, AnalysisResultsActivity.class);
+            intentPrediction.removeExtra("prediction");
+            intentPrediction.putExtra("mealtime",mealtime);
+
+            predict1.setOnClickListener(view -> {
+                prediction = valueList.get(valueList.size()-1);
+                intentPrediction.putExtra("prediction",prediction);
+                startActivity(intentPrediction);
+            });
+            predict2.setOnClickListener(view -> {
+                prediction = valueList.get(valueList.size()-2);
+                intentPrediction.putExtra("prediction",prediction);
+                startActivity(intentPrediction);
+            });
+            predict3.setOnClickListener(view -> {
+                prediction = valueList.get(valueList.size()-3);
+                intentPrediction.putExtra("prediction",prediction);
+                startActivity(intentPrediction);
+            });
 
             // Releases model resources if no longer used.
             model.close();
