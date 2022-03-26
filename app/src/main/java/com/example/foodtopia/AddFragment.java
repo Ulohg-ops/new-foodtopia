@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * 參考網址 :
@@ -45,8 +46,8 @@ public class AddFragment extends Fragment  {
 
     //Date 按鈕
     private Button dateBtn;
-    //choice 餐點選擇
-    private String choice;
+    //mealtime 餐點選擇
+    private String mealtime;
     //餐點熱量
     private TextView breakfastKcalText,lunchKcalText,dinnerKcalText,dessertKcalText;
 
@@ -142,45 +143,33 @@ public class AddFragment extends Fragment  {
 
 
         //新增餐點
-        addBreakfastBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle option = new Bundle();
-                choice = "早餐";
-                option.putString("option","1");
-                getParentFragmentManager().setFragmentResult("option1",option);
-                createPopUpDialog();
-            }
+        addBreakfastBtn.setOnClickListener(view -> {
+            Bundle option = new Bundle();
+            mealtime = "早餐";
+            option.putString("option","1");
+            getParentFragmentManager().setFragmentResult("option1",option);
+            createPopUpDialog();
         });
-        addLunchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle option = new Bundle();
-                choice = "午餐";
-                option.putString("option","2");
-                getParentFragmentManager().setFragmentResult("option2",option);
-                createPopUpDialog();
-            }
+        addLunchBtn.setOnClickListener(view -> {
+            Bundle option = new Bundle();
+            mealtime = "午餐";
+            option.putString("option","2");
+            getParentFragmentManager().setFragmentResult("option2",option);
+            createPopUpDialog();
         });
-        addDinnerBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle option = new Bundle();
-                choice = "晚餐";
-                option.putString("option","3");
-                getParentFragmentManager().setFragmentResult("option3",option);
-                createPopUpDialog();
-            }
+        addDinnerBtn.setOnClickListener(view -> {
+            Bundle option = new Bundle();
+            mealtime = "晚餐";
+            option.putString("option","3");
+            getParentFragmentManager().setFragmentResult("option3",option);
+            createPopUpDialog();
         });
-        addDessertBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle option = new Bundle();
-                choice = "點心";
-                option.putString("option","4");
-                getParentFragmentManager().setFragmentResult("option4",option);
-                createPopUpDialog();
-            }
+        addDessertBtn.setOnClickListener(view -> {
+            Bundle option = new Bundle();
+            mealtime = "點心";
+            option.putString("option","4");
+            getParentFragmentManager().setFragmentResult("option4",option);
+            createPopUpDialog();
         });
 
         return root;
@@ -190,7 +179,7 @@ public class AddFragment extends Fragment  {
         //資料庫
         FirebaseAuth fAuth = FirebaseAuth.getInstance();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Diets");
-        String uid = fAuth.getCurrentUser().getUid();
+        String uid = Objects.requireNonNull(fAuth.getCurrentUser()).getUid();
         String uid_date = String.format("%s_%s",uid,chosenDate);
 
         //查詢使用者新增的餐點中符合userid_date的項目
@@ -216,21 +205,21 @@ public class AddFragment extends Fragment  {
                             record.child("amountQuantifier").getValue(String.class));
                     hashMap.put("quantifier",quantifier);
 
-                    switch (record.child("mealtime").getValue(String.class)){
+                    switch (Objects.requireNonNull(record.child("mealtime").getValue(String.class))){
                         case "早餐":
-                            breakfastKcal += Float.valueOf(record.child("calories").getValue(String.class));
+                            breakfastKcal += Float.parseFloat(Objects.requireNonNull(record.child("calories").getValue(String.class)));
                             arrayList_Breakfast.add(hashMap);
                             break;
                         case "午餐":
-                            lunchKcal += Float.valueOf(record.child("calories").getValue(String.class));
+                            lunchKcal += Float.parseFloat(Objects.requireNonNull(record.child("calories").getValue(String.class)));
                             arrayList_Lunch.add(hashMap);
                             break;
                         case "晚餐":
-                            dinnerKcal += Float.valueOf(record.child("calories").getValue(String.class));
+                            dinnerKcal += Float.parseFloat(Objects.requireNonNull(record.child("calories").getValue(String.class)));
                             arrayList_Dinner.add(hashMap);
                             break;
                         case "點心":
-                            dessertKcal += Float.valueOf(record.child("calories").getValue(String.class));
+                            dessertKcal += Float.parseFloat(Objects.requireNonNull(record.child("calories").getValue(String.class)));
                             arrayList_Dessert.add(hashMap);
                             break;
                     }
@@ -279,50 +268,36 @@ public class AddFragment extends Fragment  {
 
         //按下手動輸入
         CardView manualBtn = popUpView.findViewById(R.id.manualCard);
-        manualBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = new AddManualFragment();
-                getActivity().getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.frame, fragment)
-                        .commit();
-                dialog.dismiss();
-            }
+        manualBtn.setOnClickListener(view -> {
+            Fragment fragment = new AddManualFragment();
+            getActivity().getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.frame, fragment)
+                    .commit();
+            dialog.dismiss();
         });
 
         //按下拍攝照片
         CardView cameraBtn = popUpView.findViewById(R.id.cameraCard);
-        cameraBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddTakePhotoActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("choice",choice);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                dialog.dismiss();
-            }
+        cameraBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), AddTakePhotoActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("mealtime",mealtime);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            dialog.dismiss();
         });
         //按下選擇照片
         CardView uploadBtn = popUpView.findViewById(R.id.uploadCard);
-        uploadBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), AddUploadActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("choice",choice);
-                intent.putExtras(bundle);
-                startActivity(intent);
-                dialog.dismiss();
-            }
+        uploadBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(getActivity(), AddUploadActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("mealtime",mealtime);
+            intent.putExtras(bundle);
+            startActivity(intent);
+            dialog.dismiss();
         });
         //按下返回按鈕
         FloatingActionButton back = popUpView.findViewById(R.id.add_menu_back_fab);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                dialog.dismiss();
-            }
-        });
+        back.setOnClickListener(view -> dialog.dismiss());
     }
 }

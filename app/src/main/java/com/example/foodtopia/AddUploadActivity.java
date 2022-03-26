@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.Display;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,7 +19,7 @@ import android.widget.Toast;
 
 import com.example.foodtopia.add.Upload;
 import com.example.foodtopia.databinding.ActivityAddUploadBinding;
-import com.example.foodtopia.ml.Model;
+import com.example.foodtopia.ml.ModelAll;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -55,6 +54,7 @@ public class AddUploadActivity extends AppCompatActivity {
     String mealtime;
     String imgURL;
     private DatabaseReference mDatabase;
+    private String prediction;
 
     private Bitmap imageBitmap;
     private final int imageSize=224;
@@ -67,9 +67,10 @@ public class AddUploadActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         imageView = findViewById(R.id.uploadImageView);
-
-        Intent intent=getIntent();
-        mealtime = intent.getStringExtra("choice");
+        if (getIntent().getExtras() != null) {
+            Bundle bundle = getIntent().getExtras();
+            mealtime = bundle.getString("mealtime");
+        }
 
         binding.chooseBtn.setOnClickListener(view -> {
             Intent intent1 = new Intent(Intent.ACTION_PICK);
@@ -80,8 +81,8 @@ public class AddUploadActivity extends AppCompatActivity {
         binding.PhotoUploadBtn.setOnClickListener(view -> uploadImage());
 
         binding.addUploadBackFab.setOnClickListener(view -> {
-            Intent intent12 = new Intent(AddUploadActivity.this, MainActivity.class);
-            startActivity(intent12);
+            Intent intent2 = new Intent(AddUploadActivity.this, MainActivity.class);
+            startActivity(intent2);
         });
     }
 
@@ -140,7 +141,7 @@ public class AddUploadActivity extends AppCompatActivity {
     private void classifyImage(Bitmap imageBitmap) {
         try {
             //TODO Change Model
-            Model model = Model.newInstance(getApplicationContext());
+            ModelAll model = ModelAll.newInstance(getApplicationContext());
 
             // Creates inputs for reference.
             TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
@@ -165,23 +166,38 @@ public class AddUploadActivity extends AppCompatActivity {
             inputFeature0.loadBuffer(byteBuffer);
 
             // Runs model inference and gets result.
-            Model.Outputs outputs = model.process(inputFeature0);
+            ModelAll.Outputs outputs = model.process(inputFeature0);
             TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
 
             float[] confidences = outputFeature0.getFloatArray();
 
-            TextView result = findViewById(R.id.textView_upload_result);
             // TODO Adjust label
             //label
-            String[] classes = {"apple_pie", "baby_back_ribs", "baklava", "beef_carpaccio", "beef_tartare",
-                    "beet_salad", "beignets","bibimbap"};
+            String[] classes = {"apple pie", "baby back ribs", "beignets", "bibimbap", "bread pudding",
+                    "breakfast burrito", "bruschetta", "caesar salad", "cheesecake", "chicken curry",
+                    "chicken quesadilla", "chicken wings", "chocolate cake", "chocolate mousse",
+                    "churros", "clam chowder", "club sandwich", "crab cakes", "creme brulee",
+                    "croque madame", "cup cakes", "deviled egg", "donuts", "dumplings", "edamame",
+                    "eggs benedict", "escargots", "filet mignon", "fish and chips", "foie gras",
+                    "french fries", "french onion soup", "french toast", "fried calamari", "fried rice",
+                    "frozen yogurt", "garlic bread", "greek salad", "grilled cheese sandwich",
+                    "grilled salmon", "guacamole","gyoza", "hamburger", "hot and sour soup","hot dog",
+                    "hummus","ice cream","lasagna","lobster bisque","lobster roll sandwich",
+                    "macaroni and cheese","macarons", "miso soup","mussels","nachos","omelette",
+                    "onion rings","oysters","pad thai","paella","pancakes","peking duck", "pho","pizza",
+                    "pork chop","poutine","prime rib","pulled pork sandwich","ramen","ravioli",
+                    "red velvet cake","risotto", "samosa","sashimi","scallops","seaweed salad",
+                    "spaghetti bolognese","spaghetti carbonara","spring rolls","steak","strawberry shortcake",
+                    "sushi","tacos","takoyaki","tiramisu","waffles"};
+
+            TextView result = findViewById(R.id.textView_upload_result);
             result.setText("預估結果:");
 
             TreeMap<Float, String> confidenceMap = new TreeMap<>();
             for(int i = 0; i < classes.length; i++){
                 confidenceMap.put(confidences[i] * 100,classes[i]);
             }
-//confidence
+            //confidence
             List<Float> keyList = new ArrayList<>(confidenceMap.keySet());
             //label classes
             List<String> valueList = new ArrayList<>(confidenceMap.values());
@@ -196,21 +212,31 @@ public class AddUploadActivity extends AppCompatActivity {
             predict3.setText(3+". "+valueList.get(valueList.size()-3)+
                     ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-3)));
 
+            Intent intentPrediction = new Intent(AddUploadActivity.this, AnalysisResultsActivity.class);
+            intentPrediction.removeExtra("prediction");
+            intentPrediction.putExtra("mealtime",mealtime);
+
             predict1.setOnClickListener(view -> {
-                Toast.makeText(this,valueList.get(valueList.size()-1),Toast.LENGTH_SHORT).show();
+                prediction = valueList.get(valueList.size()-1);
+                intentPrediction.putExtra("prediction",prediction);
+                startActivity(intentPrediction);
             });
             predict2.setOnClickListener(view -> {
-                Toast.makeText(this,valueList.get(valueList.size()-2),Toast.LENGTH_SHORT).show();
+                prediction = valueList.get(valueList.size()-2);
+                intentPrediction.putExtra("prediction",prediction);
+                startActivity(intentPrediction);
             });
             predict3.setOnClickListener(view -> {
-                Toast.makeText(this,valueList.get(valueList.size()-3),Toast.LENGTH_SHORT).show();
+                prediction = valueList.get(valueList.size()-3);
+                intentPrediction.putExtra("prediction",prediction);
+                startActivity(intentPrediction);
             });
 
 
             // Releases model resources if no longer used.
             model.close();
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
     }
 

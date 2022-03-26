@@ -82,7 +82,7 @@ public class AddTakePhotoActivity extends AppCompatActivity {
         imageView = findViewById(R.id.cameraImageView);
 
         Intent intent=getIntent();
-        mealtime = intent.getStringExtra("choice");
+        mealtime = intent.getStringExtra("mealtime");
 
         /*取得相機權限*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -229,20 +229,14 @@ public class AddTakePhotoActivity extends AppCompatActivity {
             predict3.setText(3+". "+valueList.get(valueList.size()-3)+
                     ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-3)));
 
-            predict1.setOnClickListener(view -> {
-                Toast.makeText(this,valueList.get(valueList.size()-1),Toast.LENGTH_SHORT).show();
-            });
-            predict2.setOnClickListener(view -> {
-                Toast.makeText(this,valueList.get(valueList.size()-2),Toast.LENGTH_SHORT).show();
-            });
-            predict3.setOnClickListener(view -> {
-                Toast.makeText(this,valueList.get(valueList.size()-3),Toast.LENGTH_SHORT).show();
-            });
+            predict1.setOnClickListener(view -> Toast.makeText(this,valueList.get(valueList.size()-1),Toast.LENGTH_SHORT).show());
+            predict2.setOnClickListener(view -> Toast.makeText(this,valueList.get(valueList.size()-2),Toast.LENGTH_SHORT).show());
+            predict3.setOnClickListener(view -> Toast.makeText(this,valueList.get(valueList.size()-3),Toast.LENGTH_SHORT).show());
 
             // Releases model resources if no longer used.
             model.close();
         } catch (IOException e) {
-
+            e.printStackTrace();
         }
     }
 
@@ -255,7 +249,7 @@ public class AddTakePhotoActivity extends AppCompatActivity {
 
     /**取得相片檔案的URI位址及設定檔案名稱*/
     private File getImageFile() {
-        String time = new SimpleDateFormat("yyMMdd").format(new Date());
+        String time = new SimpleDateFormat("yyMMdd",Locale.TAIWAN).format(new Date());
         String fileName = time+"_";
         File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         try {
