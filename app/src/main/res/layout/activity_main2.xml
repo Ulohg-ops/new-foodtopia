@@ -84,6 +84,7 @@
                 android:layout_below="@+id/confidencesText"
                 android:orientation="vertical">
 
+
             </LinearLayout>
 
             <!--            <Button-->

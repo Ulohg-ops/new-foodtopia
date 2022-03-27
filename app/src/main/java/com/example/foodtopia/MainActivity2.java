@@ -33,6 +33,7 @@ import com.example.foodtopia.ml.Model7;
 import com.example.foodtopia.ml.Model8;
 import com.example.foodtopia.ml.Model9;
 import com.example.foodtopia.ml.ModelAll;
+import com.example.foodtopia.ml.ModelUnquant;
 import com.google.android.gms.common.util.ArrayUtils;
 
 import org.tensorflow.lite.DataType;
@@ -87,6 +88,7 @@ public class MainActivity2 extends AppCompatActivity {
         folder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                linearLayout.removeAllViews();
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, 3);
             }
@@ -127,7 +129,7 @@ public class MainActivity2 extends AppCompatActivity {
 //            Model7 model7 = Model7.newInstance(getApplicationContext());
 //            Model8 model8 = Model8.newInstance(getApplicationContext());
 //            Model9 model9 = Model9.newInstance(getApplicationContext());
-            ModelAll model = ModelAll.newInstance(getApplicationContext());
+            ModelUnquant model = ModelUnquant.newInstance(getApplicationContext());
 
             // Runs model inference and gets result.
             //todo create variable
@@ -140,7 +142,7 @@ public class MainActivity2 extends AppCompatActivity {
 //            Model7.Outputs outputs7 = model7.process(inputFeature0);
 //            Model8.Outputs outputs8 = model8.process(inputFeature0);
 //            Model9.Outputs outputs9 = model9.process(inputFeature0);
-            ModelAll.Outputs outputs = model.process(inputFeature0);
+            ModelUnquant.Outputs outputs = model.process(inputFeature0);
 
 //            TensorBuffer outputFeature1 = outputs.getOutputFeature0AsTensorBuffer();
 //            TensorBuffer outputFeature2 = outputs2.getOutputFeature0AsTensorBuffer();
@@ -214,14 +216,15 @@ public class MainActivity2 extends AppCompatActivity {
             //label classes
             List<String> valueList = new ArrayList<>(confidenceMap.values());
 
+
             for (int i=0; i<keyList.size(); i++){
-                if (keyList.get(i) > 0) {
+                if (keyList.get(i) > 1) {
                     Button button = new Button(this);
-                    button.setText(valueList.get(i) + "" + String.format("%.1f%%", keyList.get(i)));
+                    button.setText(valueList.get(i) + " " + String.format("%.1f%%", keyList.get(i)));
                     linearLayout.addView(button);
                 }
-                Log.d("tag", "value" + confidenceMap.toString());
             }
+            Log.d("tag", "value" + confidenceMap.toString());
 
 //            predict1.setText(1+". "+valueList.get(valueList.size()-1)+
 //                    ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-1)));
@@ -269,7 +272,6 @@ public class MainActivity2 extends AppCompatActivity {
         if (resultCode == RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
             imageView.setImageURI(selectedImage);
-
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
                 bitmap = Bitmap.createScaledBitmap(bitmap,imageSize,imageSize,false);
