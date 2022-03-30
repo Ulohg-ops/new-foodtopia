@@ -23,265 +23,278 @@
             android:textSize="25dp"
             android:textStyle="bold" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/tracking_btn"
-            android:layout_width="100dp"
-            android:layout_height="32dp"
-            android:layout_below="@+id/title_dashboard"
-            android:layout_alignRight="@id/title_dashboard"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
-            android:background="#FFFFFF"
-            android:drawableRight="@drawable/dashboard_icon_timeline"
-            android:paddingRight="13dp"
-            android:text="飲食追蹤"
-            android:textColor="#5A6ACF"
-            android:textSize="12sp" />
 
-        //熱量圓形示意圖
-        <RelativeLayout
-            android:id="@+id/circular_container"
-            android:layout_width="300dp"
-            android:layout_height="250dp"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="95dp"
-            android:orientation="vertical">
-
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/circularProgressBar"
-                android:layout_width="250dp"
-                android:layout_height="250dp"
-                android:layout_centerInParent="true"
-                app:cpb_background_progressbar_color="@color/remaining"
-                app:cpb_background_progressbar_width="25dp"
-                app:cpb_progress_direction="to_right"
-                app:cpb_progressbar_color="@color/taken"
-                app:cpb_progressbar_width="15dp"
-                app:cpb_round_border="true" />
-
-            <TextView
-                android:id="@+id/calories"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="0\nkcal"
-                android:textAlignment="center"
-                android:textSize="40dp" />
-
-        </RelativeLayout>
-
-        //圓形示意圖顏色標示(已攝取量)
-
-        <TextView
-            android:id="@+id/standard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/circular_container"
-            android:layout_alignLeft="@+id/circular_container"
-            android:drawableStart="@drawable/dashboard_background_circle_taken"
-            android:drawablePadding="10dp"
-            android:layout_marginTop="10dp"
-            android:text="已攝取量"
-            android:textSize="20dp" />
-
-        //圓形示意圖顏色標示(剩餘攝取量)
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/circular_container"
-            android:layout_alignRight="@id/circular_container"
-            android:drawableStart="@drawable/dashboard_background_circle_remain"
-            android:drawablePadding="10dp"
-            android:layout_marginTop="10dp"
-            android:text="剩餘攝取量"
-            android:textSize="20dp" />
-
-        //副標:營養素攝取量
-
-        <TextView
-            android:id="@+id/nutrition"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/standard"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="55dp"
-            android:text="營養素攝取量"
-            android:textAlignment="center"
-            android:textSize="20sp" />
-
-        //營養素攝取量直方圖(碳水化合物)
-
-        <LinearLayout
-            android:id="@+id/carbon"
-            android:layout_width="255dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/nutrition"
-            android:layout_marginHorizontal="80dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            //圖示：直方圖
-
-            <ProgressBar
-                android:id="@+id/carbonProgressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:indeterminate="false"
-                android:progress="0"
-                android:progressBackgroundTint="#9096B8"
-                android:progressTint="#5A6ACF"
-                android:scaleY="8" />
-            //文字：碳水化合物剩餘量
-
-            <TextView
-                android:id="@+id/carbonTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="15dp"
-                android:text="剩餘"
-                android:textColorHint="#7A8089"
-                android:textSize="15sp" />
-        </LinearLayout>
-        //文字:碳水化合物標示
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/carbon"
-            android:layout_alignTop="@id/carbon"
-            android:layout_marginTop="13dp"
-            android:layout_marginLeft="5dp"
-            android:text="碳水化合物"
-            android:textColor="#FFFF"
-            android:textSize="15sp" />
-
-        //營養素攝取量質方圖(蛋白質)
-
-        //文字:蛋白質標示
-
-        <LinearLayout
-            android:id="@+id/protein"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/carbon"
-            android:layout_marginHorizontal="80dp"
-            android:layout_marginTop="1dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            //直方圖：蛋白質
+            android:layout_below="@+id/title_dashboard">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <ProgressBar
-                android:id="@+id/proteinProgressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:indeterminate="false"
-                android:progress="0"
-                android:progressBackgroundTint="#9096B8"
-                android:progressTint="#5A6ACF"
-                android:scaleY="8" />
-            //文字：蛋白質剩餘量
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/tracking_btn"
+                    android:layout_width="100dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:background="#FFFFFF"
+                    android:drawableRight="@drawable/dashboard_icon_timeline"
+                    android:paddingRight="13dp"
+                    android:text="飲食追蹤"
+                    android:textColor="#5A6ACF"
+                    android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/proteinTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="15dp"
-                android:text="剩餘"
-                android:textColorHint="#7A8089"
-                android:textSize="15sp" />
-        </LinearLayout>
+                //熱量圓形示意圖
+                <RelativeLayout
+                    android:id="@+id/circular_container"
+                    android:layout_width="300dp"
+                    android:layout_height="250dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_below="@+id/tracking_btn"
+                    android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/protein"
-            android:layout_alignTop="@id/protein"
-            android:layout_marginTop="13dp"
-            android:layout_marginLeft="5dp"
-            android:text="蛋白質"
-            android:textColor="#FFFF"
-            android:textSize="15sp" />
+                    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+                        android:id="@+id/circularProgressBar"
+                        android:layout_width="250dp"
+                        android:layout_height="250dp"
+                        android:layout_centerInParent="true"
+                        app:cpb_background_progressbar_color="@color/remaining"
+                        app:cpb_background_progressbar_width="25dp"
+                        app:cpb_progress_direction="to_right"
+                        app:cpb_progressbar_color="@color/taken"
+                        app:cpb_progressbar_width="15dp"
+                        app:cpb_round_border="true" />
 
-        //營養素攝取量質方圖(脂肪)
+                    <TextView
+                        android:id="@+id/calories"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="0\nkcal"
+                        android:textAlignment="center"
+                        android:textSize="40dp" />
 
-        <LinearLayout
-            android:id="@+id/fat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/protein"
-            android:layout_marginHorizontal="80dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            //圖示：直方圖
+                </RelativeLayout>
 
-            <ProgressBar
-                android:id="@+id/fatProgressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:indeterminate="false"
-                android:progress="0"
-                android:progressBackgroundTint="#9096B8"
-                android:progressTint="#5A6ACF"
-                android:scaleY="8" />
-            //文字：脂肪剩餘量
+                //圓形示意圖顏色標示(已攝取量)
 
-            <TextView
-                android:id="@+id/fatTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="15dp"
-                android:text="剩餘"
-                android:textColorHint="#7A8089"
-                android:textSize="15sp" />
-        </LinearLayout>
-        //文字:脂肪標示
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/fat"
-            android:layout_alignTop="@id/fat"
-            android:layout_marginTop="13dp"
-            android:layout_marginLeft="5dp"
-            android:text="脂肪"
-            android:textColor="#FFFF"
-            android:textSize="15sp"/>
+                <TextView
+                    android:id="@+id/standard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/circular_container"
+                    android:layout_alignLeft="@+id/circular_container"
+                    android:drawableStart="@drawable/dashboard_background_circle_taken"
+                    android:drawablePadding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="已攝取量"
+                    android:textSize="20dp" />
 
-        //營養素直方圖顏色標示(以攝取量)
+                //圓形示意圖顏色標示(剩餘攝取量)
 
-        <TextView
-            android:id="@+id/nutritionMap"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/fat"
-            android:layout_alignLeft="@+id/fat"
-            android:drawableStart="@drawable/dashboard_background_circle_taken"
-            android:drawablePadding="10dp"
-            android:layout_marginTop="10dp"
-            android:text="已攝取量"
-            android:textSize="15sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/circular_container"
+                    android:layout_alignRight="@id/circular_container"
+                    android:drawableStart="@drawable/dashboard_background_circle_remain"
+                    android:drawablePadding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="剩餘攝取量"
+                    android:textSize="20dp" />
 
-        //營養素直方圖顏色標示(剩餘攝取量)
+                //副標:營養素攝取量
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/fat"
-            android:layout_alignRight="@+id/fat"
-            android:drawableStart="@drawable/dashboard_background_circle_remain"
-            android:drawablePadding="10dp"
-            android:layout_marginTop="10dp"
-            android:text="剩餘攝取量"
-            android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/nutrition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/standard"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="55dp"
+                    android:text="營養素攝取量"
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
+
+                //營養素攝取量直方圖(碳水化合物)
+
+                <LinearLayout
+                    android:id="@+id/carbon"
+                    android:layout_width="255dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/nutrition"
+                    android:layout_marginHorizontal="80dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    //圖示：直方圖
+
+                    <ProgressBar
+                        android:id="@+id/carbonProgressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:indeterminate="false"
+                        android:progress="0"
+                        android:progressBackgroundTint="#9096B8"
+                        android:progressTint="#5A6ACF"
+                        android:scaleY="8" />
+                    //文字：碳水化合物剩餘量
+
+                    <TextView
+                        android:id="@+id/carbonTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="15dp"
+                        android:text="剩餘"
+                        android:textColorHint="#7A8089"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                //文字:碳水化合物標示
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/carbon"
+                    android:layout_alignTop="@id/carbon"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="碳水化合物"
+                    android:textColor="#FFFF"
+                    android:textSize="15sp" />
+
+                //營養素攝取量質方圖(蛋白質)
+
+                //文字:蛋白質標示
+
+                <LinearLayout
+                    android:id="@+id/protein"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/carbon"
+                    android:layout_marginHorizontal="80dp"
+                    android:layout_marginTop="1dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    //直方圖：蛋白質
+
+                    <ProgressBar
+                        android:id="@+id/proteinProgressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:indeterminate="false"
+                        android:progress="0"
+                        android:progressBackgroundTint="#9096B8"
+                        android:progressTint="#5A6ACF"
+                        android:scaleY="8" />
+                    //文字：蛋白質剩餘量
+
+                    <TextView
+                        android:id="@+id/proteinTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="15dp"
+                        android:text="剩餘"
+                        android:textColorHint="#7A8089"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/protein"
+                    android:layout_alignTop="@id/protein"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="蛋白質"
+                    android:textColor="#FFFF"
+                    android:textSize="15sp" />
+
+                //營養素攝取量質方圖(脂肪)
+
+                <LinearLayout
+                    android:id="@+id/fat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/protein"
+                    android:layout_marginHorizontal="80dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    //圖示：直方圖
+
+                    <ProgressBar
+                        android:id="@+id/fatProgressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:indeterminate="false"
+                        android:progress="0"
+                        android:progressBackgroundTint="#9096B8"
+                        android:progressTint="#5A6ACF"
+                        android:scaleY="8" />
+                    //文字：脂肪剩餘量
+
+                    <TextView
+                        android:id="@+id/fatTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="15dp"
+                        android:text="剩餘"
+                        android:textColorHint="#7A8089"
+                        android:textSize="15sp" />
+                </LinearLayout>
+                //文字:脂肪標示
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/fat"
+                    android:layout_alignTop="@id/fat"
+                    android:layout_marginTop="13dp"
+                    android:layout_marginLeft="5dp"
+                    android:text="脂肪"
+                    android:textColor="#FFFF"
+                    android:textSize="15sp"/>
+
+                //營養素直方圖顏色標示(以攝取量)
+
+                <TextView
+                    android:id="@+id/nutritionMap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/fat"
+                    android:layout_alignLeft="@+id/fat"
+                    android:drawableStart="@drawable/dashboard_background_circle_taken"
+                    android:drawablePadding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="已攝取量"
+                    android:textSize="15sp" />
+
+                //營養素直方圖顏色標示(剩餘攝取量)
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/fat"
+                    android:layout_alignRight="@+id/fat"
+                    android:drawableStart="@drawable/dashboard_background_circle_remain"
+                    android:drawablePadding="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="剩餘攝取量"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
+        </ScrollView>
+
+
 
     </RelativeLayout>
 

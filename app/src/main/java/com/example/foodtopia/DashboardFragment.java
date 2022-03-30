@@ -161,11 +161,11 @@ public class DashboardFragment extends Fragment {
                         if (finalTotal > cpd) {
                             int progress_red = Color.rgb(237, 122, 107);
                             circularProgressBar.setProgressWithAnimation(cpd);
-                            circularProgressBar.setProgressBarColor(progress_red);
 
                             //set text inside the circular
-                            String text = "-" + (finalTotal-cpd) + "\n" + "kcal";
+                            String text = "超出" + "\n" + (finalTotal-cpd) + "\n" + "kcal";
                             calories.setText(text);
+                            calories.setTextColor(progress_red);
                         }else {
                             int color = Color.rgb(90, 106, 207);
                             circularProgressBar.setProgressBarColor(color);
@@ -176,55 +176,52 @@ public class DashboardFragment extends Fragment {
                             String text = finalTotal + "\n" + "kcal";
                             calories.setText(text);
                         }
+
+                        Log.d(TAG, "carbon=" + carbonFinalTotal);
                         //碳水化合物
-                        String carbon_per_day = snapshot.child("carbon_per_day").getValue().toString();
-                        float carbonPD = Float.valueOf(carbon_per_day);
-                        if (carbonFinalTotal > carbonPD) {
-                            carbonProgressbar.setProgress((int)carbonPD);
-                            carbonProgressbar.setMax((int)carbonPD);
+                        float carbonPD = Float.valueOf(calories_per_day)/8;
+                        if (carbonFinalTotal >= carbonPD) {
+                            carbonProgressbar.setProgress(100);
+//                            carbonProgressbar.setMax((int)carbonPD);
                             //顯示文字
                             String text = "超出" + (Math.round(carbonFinalTotal-carbonPD)) + "g";
                             carbonTextView.setText(text);
                             carbonTextView.setTextColor(Color.rgb(237, 122, 107));
                         }else {
-                            carbonProgressbar.setProgress((int)carbonFinalTotal);
-                            carbonProgressbar.setMax((int)carbonPD);
+//                            carbonProgressbar.setMax((int)carbonPD);
+                            carbonProgressbar.setProgress((int)(carbonFinalTotal/carbonPD * 100));
                             //顯示文字
-                            String text = "剩餘" + Math.round(carbonFinalTotal) + "g";
+                            String text = "剩餘" + Math.round(carbonPD-carbonFinalTotal) + "g";
                             carbonTextView.setText(text);
                         }
                         //蛋白質
-                        String protein_per_day = snapshot.child("protein_per_day").getValue().toString();
-                        float proteinPD = Float.valueOf(protein_per_day);
-                        if (proteinFinalTotal > proteinPD) {
-                            proteinProgressBar.setProgress((int)proteinPD);
-                            proteinProgressBar.setMax((int)proteinPD);
+                        float proteinPD = (float)(Float.valueOf(calories_per_day) * 0.25 * 0.3);
+                        if (proteinFinalTotal >= proteinPD) {
+                            proteinProgressBar.setProgress(100);
                             //顯示文字
                             String text = "超出" + Math.round(proteinFinalTotal-proteinPD) + "g";
                             proteinTextView.setText(text);
                             proteinTextView.setTextColor(Color.rgb(237, 122, 107));
                         }else {
-                            proteinProgressBar.setProgress((int)proteinFinalTotal);
-                            proteinProgressBar.setMax((int)proteinPD);
+                            proteinProgressBar.setProgress((int)(proteinFinalTotal/proteinPD * 100));
+//                            proteinProgressBar.setMax((int)proteinPD);
                             //顯示文字
-                            String text = "剩餘" + Math.round(proteinFinalTotal) + "g";
+                            String text = "剩餘" + Math.round(proteinPD-proteinFinalTotal) + "g";
                             proteinTextView.setText(text);
                         }
                         //脂肪
-                        String fat_per_day = snapshot.child("fat_per_day").getValue().toString();
-                        float fatPD = Float.valueOf(fat_per_day);
-                        if (fatFinalTotal > fatPD) {
-                            fatProgressBar.setProgress((int)fatPD);
-                            fatProgressBar.setMax((int)fatPD);
+                        float fatPD = (float)(Float.valueOf(calories_per_day) * 0.2 / 9);
+                        if (fatFinalTotal >= fatPD) {
+                            fatProgressBar.setProgress(100);
                             //顯示文字
                             String text = "超出" + Math.round(fatFinalTotal-fatPD) + "g";
                             fatTextView.setText(text);
                             fatTextView.setTextColor(Color.rgb(237, 122, 107));
                         }else {
-                            fatProgressBar.setProgress((int)fatFinalTotal);
-                            fatProgressBar.setMax((int)fatPD);
+                            fatProgressBar.setProgress((int)(fatFinalTotal/fatPD * 100));
+//                            fatProgressBar.setMax((int)fatPD);
                             //顯示文字
-                            String text = "剩餘" + Math.round(fatFinalTotal) + "g";
+                            String text = "剩餘" + Math.round(fatPD-fatFinalTotal) + "g";
                             fatTextView.setText(text);
                         }
                     }
