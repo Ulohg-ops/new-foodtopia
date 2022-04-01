@@ -115,6 +115,7 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
                 String a = "568.5";
                 String b = "456.545";
                 String c = "116.545";
+                String d = "14231";
 //                String d = "416.545";
 //                String e = "126.545";
 //                String f = "456.545";
@@ -127,7 +128,8 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
                 calories_added.put("20220201", Float.parseFloat(a));
                 calories_added.put("20220202", Float.parseFloat(b));
                 calories_added.put("20220203", Float.parseFloat(c));
-//                calories_added.put("20220204", Float.parseFloat(d));
+//                calories_added.put("20220331", Float.parseFloat(c));
+                calories_added.put("20220204", Float.parseFloat(d));
 //                calories_added.put("20220205", Float.parseFloat(e));
 //                calories_added.put("20220206", Float.parseFloat(f));
 //                calories_added.put("20220207", Float.parseFloat(g));

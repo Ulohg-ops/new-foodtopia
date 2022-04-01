@@ -241,11 +241,21 @@
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/gggg5/AndroidStudioProjects/new-foodtopia/app/src/main/res/menu/post_menu.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.2890625" />
+        <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/font/ubuntu_medium.xml" value="0.1925925925925926" />
+        <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/layout/activity_introductory.xml" value="0.1707193515704154" />
+        <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/layout/activity_main2.xml" value="0.20520833333333333" />
+        <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/layout/activity_onboarding.xml" value="0.25" />
         <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/layout/activity_register.xml" value="0.13272543059777103" />
+        <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/layout/fragment_account_saved_mypost.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/layout/fragment_account_saved_mysave.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/layout/fragment_add.xml" value="0.13272543059777103" />
-        <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/layout/fragment_dashboard.xml" value="0.5" />
+        <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
         <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/layout/fragment_restaurant.xml" value="0.13272543059777103" />
+        <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/layout/item_custom_profile.xml" value="0.20520833333333333" />
         <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/layout/restaurant_cardview.xml" value="0.13272543059777103" />
+        <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/layout/viewpager_onboarding_slide_1.xml" value="0.22" />
+        <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/layout/viewpager_onboarding_slide_2.xml" value="0.33" />
+        <entry key="..\:/Users/gggg5/Desktop/new-foodtopia/app/src/main/res/layout/viewpager_onboarding_slide_3.xml" value="0.25" />
         <entry key="..\:/new-foodtopia/app/src/main/res/layout/activity_resturantproduct.xml" value="0.25" />
         <entry key="..\:/new-foodtopia/app/src/main/res/layout/add_popup_dialog.xml" value="0.24791666666666667" />
         <entry key="..\:/new-foodtopia/app/src/main/res/layout/category_row_items.xml" value="0.36614583333333334" />

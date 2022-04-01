@@ -99,10 +99,10 @@ public class OnboardingActivity extends AppCompatActivity {
             public void onPageSelected(int position) {
 
                 if (position == layouts.length - 1) {
-                    mNextBtn.setText("START");
+                    mNextBtn.setText("開始");
                     mSkipBtn.setVisibility(View.GONE);
                 } else {
-                    mNextBtn.setText("Next");
+                    mNextBtn.setText("下一頁");
                     mSkipBtn.setVisibility(View.VISIBLE);
                     System.out.println(View.VISIBLE);
                 }

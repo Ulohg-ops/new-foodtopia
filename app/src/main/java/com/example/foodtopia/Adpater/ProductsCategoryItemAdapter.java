@@ -2,6 +2,7 @@ package com.example.foodtopia.Adpater;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -223,25 +224,13 @@ public class ProductsCategoryItemAdapter extends RecyclerView.Adapter<ProductsCa
         Diet diet = new Diet(foodname,amount,amountQuantifier,calories,carbohydrate,fat,mealtime,
                 protein,sodium,sugar,date,time,userID,userid_date);
 
-//        HashMap<String, Object> map = new HashMap<>();
-//        map.put("foodname", foodname);
-//        map.put("calories", calories);
-//        map.put("userid",userID);
-//        map.put("carbohydrate", carbohydrate);
-//        map.put("fat", fat);
-//        map.put("protein", protein);
-//        map.put("sodium", sodium);
-//        map.put("sugar", sugar);
-//        map.put("mealtime",mealtime);
-//        map.put("time",time);
-//        map.put("date",date);
-
-
         reference.child(mealid).setValue(diet).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
                     Toast.makeText(context, "新增成功!!", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent();
+
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {

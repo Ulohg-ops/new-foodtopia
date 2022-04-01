@@ -15,9 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:fontFamily="@font/caveat"
         android:gravity="center"
-        android:text="Deit Plan"
+        android:text="熱量追蹤"
         android:textColor="@color/black"
         android:textSize="36dp"
         android:layout_marginTop="40dp"/>
@@ -27,7 +26,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/ubuntu_medium"
         android:gravity="center"
-        android:text="We have multiple diet plan for you to choose.\nJust choose suitable one achieve your ideal body."
+        android:text="讓我們記錄你每天吃的東西\n"
         android:textColor="#3E497A"
         android:textSize="20dp"
         android:layout_marginTop="40dp"/>

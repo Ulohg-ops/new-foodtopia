@@ -14,9 +14,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sharing Recipe"
+        android:text="共享食譜"
         android:textColor="@color/black"
-        android:fontFamily="@font/caveat"
         android:textSize="36dp"
         android:gravity="center"
         android:layout_gravity="center"
@@ -26,8 +25,7 @@
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:fontFamily="@font/ubuntu_medium"
-        android:text="Share your meal with other users.\nEncourage each other to be better."
+        android:text="和全世界的美食家\n分享你的秘製菜單"
         android:textColor="#3E497A"
         android:gravity="center"
         android:layout_marginTop="40dp" />
