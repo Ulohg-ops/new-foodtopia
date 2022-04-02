@@ -33,7 +33,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/upload_title"
-        app:layout_constraintVertical_bias="0.045" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/chooseBtn"
@@ -42,26 +42,26 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/uploadImageView"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="56dp"
         android:text="選擇照片"
         android:textColor="@color/dark_purple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/uploadImageView"
-        app:layout_constraintVertical_bias="0.075" />
+        app:layout_constraintVertical_bias="0.017" />
 
     <Button
         android:id="@+id/PhotoUploadBtn"
         style="@style/Widget.Material3.Button.ElevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="56dp"
+        android:layout_marginEnd="72dp"
         android:text="分析照片"
         android:textColor="@color/dark_purple"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/uploadImageView"
-        app:layout_constraintVertical_bias="0.075" />
+        app:layout_constraintVertical_bias="0.017" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_upload_back_fab"
@@ -73,10 +73,10 @@
         app:layout_anchorGravity="bottom|right|end"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.954"
+        app:layout_constraintHorizontal_bias="0.997"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseBtn"
-        app:layout_constraintVertical_bias="0.752"
+        app:layout_constraintVertical_bias="0.891"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Button.Circle"
         app:srcCompat="@drawable/add_icon_back"
         app:tint="@color/white" />
@@ -88,46 +88,20 @@
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.133"
+        app:layout_constraintHorizontal_bias="0.099"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/chooseBtn"
-        app:layout_constraintVertical_bias="0.071" />
+        app:layout_constraintVertical_bias="0.019" />
 
-    <Button
-        android:id="@+id/btn_upload_predict1"
-        style="@style/Widget.Material3.Button.TextButton"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_upload_result"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/dark_purple"
+        android:layout_height="180dp"
+        android:layout_marginBottom="80dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.099"
+        app:layout_constraintHorizontal_bias="0.474"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView_upload_result" />
-
-    <Button
-        android:id="@+id/btn_upload_predict2"
-        style="@style/Widget.Material3.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/dark_purple"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.099"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_upload_predict1" />
-
-    <Button
-        android:id="@+id/btn_upload_predict3"
-        style="@style/Widget.Material3.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/dark_purple"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.099"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_upload_predict2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

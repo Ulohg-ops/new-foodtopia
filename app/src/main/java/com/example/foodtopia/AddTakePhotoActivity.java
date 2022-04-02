@@ -3,6 +3,9 @@ package com.example.foodtopia;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -16,19 +19,20 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.foodtopia.Adpater.AnalysisResultRecycleAdapter;
 import com.example.foodtopia.add.Upload;
 import com.example.foodtopia.databinding.ActivityAddTakePhotoBinding;
-import com.example.foodtopia.ml.ModelAll;
+import com.example.foodtopia.ml.ModelUnquant;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -65,7 +69,10 @@ public class AddTakePhotoActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
     StorageReference storageRef;
     private DatabaseReference mDatabase;
-    private String prediction;
+
+    private List<Float> keyList;
+    private List<String> valueList;
+    private RecyclerView resultRecyclerView;
 
     private String mPath = "";//設置高畫質的照片位址
     public static final int CAMERA_PERMISSION = 100;//檢測相機權限用
@@ -79,6 +86,11 @@ public class AddTakePhotoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityAddTakePhotoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        resultRecyclerView = findViewById(R.id.recyclerview_taking_result);
+        resultRecyclerView.setLayoutManager(new LinearLayoutManager(AddTakePhotoActivity.this));
+        resultRecyclerView.addItemDecoration(new DividerItemDecoration(AddTakePhotoActivity.this, DividerItemDecoration.VERTICAL));
+
 
         imageView = findViewById(R.id.cameraImageView);
 
@@ -175,7 +187,7 @@ public class AddTakePhotoActivity extends AppCompatActivity {
     public void classifyImage(Bitmap image){
         try {
             //TODO Change Model
-            ModelAll model = ModelAll.newInstance(getApplicationContext());
+            ModelUnquant model = ModelUnquant.newInstance(getApplicationContext());
 
             // Creates inputs for reference.
             TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
@@ -200,7 +212,7 @@ public class AddTakePhotoActivity extends AppCompatActivity {
             inputFeature0.loadBuffer(byteBuffer);
 
             // Runs model inference and gets result.
-            ModelAll.Outputs outputs = model.process(inputFeature0);
+            ModelUnquant.Outputs outputs = model.process(inputFeature0);
             TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
 
             float[] confidences = outputFeature0.getFloatArray();
@@ -224,46 +236,21 @@ public class AddTakePhotoActivity extends AppCompatActivity {
                     "red velvet cake","risotto", "samosa","sashimi","scallops","seaweed salad",
                     "spaghetti bolognese","spaghetti carbonara","spring rolls","steak","strawberry shortcake",
                     "sushi","tacos","takoyaki","tiramisu","waffles"};
-            result.setText("預估結果:");
+//
+            result.setText("預估結果 :");
 
             TreeMap<Float, String> confidenceMap = new TreeMap<>();
             for(int i = 0; i < classes.length; i++){
-                confidenceMap.put(confidences[i] * 100,classes[i]);
+                if (confidences[i]*100 > 0.5){
+                    confidenceMap.put(confidences[i] * 100,classes[i]);
+                }
             }
             //confidence
-            List<Float> keyList = new ArrayList<>(confidenceMap.keySet());
+            keyList = new ArrayList<>(confidenceMap.keySet());
             //label classes
-            List<String> valueList = new ArrayList<>(confidenceMap.values());
+            valueList = new ArrayList<>(confidenceMap.values());
 
-            Button predict1 = findViewById(R.id.btn_taking_predict1);
-            Button predict2 = findViewById(R.id.btn_taking_predict2);
-            Button predict3 = findViewById(R.id.btn_taking_predict3);
-            predict1.setText(1+". "+valueList.get(valueList.size()-1)+
-                    ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-1)));
-            predict2.setText(2+". "+valueList.get(valueList.size()-2)+
-                    ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-2)));
-            predict3.setText(3+". "+valueList.get(valueList.size()-3)+
-                    ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-3)));
-
-            Intent intentPrediction = new Intent(AddTakePhotoActivity.this, AnalysisResultsActivity.class);
-            intentPrediction.removeExtra("prediction");
-            intentPrediction.putExtra("mealtime",mealtime);
-
-            predict1.setOnClickListener(view -> {
-                prediction = valueList.get(valueList.size()-1);
-                intentPrediction.putExtra("prediction",prediction);
-                startActivity(intentPrediction);
-            });
-            predict2.setOnClickListener(view -> {
-                prediction = valueList.get(valueList.size()-2);
-                intentPrediction.putExtra("prediction",prediction);
-                startActivity(intentPrediction);
-            });
-            predict3.setOnClickListener(view -> {
-                prediction = valueList.get(valueList.size()-3);
-                intentPrediction.putExtra("prediction",prediction);
-                startActivity(intentPrediction);
-            });
+            launch_countdown();
 
             // Releases model resources if no longer used.
             model.close();
@@ -272,6 +259,18 @@ public class AddTakePhotoActivity extends AppCompatActivity {
         }
     }
 
+    //顯示預測結果
+    public void launch_countdown(){
+        new CountDownTimer(4000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+            }
+            public void onFinish() {
+                AnalysisResultRecycleAdapter resultAdapter = new AnalysisResultRecycleAdapter(mealtime,keyList,valueList,AddTakePhotoActivity.this);
+                resultRecyclerView.setAdapter(resultAdapter);
+            }
+        }.start();
+    }
     //取得副檔名
     private String getFileExtension(Uri uri) {
         ContentResolver cR = getContentResolver();

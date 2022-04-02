@@ -2,6 +2,9 @@ package com.example.foodtopia;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -10,16 +13,17 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.provider.MediaStore;
 import android.webkit.MimeTypeMap;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.foodtopia.Adpater.AnalysisResultRecycleAdapter;
 import com.example.foodtopia.add.Upload;
 import com.example.foodtopia.databinding.ActivityAddUploadBinding;
-import com.example.foodtopia.ml.ModelAll;
+import com.example.foodtopia.ml.ModelUnquant;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -54,7 +58,10 @@ public class AddUploadActivity extends AppCompatActivity {
     String mealtime;
     String imgURL;
     private DatabaseReference mDatabase;
-    private String prediction;
+
+    private List<Float> keyList;
+    private List<String> valueList;
+    private RecyclerView resultRecyclerView;
 
     private Bitmap imageBitmap;
     private final int imageSize=224;
@@ -65,6 +72,10 @@ public class AddUploadActivity extends AppCompatActivity {
 
         binding = ActivityAddUploadBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        resultRecyclerView = findViewById(R.id.recyclerview_upload_result);
+        resultRecyclerView.setLayoutManager(new LinearLayoutManager(AddUploadActivity.this));
+        resultRecyclerView.addItemDecoration(new DividerItemDecoration(AddUploadActivity.this, DividerItemDecoration.VERTICAL));
 
         imageView = findViewById(R.id.uploadImageView);
         if (getIntent().getExtras() != null) {
@@ -81,6 +92,14 @@ public class AddUploadActivity extends AppCompatActivity {
         binding.PhotoUploadBtn.setOnClickListener(view -> uploadImage());
 
         binding.addUploadBackFab.setOnClickListener(view -> {
+            /*
+            MyFragmentB fragmentB = new MyFragmentB();
+
+            getFragmentManager().beginTransaction()
+                    .replace(R.id.container, fragmentB)
+                    .addToBackStack(MyFragmentA.class.getSimpleName())
+                    .commit();
+             */
             Intent intent2 = new Intent(AddUploadActivity.this, MainActivity.class);
             startActivity(intent2);
         });
@@ -133,7 +152,6 @@ public class AddUploadActivity extends AppCompatActivity {
         }).addOnFailureListener(e -> Toast.makeText(AddUploadActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show());
 
         imageBitmap = Bitmap.createScaledBitmap(imageBitmap,imageSize,imageSize,false);
-//        binding.uploadImageView.setImageBitmap(imageBitmap);
         classifyImage(imageBitmap);
     }
 
@@ -141,7 +159,7 @@ public class AddUploadActivity extends AppCompatActivity {
     private void classifyImage(Bitmap imageBitmap) {
         try {
             //TODO Change Model
-            ModelAll model = ModelAll.newInstance(getApplicationContext());
+            ModelUnquant model = ModelUnquant.newInstance(getApplicationContext());
 
             // Creates inputs for reference.
             TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.FLOAT32);
@@ -166,7 +184,7 @@ public class AddUploadActivity extends AppCompatActivity {
             inputFeature0.loadBuffer(byteBuffer);
 
             // Runs model inference and gets result.
-            ModelAll.Outputs outputs = model.process(inputFeature0);
+            ModelUnquant.Outputs outputs = model.process(inputFeature0);
             TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
 
             float[] confidences = outputFeature0.getFloatArray();
@@ -191,47 +209,21 @@ public class AddUploadActivity extends AppCompatActivity {
                     "sushi","tacos","takoyaki","tiramisu","waffles"};
 
             TextView result = findViewById(R.id.textView_upload_result);
-            result.setText("預估結果:");
+            result.setText("預估結果 :");
 
             TreeMap<Float, String> confidenceMap = new TreeMap<>();
+
             for(int i = 0; i < classes.length; i++){
-                confidenceMap.put(confidences[i] * 100,classes[i]);
+                if (confidences[i]*100 > 0.5){
+                    confidenceMap.put(confidences[i] * 100,classes[i]);
+                }
             }
             //confidence
-            List<Float> keyList = new ArrayList<>(confidenceMap.keySet());
+            keyList = new ArrayList<>(confidenceMap.keySet());
             //label classes
-            List<String> valueList = new ArrayList<>(confidenceMap.values());
+            valueList = new ArrayList<>(confidenceMap.values());
 
-            Button predict1 = findViewById(R.id.btn_upload_predict1);
-            Button predict2 = findViewById(R.id.btn_upload_predict2);
-            Button predict3 = findViewById(R.id.btn_upload_predict3);
-            predict1.setText(1+". "+valueList.get(valueList.size()-1)+
-                    ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-1)));
-            predict2.setText(2+". "+valueList.get(valueList.size()-2)+
-                    ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-2)));
-            predict3.setText(3+". "+valueList.get(valueList.size()-3)+
-                    ", Confidence: "+String.format("%.1f%%",keyList.get(keyList.size()-3)));
-
-            Intent intentPrediction = new Intent(AddUploadActivity.this, AnalysisResultsActivity.class);
-            intentPrediction.removeExtra("prediction");
-            intentPrediction.putExtra("mealtime",mealtime);
-
-            predict1.setOnClickListener(view -> {
-                prediction = valueList.get(valueList.size()-1);
-                intentPrediction.putExtra("prediction",prediction);
-                startActivity(intentPrediction);
-            });
-            predict2.setOnClickListener(view -> {
-                prediction = valueList.get(valueList.size()-2);
-                intentPrediction.putExtra("prediction",prediction);
-                startActivity(intentPrediction);
-            });
-            predict3.setOnClickListener(view -> {
-                prediction = valueList.get(valueList.size()-3);
-                intentPrediction.putExtra("prediction",prediction);
-                startActivity(intentPrediction);
-            });
-
+            launch_countdown();
 
             // Releases model resources if no longer used.
             model.close();
@@ -239,7 +231,18 @@ public class AddUploadActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+    //顯示預測結果
+    public void launch_countdown(){
+        new CountDownTimer(4000, 1000) {
 
+            public void onTick(long millisUntilFinished) {
+            }
+            public void onFinish() {
+                AnalysisResultRecycleAdapter resultAdapter = new AnalysisResultRecycleAdapter(mealtime,keyList,valueList,AddUploadActivity.this);
+                resultRecyclerView.setAdapter(resultAdapter);
+            }
+        }.start();
+    }
     //取得副檔名
     private String getFileExtension(Uri uri) {
         ContentResolver cR = getContentResolver();

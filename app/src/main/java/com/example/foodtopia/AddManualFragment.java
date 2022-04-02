@@ -213,7 +213,7 @@ public class AddManualFragment extends Fragment{
     }
 
     public void launch_countdown(){
-        new CountDownTimer(1000, 2500) {
+        new CountDownTimer(300, 1000) {
 
             public void onTick(long millisUntilFinished) {
             }

@@ -106,7 +106,7 @@ public class AnalysisResultsActivity extends AppCompatActivity {
 
         FloatingActionButton back = findViewById(R.id.add_menu_back_fab);
         back.setOnClickListener(view -> {
-            Intent intent = new Intent(AnalysisResultsActivity.this, AddUploadActivity.class);
+            Intent intent = new Intent(AnalysisResultsActivity.this, MainActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("mealtime",mealtime);
             intent.putExtras(bundle);
@@ -126,6 +126,19 @@ public class AnalysisResultsActivity extends AppCompatActivity {
             public void onFinish() {
                 editMeal(mealtime);     //填入營養素資料
 
+            }
+        }.start();
+    }
+
+    //跳轉回首頁
+    public void launch_countdown_back(){
+        new CountDownTimer(400, 2500) {
+
+            public void onTick(long millisUntilFinished) {
+            }
+            public void onFinish() {
+                Intent intentBack = new Intent(AnalysisResultsActivity.this, MainActivity.class);
+                startActivity(intentBack);
             }
         }.start();
     }
@@ -312,5 +325,6 @@ public class AnalysisResultsActivity extends AppCompatActivity {
         mDatabase.child(dietId).setValue(diet).addOnSuccessListener(unused ->
                 Toast.makeText(AnalysisResultsActivity.this,"上傳成功",Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> Toast.makeText(AnalysisResultsActivity.this,"上傳失敗",Toast.LENGTH_SHORT).show());
+        launch_countdown_back();//跳回去首頁
     }
 }
