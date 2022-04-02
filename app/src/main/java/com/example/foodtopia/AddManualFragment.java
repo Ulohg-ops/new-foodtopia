@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.CountDownTimer;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -198,6 +199,7 @@ public class AddManualFragment extends Fragment{
                 String dietId = mDatabase.push().getKey();
                 mDatabase.child(dietId).setValue(diet).addOnSuccessListener(unused -> Toast.makeText(getActivity(),"上傳成功",Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(getActivity(),"上傳失敗",Toast.LENGTH_SHORT).show());
             }
+            launch_countdown();
         });
         //返回手動頁面
         back.setOnClickListener(view12 -> {
@@ -210,6 +212,19 @@ public class AddManualFragment extends Fragment{
         return view;
     }
 
+    public void launch_countdown(){
+        new CountDownTimer(1000, 2500) {
+
+            public void onTick(long millisUntilFinished) {
+            }
+            public void onFinish() {
+                Fragment fragment = new AddFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.frame, fragment)
+                        .commit();
+            }
+        }.start();
+    }
     private void editMeal() {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Diets").child(key);
         mDatabase.addValueEventListener(new ValueEventListener() {
