@@ -20,8 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodtopia.add.Diet;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -139,11 +137,27 @@ public class AddManualFragment extends Fragment{
                 editAmount.setError("請輸入份量");
                 return;
             }
-            String carbohydrate = editCarbohydrate.getText().toString().trim();
-            String protein = editProtein.getText().toString().trim();
-            String fat = editFat.getText().toString().trim();
-            String sugar = editSugar.getText().toString().trim();
-            String sodium = editSodium.getText().toString().trim();
+            String carbohydrate = "";
+            String protein = "";
+            String fat = "";
+            String sugar = "";
+            String sodium = "";
+            if (!editCarbohydrate.getText().toString().trim().equals("")){
+                carbohydrate = editCarbohydrate.getText().toString().trim();
+            }
+            if (!editProtein.getText().toString().trim().equals("")){
+                protein = editProtein.getText().toString().trim();
+            }
+            if (!editFat.getText().toString().trim().equals("")){
+                fat = editFat.getText().toString().trim();
+            }
+            if (!editSugar.getText().toString().trim().equals("")){
+                sugar = editSugar.getText().toString().trim();
+            }
+            if (!editSodium.getText().toString().trim().equals("")){
+                sodium = editSodium.getText().toString().trim();
+            }
+
             String kcal = editKcal.getText().toString().trim();
             if(TextUtils.isEmpty(kcal)) {
                 editKcal.setError("請輸入熱量");
@@ -175,34 +189,14 @@ public class AddManualFragment extends Fragment{
             if (key != null){   //修改
                 mDatabase = FirebaseDatabase.getInstance().getReference("Diets");
                 mDatabase.child(key).setValue(diet)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getActivity(),"修改成功",Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getActivity(),"修改失敗",Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        .addOnSuccessListener(aVoid -> Toast.makeText(getActivity(),"修改成功",Toast.LENGTH_SHORT).show())
+                        .addOnFailureListener(e -> Toast.makeText(getActivity(),"修改失敗",Toast.LENGTH_SHORT).show());
             }
             else {  //新增
                 mDatabase = FirebaseDatabase.getInstance().getReference("Diets");
                 //new diet node
                 String dietId = mDatabase.push().getKey();
-                mDatabase.child(dietId).setValue(diet).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(getActivity(),"上傳成功",Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(),"上傳失敗",Toast.LENGTH_SHORT).show();
-                    }
-                });
+                mDatabase.child(dietId).setValue(diet).addOnSuccessListener(unused -> Toast.makeText(getActivity(),"上傳成功",Toast.LENGTH_SHORT).show()).addOnFailureListener(e -> Toast.makeText(getActivity(),"上傳失敗",Toast.LENGTH_SHORT).show());
             }
         });
         //返回手動頁面

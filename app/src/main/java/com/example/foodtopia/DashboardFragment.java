@@ -1,14 +1,11 @@
 package com.example.foodtopia;
 
 import android.content.Intent;
-import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.LongDef;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
@@ -20,9 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.foodtopia.Model.Post;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.foodtopia.add.Diet;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,30 +25,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.Tag;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import org.w3c.dom.Document;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import javax.security.auth.callback.Callback;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 
 public class DashboardFragment extends Fragment {
 
@@ -123,32 +103,31 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 float total = 0;
-                for (DataSnapshot record : snapshot.getChildren()) {
-                    float calories = Float.valueOf(record.child("calories").getValue(String.class));
-                    total += calories;
+                float carbonTotal = 0;
+                float proteinTotal = 0;
+                float fatTotal = 0;
+
+                if (snapshot.exists()){
+                    for (DataSnapshot record : snapshot.getChildren()){
+                        Diet diet = record.getValue(Diet.class);
+                        if (!diet.getCalories().matches("")){
+                            total += Float.parseFloat(diet.getCalories());
+                        }
+                        if (!diet.getCarbohydrate().matches("")){
+                            carbonTotal += Float.parseFloat(diet.getCarbohydrate());
+                        }
+                        if (!diet.getProtein().matches("")){
+                            proteinTotal += Float.parseFloat(diet.getProtein());
+                        }
+                        if (!diet.getFat().matches("")){
+                            fatTotal += Float.parseFloat(diet.getFat());
+                        }
+                    }
+
                 }
                 float finalTotal = round(total);
-
-                //碳水化合物總量
-                float carbonTotal = 0;
-                for (DataSnapshot record : snapshot.getChildren()) {
-                    float carbon = Float.valueOf(record.child("carbohydrate").getValue(String.class));
-                    carbonTotal += carbon;
-                }
                 float carbonFinalTotal = carbonTotal;
-                //蛋白質總量
-                float proteinTotal = 0;
-                for (DataSnapshot record : snapshot.getChildren()) {
-                    float protein = Float.valueOf(record.child("protein").getValue(String.class));
-                    proteinTotal += protein;
-                }
                 float proteinFinalTotal = proteinTotal;
-//                脂肪總量
-                float fatTotal = 0;
-                for (DataSnapshot record : snapshot.getChildren()) {
-                    Float fat = Float.valueOf(record.child("fat").getValue(String.class));
-                    fatTotal += fat;
-                }
                 float fatFinalTotal = fatTotal;
 
                 reference.addValueEventListener(new ValueEventListener() {
