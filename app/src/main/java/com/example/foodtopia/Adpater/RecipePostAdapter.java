@@ -298,10 +298,10 @@ public class RecipePostAdapter extends RecyclerView.Adapter<RecipePostAdapter.Im
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(firebaseUser.getUid()).exists()){
-                    imageView.setImageResource(R.drawable.social_ic_liked);
+                    imageView.setImageResource(R.drawable.social_icon_faved);
                     imageView.setTag("liked");
                 } else{
-                    imageView.setImageResource(R.drawable.social_ic_like);
+                    imageView.setImageResource(R.drawable.social_icon_fav);
                     imageView.setTag("like");
                 }
             }
@@ -323,10 +323,10 @@ public class RecipePostAdapter extends RecyclerView.Adapter<RecipePostAdapter.Im
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(postid).exists()){
-                    imageView.setImageResource(R.drawable.social_ic_save_black);
+                    imageView.setImageResource(R.drawable.social_icon_saved);
                     imageView.setTag("saved");
                 } else{
-                    imageView.setImageResource(R.drawable.social_ic_savee_black);
+                    imageView.setImageResource(R.drawable.social_icon_save);
                     imageView.setTag("save");
                 }
             }

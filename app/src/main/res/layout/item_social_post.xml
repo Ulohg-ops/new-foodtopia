@@ -9,7 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/social_ic_more"
+        android:src="@drawable/social_icon_more"
         android:id="@+id/more"
         android:layout_margin="15dp"/>
 
@@ -65,22 +65,22 @@
                 android:id="@+id/like"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/social_ic_like" />
+                android:src="@drawable/social_icon_fav" />
 
             <ImageView
                 android:id="@+id/comment"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="5dp"
                 android:layout_toEndOf="@id/like"
-                android:src="@drawable/social_ic_comment" />
+                android:src="@drawable/social_icon_comment" />
 
             <ImageView
                 android:id="@+id/save"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/social_ic_savee_black" />
+                android:src="@drawable/social_icon_save" />
 
         </RelativeLayout>
 
