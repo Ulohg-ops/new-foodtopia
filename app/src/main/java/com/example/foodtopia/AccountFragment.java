@@ -121,6 +121,8 @@ public class AccountFragment extends Fragment {
                         startActivity(intent);
                         break;
                     case 1:
+                        intent = new Intent(getActivity(), ReminderActivity.class);
+                        startActivity(intent);
                         break;
                     case 2:
                         break;
@@ -183,6 +185,9 @@ public class AccountFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
+                if (getActivity() == null) {
+                    return;
+                }
                 Glide.with(getActivity()).load(user.getImageurl()).into(image_profile);
             }
 

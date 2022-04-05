@@ -18,6 +18,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodTopia">
         <activity
+            android:name=".ReminderEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReminderAddActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReminderActivity"
+            android:exported="true" />
+        <activity
             android:name=".AnalysisResultsActivity"
             android:exported="false" />
         <activity
@@ -25,9 +34,7 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity2"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".CaloriesTrackingActivity"
             android:exported="false" />
@@ -84,9 +91,10 @@
             android:exported="true" />
         <activity
             android:name=".IntroductoryActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
+        <activity
+            android:name=".AlarmReciptActivity"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -107,6 +115,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
+        <receiver android:name=".AlarmReceiver" />
     </application>
 
 </manifest>
