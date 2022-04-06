@@ -8,16 +8,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="12dp"
-            android:gravity="center"
-            android:text="用藥提醒"
-            android:textSize="18dp" />
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:background="@null"
+                android:backgroundTint="@color/white"
+                android:src="@drawable/ic_baseline_arrow_back_24">
+            </ImageButton>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/back"
+                android:text="用藥提醒"
+                android:textSize="30dp" />
+
+        </RelativeLayout>
 
 
         <FrameLayout
