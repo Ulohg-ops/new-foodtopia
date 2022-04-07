@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.example.foodtopia.Adpater.SocialMyRecipeAdapter;
+import com.example.foodtopia.adpater.SocialMyRecipeAdapter;
 import com.example.foodtopia.R;
 import com.example.foodtopia.social.MypostFragment;
 import com.example.foodtopia.social.MysaveFragment;

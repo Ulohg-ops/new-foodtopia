@@ -1,6 +1,6 @@
 package com.example.foodtopia.restaurant;
 
-import com.example.foodtopia.Model.Restaurants;
+import com.example.foodtopia.model.Restaurants;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.foodtopia.Adpater.RestaurantsCardRecycleAdapter;
+import com.example.foodtopia.adpater.RestaurantsCardRecycleAdapter;
 import com.example.foodtopia.R;
 
 import java.util.ArrayList;

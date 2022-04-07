@@ -29,7 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.foodtopia.Adpater.AnalysisResultRecycleAdapter;
+import com.example.foodtopia.adpater.AnalysisResultRecycleAdapter;
 import com.example.foodtopia.add.Upload;
 import com.example.foodtopia.databinding.ActivityAddTakePhotoBinding;
 import com.example.foodtopia.ml.ModelUnquant;

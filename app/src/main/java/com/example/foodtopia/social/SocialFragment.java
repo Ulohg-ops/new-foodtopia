@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.example.foodtopia.Adpater.RecipePostAdapter;
-import com.example.foodtopia.Model.Post;
+import com.example.foodtopia.adpater.RecipePostAdapter;
+import com.example.foodtopia.model.Post;
 import com.example.foodtopia.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;

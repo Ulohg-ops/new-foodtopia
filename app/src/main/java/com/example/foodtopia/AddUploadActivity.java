@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.foodtopia.Adpater.AnalysisResultRecycleAdapter;
+import com.example.foodtopia.adpater.AnalysisResultRecycleAdapter;
 import com.example.foodtopia.add.Upload;
 import com.example.foodtopia.databinding.ActivityAddUploadBinding;
 import com.example.foodtopia.ml.ModelUnquant;

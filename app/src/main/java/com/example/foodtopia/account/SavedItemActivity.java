@@ -9,8 +9,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.example.foodtopia.Adpater.RecipePostAdapter;
-import com.example.foodtopia.Model.Post;
+import com.example.foodtopia.adpater.RecipePostAdapter;
+import com.example.foodtopia.model.Post;
 import com.example.foodtopia.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

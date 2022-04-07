@@ -13,9 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.foodtopia.Adpater.SocialCommentAdapter;
-import com.example.foodtopia.Model.Comment;
-import com.example.foodtopia.Model.User;
+import com.example.foodtopia.adpater.SocialCommentAdapter;
+import com.example.foodtopia.model.Comment;
+import com.example.foodtopia.model.User;
 import com.example.foodtopia.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

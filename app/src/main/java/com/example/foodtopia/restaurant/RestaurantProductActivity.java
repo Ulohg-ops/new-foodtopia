@@ -10,10 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodtopia.Adpater.ProductsCategoryTitleAdapter;
-import com.example.foodtopia.Model.AddTitle;
-import com.example.foodtopia.Model.Post;
-import com.example.foodtopia.Model.RestaurantProduct;
+import com.example.foodtopia.adpater.ProductsCategoryTitleAdapter;
+import com.example.foodtopia.model.AddTitle;
+import com.example.foodtopia.model.Post;
+import com.example.foodtopia.model.RestaurantProduct;
 import com.example.foodtopia.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

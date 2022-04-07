@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.Html;
 import android.view.View;
 import android.view.Window;
@@ -19,7 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.foodtopia.Adpater.OnboardingViewPagerAdapter;
+import com.example.foodtopia.adpater.OnboardingViewPagerAdapter;
 
 // 首次使用app的介紹頁面
 

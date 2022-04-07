@@ -12,8 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.foodtopia.Adpater.SocialMyRecipeAdapter;
-import com.example.foodtopia.Model.Post;
+import com.example.foodtopia.adpater.SocialMyRecipeAdapter;
+import com.example.foodtopia.model.Post;
 import com.example.foodtopia.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
