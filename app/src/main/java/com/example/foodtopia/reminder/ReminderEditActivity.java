@@ -34,15 +34,12 @@ import java.util.HashMap;
 
 public class ReminderEditActivity extends AppCompatActivity {
     DatabaseReference reference;
-    FirebaseAuth auth;
     MaterialTimePicker picker;
     Button post, editTime;
     Calendar calendar;
     EditText medicine, time, hint;
     ImageButton back, delete;
-    ActivityMainBinding binding;
-    AlarmManager alarmManager;
-    PendingIntent pendingIntent;
+    Boolean isEdit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +93,30 @@ public class ReminderEditActivity extends AppCompatActivity {
                 map.put("medicine", Txtmedicine);
                 map.put("des", TxtDes);
                 reference.updateChildren(map);
-                setAlarm();
-                Toast.makeText(ReminderEditActivity.this, "提醒設定成功!!", Toast.LENGTH_SHORT).show();     
+
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+                Intent intent = new Intent(ReminderEditActivity.this, ReminderReceiver.class);
+                intent.putExtra("msg", Txtmedicine);
+                intent.putExtra("ren", ((int) System.currentTimeMillis() % 1000000000) + "");
+                intent.putExtra("hour",picker.getHour()+"");
+                intent.putExtra("minute",picker.getMinute()+"");
+
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                        ReminderEditActivity.this, (int) (System.currentTimeMillis() % 1000000000)
+                        , intent, 0);
+                if (isEdit == false) {
+                    String[] timeSplite = TxtTime.split(" ");
+                    if (timeSplite[3] == "PM")
+                        timeSplite[0] += 12;
+                    calendar = Calendar.getInstance();
+                    calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeSplite[0]));
+                    calendar.set(Calendar.MINUTE, Integer.parseInt(timeSplite[2]));
+                    calendar.set(Calendar.SECOND, 0);
+                    calendar.set(Calendar.MILLISECOND, 0);
+                }
+                alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+
+                Toast.makeText(ReminderEditActivity.this, "提醒設定成功!!", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
@@ -125,19 +144,6 @@ public class ReminderEditActivity extends AppCompatActivity {
 
     }
 
-    private void setAlarm() {
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(ReminderEditActivity.this, ReminderReceiver.class);
-        intent.putExtra("msg", medicine.getText().toString());
-        intent.putExtra("ren", 0 + "");
-        System.out.println((int) (System.currentTimeMillis() % 1000000000));
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                ReminderEditActivity.this, (int) (System.currentTimeMillis() % 1000000000)
-                , intent, 0);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
-    }
-
     private void showTimePicker() {
         picker = new MaterialTimePicker.Builder()
                 .setTimeFormat(TimeFormat.CLOCK_12H)
@@ -161,13 +167,12 @@ public class ReminderEditActivity extends AppCompatActivity {
                     time.setText(picker.getHour() + " : " + picker.getMinute() + " AM");
 
                 }
-
                 calendar = Calendar.getInstance();
                 calendar.set(Calendar.HOUR_OF_DAY, picker.getHour());
                 calendar.set(Calendar.MINUTE, picker.getMinute());
                 calendar.set(Calendar.SECOND, 0);
                 calendar.set(Calendar.MILLISECOND, 0);
-
+                isEdit = true;
             }
         });
 

@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -95,10 +96,12 @@ public class ReminderAddActivity extends AppCompatActivity {
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(ReminderAddActivity.this, ReminderReceiver.class);
         intent.putExtra("msg", medicine);
-        intent.putExtra("ren", reminderCount + "");
-        System.out.println((int) (System.currentTimeMillis() % 1000000000));
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                ReminderAddActivity.this, (int) (System.currentTimeMillis() % 1000000000)
+        intent.putExtra("ren", ((int)System.currentTimeMillis()%1000000000)+"");
+        intent.putExtra("hour",picker.getHour()+"");
+        intent.putExtra("minute",picker.getMinute()+"");
+
+        PendingIntent pendingIntent =
+                PendingIntent.getBroadcast(ReminderAddActivity.this, (int) (System.currentTimeMillis() % 1000000000)
                 , intent, 0);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
 
@@ -115,8 +118,6 @@ public class ReminderAddActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
             }
         });
-
-
     }
 
     private void setAlarm() {
@@ -141,7 +142,7 @@ public class ReminderAddActivity extends AppCompatActivity {
         picker = new MaterialTimePicker.Builder()
                 .setTimeFormat(TimeFormat.CLOCK_12H)
                 .setHour(12)
-                .setMinute(0)
+                .setMinute(00)
                 .build();
 
         picker.show(getSupportFragmentManager(), "android");
