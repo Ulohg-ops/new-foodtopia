@@ -12,6 +12,7 @@
         android:layout_height="wrap_content">
         //標題:首頁
 
+
         <TextView
             android:id="@+id/title_dashboard"
             android:layout_width="match_parent"
@@ -22,7 +23,6 @@
             android:textColor="#181725"
             android:textSize="25dp"
             android:textStyle="bold" />
-
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/tracking_btn"
@@ -43,11 +43,11 @@
 
         <RelativeLayout
             android:id="@+id/circular_container"
-            android:layout_width="300dp"
-            android:layout_height="250dp"
-            android:layout_marginTop="95dp"
+            android:layout_width="218dp"
+            android:layout_height="203dp"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="95dp"
             android:orientation="vertical">
 
             <com.mikhaellopez.circularprogressbar.CircularProgressBar
@@ -69,11 +69,17 @@
                 android:layout_centerInParent="true"
                 android:text="0\nkcal"
                 android:textAlignment="center"
-                android:textSize="40dp" />
+                android:textSize="30dp" />
 
         </RelativeLayout>
 
         //圓形示意圖顏色標示(已攝取量)
+
+        //圓形示意圖顏色標示(剩餘攝取量)
+
+        //副標:營養素攝取量
+
+        //營養素攝取量直方圖(碳水化合物)
 
         <TextView
             android:id="@+id/standard"
@@ -81,39 +87,38 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/circular_container"
             android:layout_alignLeft="@+id/circular_container"
-            android:layout_marginTop="10dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="82dp"
+            android:layout_marginLeft="-15dp"
+            android:layout_marginTop="3dp"
             android:drawableStart="@drawable/dashboard_background_circle_taken"
             android:drawablePadding="10dp"
             android:text="已攝取量"
-            android:textSize="20dp" />
-
-        //圓形示意圖顏色標示(剩餘攝取量)
+            android:textSize="15dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/circular_container"
             android:layout_alignRight="@id/circular_container"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginStart="15dp"
+            android:layout_toEndOf="@+id/standard"
             android:drawableStart="@drawable/dashboard_background_circle_remain"
             android:drawablePadding="10dp"
             android:text="剩餘攝取量"
-            android:textSize="20dp" />
-
-        //副標:營養素攝取量
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/nutrition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/standard"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="17dp"
+            android:layout_centerHorizontal="true"
             android:text="營養素攝取量"
             android:textAlignment="center"
-            android:textSize="20sp" />
-
-        //營養素攝取量直方圖(碳水化合物)
+            android:textSize="18sp" />
 
         <LinearLayout
             android:id="@+id/carbon"
