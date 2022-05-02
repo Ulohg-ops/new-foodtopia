@@ -124,7 +124,41 @@
                     android:textSize="20dp" />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="提醒方式"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18dp" />
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:text="飯前服用"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <RadioButton
+                        android:text="飯後服用"
+                        android:layout_marginLeft="50dp"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <RadioButton
+                        android:text="睡前服用"
+                        android:layout_marginLeft="50dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                </RadioGroup>
+
+
+            </LinearLayout>
             <Button
                 android:id="@+id/post"
                 style="@style/Widget.MaterialComponents.Button.Icon"
