@@ -86,44 +86,13 @@ public class CaloriesTrackingActivity extends AppCompatActivity {
                 String b = "456.545";
                 String c = "116.545";
                 String d = "1423";
-//                String d = "416.545";
-//                String e = "126.545";
-//                String f = "456.545";
-//                String g = "116.545";
-//                String h = "416.545";
-//                String i = "416.545";
-//                String j = "456.545";
-//                String k = "116.545";
-//                String l = "416.545";
-                calories_added.put("20220406", Float.parseFloat(a));
-                calories_added.put("20220407", Float.parseFloat(b));
-                calories_added.put("20220408", Float.parseFloat(c));
+
+                calories_added.put("20220528", Float.parseFloat(a));
+                calories_added.put("20220529", Float.parseFloat(b));
+                calories_added.put("20220530", Float.parseFloat(c));
 //                calories_added.put("20220331", Float.parseFloat(c));
-                calories_added.put("20220209", Float.parseFloat(d));
-//                calories_added.put("20220205", Float.parseFloat(e));
-//                calories_added.put("20220206", Float.parseFloat(f));
-//                calories_added.put("20220207", Float.parseFloat(g));
-//                calories_added.put("20220208", Float.parseFloat(h));
-//                calories_added.put("20220209", Float.parseFloat(i));
-//                calories_added.put("20220210", Float.parseFloat(j));
-//                calories_added.put("20220211", Float.parseFloat(k));
-//                calories_added.put("20220212", Float.parseFloat(l));
-//                calories_added.put("20220213", Float.parseFloat(d));
-//                calories_added.put("20220214", Float.parseFloat(e));
-//                calories_added.put("20220215", Float.parseFloat(f));
-//                calories_added.put("20220216", Float.parseFloat(g));
-//                calories_added.put("20220217", Float.parseFloat(h));
-//                calories_added.put("20220218", Float.parseFloat(i));
-//                calories_added.put("20220219", Float.parseFloat(j));
-//                calories_added.put("20220220", Float.parseFloat(k));
-//                calories_added.put("20220221", Float.parseFloat(l));
-//                calories_added.put("20220222", Float.parseFloat(l));
-//                calories_added.put("20220223", Float.parseFloat(d));
-//                calories_added.put("20220224", Float.parseFloat(e));
-//                calories_added.put("20220225", Float.parseFloat(f));
-//                calories_added.put("20220226", Float.parseFloat(g));
-//                calories_added.put("20220227", Float.parseFloat(h));
-//                calories_added.put("20220228", Float.parseFloat(i));
+                calories_added.put("20220601", Float.parseFloat(d));
+
 //-------------------------Test Data---------------------------
                 for (Map.Entry<String, List<String>> entry : map.entrySet()) {
                     float td_calories_tt = 0;

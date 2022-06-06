@@ -28,7 +28,7 @@
                 android:src="@drawable/ic_baseline_arrow_back_24" />
 
             <View
-                android:layout_width="230dp"
+                android:layout_width="330dp"
                 android:layout_height="0dp" />
 
             <ImageButton
