@@ -75,10 +75,18 @@ This is a diet record APP.There are four main functions in this APP.
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+Research proves that keeping a record of the foods you eat can help you make healthy dietary changes. 
+Foodtopia allow you to self-monitor what you eat.
+It can analyze the nutrition and calories only by enter the meal photo.
 
-### Prerequisites
+
+### Screen Shot
+   <img src="https://github.com/Ulohg-ops/new-foodtopia/blob/main/readme_photo/dashboard.png" alt="Logo" width="750" height="600">
+   <img src="https://github.com/Ulohg-ops/new-foodtopia/blob/main/readme_photo/restaurant.png" alt="Logo" width="1000" height="600">
+   <img src="https://github.com/Ulohg-ops/new-foodtopia/blob/main/readme_photo/add_meal.png" alt="Logo" width="1000" height="600">
+      <img src="https://github.com/Ulohg-ops/new-foodtopia/blob/main/readme_photo/add_meal2.png" alt="Logo" width="1000" height="600">
+   <img src="https://github.com/Ulohg-ops/new-foodtopia/blob/main/readme_photo/social.png" alt="Logo" width="300" height="600">
+   <img src="https://github.com/Ulohg-ops/new-foodtopia/blob/main/readme_photo/account.png" alt="Logo" width="1000" height="600">
 
 ### Installation
 
@@ -93,20 +101,7 @@ To get a local copy up and running follow these simple example steps.
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
-<!-- USAGE EXAMPLES -->
 ## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<!-- ROADMAP -->
-## Roadmap
 ## Contributing
 ## License
 ## Contact
